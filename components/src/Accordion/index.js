@@ -53,8 +53,8 @@ class Accordion extends React.PureComponent {
     const { expanded } = this.state;
     return (
       <OuterWrapper>
-        <If case={viewport >= TABLET_MIN_WIDTH}>
-          {range(0, Math.ceil(length / colHeight)).map((column) => (
+        {viewport >= TABLET_MIN_WIDTH
+          && range(0, Math.ceil(length / colHeight)).map((column) => (
             <Column key={column}>
               {items
                 .slice(column * colHeight, (column + 1) * colHeight)
@@ -71,8 +71,7 @@ class Accordion extends React.PureComponent {
                 ))}
             </Column>
           ))}
-        </If>
-        <If case={viewport < TABLET_MIN_WIDTH}>
+        {viewport < TABLET_MIN_WIDTH && (
           <Column>
             {items.map(({ title, body, id }) => (
               <Item
@@ -86,7 +85,7 @@ class Accordion extends React.PureComponent {
               </Item>
             ))}
           </Column>
-        </If>
+        )}
       </OuterWrapper>
     );
   }

@@ -3,6 +3,8 @@ node_modules
 invoke_data.*.js
 **/invoke_data/*
 
+dist
+
 **/.webpack/*
 
 # Local .terraform directories

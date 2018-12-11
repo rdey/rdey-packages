@@ -118,7 +118,7 @@ class Item extends React.PureComponent {
           </CarretContainer>
         </Header>
         <Content expanded={expanded} height={this.height}>
-          <Content.Body innerRef={this.setRef}>{children}</Content.Body>
+          <Content.Body ref={this.setRef}>{children}</Content.Body>
         </Content>
       </Wrapper>
     );
