@@ -93,14 +93,18 @@ class Accordion extends React.PureComponent {
 }
 
 Accordion.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    body: PropTypes.any.isRequired,
-    id: PropTypes.string.isRequired,
-  })).isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      body: PropTypes.any.isRequired,
+      id: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   viewport: PropTypes.number.isRequired,
   colHeight: PropTypes.number,
 };
 Accordion.defaultProps = {
   colHeight: 4,
 };
+
+export default Accordion;

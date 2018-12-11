@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class If extends React.PureComponent {
-  static propTypes = {
-    case: PropTypes.any,
-    el: PropTypes.any,
-    children: PropTypes.node,
-  };
-
+class If extends React.PureComponent {
   render() {
     const { case: pCase, el: Component, children } = this.props;
     if (pCase) {
@@ -19,3 +13,16 @@ export default class If extends React.PureComponent {
     return null;
   }
 }
+If.propTypes = {
+  case: PropTypes.node,
+  el: PropTypes.node,
+  children: PropTypes.node,
+};
+
+If.defaultProps = {
+  case: false,
+  el: <></>,
+  children: <></>,
+};
+
+export default If;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Carret from '../Carret';
-import { DESKTOP_MQ } from '../mixins';
+import { DESKTOP_MQ } from '../atoms';
 
 const Wrapper = styled.div`
   background: #2e3742;
@@ -60,7 +60,7 @@ const CarretContainer = styled.div`
 class Item extends React.PureComponent {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
-    children: PropTypes.any.isRequired,
+    children: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
     expanded: PropTypes.bool.isRequired,
   };
