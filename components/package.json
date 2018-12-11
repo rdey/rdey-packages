@@ -1,10 +1,13 @@
 {
   "name": "@rdey/components",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "",
   "module": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "./node_modules/.bin/eslint -c ./.eslintrc.js .",
+    "prettier": "./node_modules/.bin/prettier --config .prettierrc --write \"**/*.js\"",
+    "format": "yarn run prettier && yarn run eslint --fix"
   },
   "keywords": [],
   "author": "",
