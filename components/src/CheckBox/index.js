@@ -1,6 +1,6 @@
 /**
  *
- * CheckBox
+ * Checkbox
  *
  */
 
@@ -73,7 +73,7 @@ const CheckButton = styled.button`
   }
 `;
 
-class CheckListItem extends React.PureComponent {
+class Checkbox extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
@@ -107,4 +107,4 @@ class CheckListItem extends React.PureComponent {
   }
 }
 
-export default CheckListItem;
+export default Checkbox;
