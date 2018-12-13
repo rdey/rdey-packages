@@ -9,8 +9,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const RadioButtonStyle = styled.button`
+  background-color: #07070c;
   flex: 1;
-  font-family: Libre Franklin;
+  font-family: Roboto;
   font-size: 0.75em;
   font-weight: bold;
   text-align: center;
@@ -47,7 +48,7 @@ class RadioButton extends React.PureComponent {
 
   static defaultProps = {
     disabled: false,
-  }
+  };
 
   onClick = () => {
     const { onClick, id } = this.props;
