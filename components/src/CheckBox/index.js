@@ -27,9 +27,6 @@ const Text = styled.span`
   color: #ffffff;
   font-family: Roboto;
   font-size: 0.875em;
-  text-align: left;
-  font-weight: normal;
-  margin: 1.125em 0;
   @media (min-width: 786px) {
     font-size: 1em;
     color: #e5e5e5;
