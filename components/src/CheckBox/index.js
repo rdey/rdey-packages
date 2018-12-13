@@ -16,6 +16,7 @@ const Wrapper = styled.li`
 `;
 
 const Text = styled.span`
+  line-height: 1;
   :hover {
     ${({ disabled }) =>
     !disabled
@@ -29,7 +30,6 @@ const Text = styled.span`
   text-align: left;
   font-weight: normal;
   margin: 1.125em 0;
-  line-height: 1.5;
   @media (min-width: 786px) {
     font-size: 1em;
     color: #e5e5e5;
