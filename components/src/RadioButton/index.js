@@ -41,9 +41,13 @@ class RadioButton extends React.PureComponent {
     onClick: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     selected: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool,
     children: PropTypes.node.isRequired,
   };
+
+  static defaultProps = {
+    disabled: false,
+  }
 
   onClick = () => {
     const { onClick, id } = this.props;
