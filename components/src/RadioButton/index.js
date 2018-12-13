@@ -8,8 +8,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// import ButtonStyle from 'components/Button';
-
 const RadioButtonStyle = styled.button`
   flex: 1;
   font-family: Libre Franklin;
