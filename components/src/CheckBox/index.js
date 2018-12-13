@@ -11,7 +11,8 @@ import PropTypes from 'prop-types';
 const Wrapper = styled.li`
   list-style: none;
   text-align: left;
-  margin: 0.75em 0;
+  display: flex;
+  align-items: center;
 `;
 
 const Text = styled.span`
@@ -23,7 +24,7 @@ const Text = styled.span`
     `}
   }
   color: #ffffff;
-  font-family: Libre Franklin;
+  font-family: Roboto;
   font-size: 0.875em;
   text-align: left;
   font-weight: normal;
