@@ -7,6 +7,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { TABLET_MQ } from '../atoms';
 
 const Wrapper = styled.li`
   list-style: none;
@@ -24,13 +25,12 @@ const Text = styled.span`
       cursor: pointer;
     `}
   }
-  color: #ffffff;
   font-family: Roboto;
   font-size: 0.875em;
-  @media (min-width: 786px) {
+  ${TABLET_MQ} {
     font-size: 1em;
-    color: #e5e5e5;
   }
+  color: ${({ dark }) => (dark ? 'black' : '#e5e5e5')};
 `;
 
 const CheckButton = styled.button`
@@ -78,6 +78,7 @@ class Checkbox extends React.PureComponent {
     onClick: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     disabled: PropTypes.bool,
+    dark: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -92,14 +93,15 @@ class Checkbox extends React.PureComponent {
   };
 
   render() {
-    const { checked, disabled, children } = this.props;
+    const {
+      checked, disabled, children, dark,
+    } = this.props;
     return (
       <Wrapper onClick={this.onClick}>
-        <CheckButton
-          checked={checked}
-          disabled={disabled}
-        />
-        <Text disabled={disabled}>{children}</Text>
+        <CheckButton checked={checked} disabled={disabled} />
+        <Text disabled={disabled} dark={dark}>
+          {children}
+        </Text>
       </Wrapper>
     );
   }
