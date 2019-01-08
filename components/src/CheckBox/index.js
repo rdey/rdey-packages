@@ -35,12 +35,14 @@ const Text = styled.span`
 
 const CheckButton = styled.button`
   font-size: 1em;
-  width: 1em;
-  height: 1em;
+  min-width: 1em;
+  min-height: 1em;
+  max-width: 1em;
+  max-height: 1em;
   box-sizing: border-box;
   padding: 0;
   line-height: 1em;
-  margin-right: 0.875em;
+  margin-${({ rtl }) => (rtl ? 'left' : right)}: 0.875em;
   display: inline-block;
 
   border: 1px solid #646464;
@@ -93,15 +95,16 @@ class Checkbox extends React.PureComponent {
   };
 
   render() {
-    const { checked, disabled, children, dark } = this.props;
+    const { checked, disabled, children, dark, rtl } = this.props;
     return (
       <Wrapper onClick={this.onClick}>
-        <CheckButton checked={checked} disabled={disabled} />
+        {!rtl && <CheckButton checked={checked} disabled={disabled} rtl={false} />}
         {children && (
           <Text disabled={disabled} dark={dark}>
             {children}
           </Text>
         )}
+        {rtl && <CheckButton checked={checked} disabled={disabled} rtl={true} />}
       </Wrapper>
     );
   }

@@ -13,4 +13,9 @@ storiesOf('Checkbox', module)
     <Checkbox id="wef" checked onClick={() => {}} dark>
       I am or has been a pep during the last 2 years
     </Checkbox>
-  ));
+  ))
+  .add('rtl', () => (
+    <Checkbox checked dark rtl>
+      I am or has been a pep during the last 2 years
+    </Checkbox>
+  ))
