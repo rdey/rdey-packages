@@ -20,8 +20,8 @@ const Text = styled.span`
   line-height: 1;
   :hover {
     ${({ disabled }) =>
-    !disabled
-      && `
+      !disabled &&
+      `
       cursor: pointer;
     `}
   }
@@ -48,8 +48,8 @@ const CheckButton = styled.button`
   color: transparent;
 
   ${({ checked }) =>
-    checked
-    && `
+    checked &&
+    `
     background-image: url(//res.cloudinary.com/redeye/image/upload/v1511866921/check_rzcba8.svg);
     background-position: center center;
     background-repeat: no-repeat;
@@ -64,8 +64,8 @@ const CheckButton = styled.button`
 
   :hover {
     ${({ disabled }) =>
-    !disabled
-      && `
+      !disabled &&
+      `
       cursor: pointer;
     `}
   }
@@ -73,35 +73,35 @@ const CheckButton = styled.button`
 
 class Checkbox extends React.PureComponent {
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    checked: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
+    id: PropTypes.string,
+    checked: PropTypes.bool,
+    onClick: PropTypes.func,
+    children: PropTypes.node,
     disabled: PropTypes.bool,
     dark: PropTypes.bool,
   };
 
-  static defaultProps = {
-    disabled: false,
-  };
-
   onClick = () => {
     const { disabled, id, onClick } = this.props;
-    if (!disabled) {
-      onClick(id);
+    if (!disabled && onClick) {
+      if (id) {
+        onClick(id);
+      } else {
+        onClick();
+      }
     }
   };
 
   render() {
-    const {
-      checked, disabled, children, dark,
-    } = this.props;
+    const { checked, disabled, children, dark } = this.props;
     return (
       <Wrapper onClick={this.onClick}>
         <CheckButton checked={checked} disabled={disabled} />
-        <Text disabled={disabled} dark={dark}>
-          {children}
-        </Text>
+        {children && (
+          <Text disabled={disabled} dark={dark}>
+            {children}
+          </Text>
+        )}
       </Wrapper>
     );
   }

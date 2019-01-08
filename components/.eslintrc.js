@@ -11,5 +11,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'react/jsx-filename-extension': 0,
     'implicit-arrow-linebreak': 0,
+    'react/require-default-props'
   },
 };
