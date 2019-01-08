@@ -42,7 +42,7 @@ const CheckButton = styled.button`
   box-sizing: border-box;
   padding: 0;
   line-height: 1em;
-  margin-${({ rtl }) => (rtl ? 'left' : right)}: 0.875em;
+  margin-${({ rtl }) => (rtl ? 'left' : 'right')}: 0.875em;
   display: inline-block;
 
   border: 1px solid #646464;
