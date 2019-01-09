@@ -9,14 +9,13 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { TABLET_MQ } from '../atoms';
 
-const Wrapper = styled.li`
-  list-style: none;
+const Wrapper = styled.div`
   text-align: left;
   display: flex;
   align-items: center;
 `;
 
-const Text = styled.span`
+const Text = styled.div`
   line-height: 1;
   :hover {
     ${({ disabled }) =>
@@ -81,6 +80,8 @@ class Checkbox extends React.PureComponent {
     children: PropTypes.node,
     disabled: PropTypes.bool,
     dark: PropTypes.bool,
+    rtl: PropTypes.bool,
+    text: PropTypes.string,
   };
 
   onClick = () => {
@@ -95,15 +96,16 @@ class Checkbox extends React.PureComponent {
   };
 
   render() {
-    const { checked, disabled, children, dark, rtl } = this.props;
+    const { checked, disabled, children, dark, rtl, text } = this.props;
     return (
       <Wrapper onClick={this.onClick}>
         {!rtl && <CheckButton checked={checked} disabled={disabled} rtl={false} />}
-        {children && (
+        {text && (
           <Text disabled={disabled} dark={dark}>
-            {children}
+            {text}
           </Text>
         )}
+        {children}
         {rtl && <CheckButton checked={checked} disabled={disabled} rtl={true} />}
       </Wrapper>
     );
