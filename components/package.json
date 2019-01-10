@@ -1,6 +1,6 @@
 {
   "name": "@rdey/components",
-  "version": "0.0.25",
+  "version": "0.0.27",
   "description": "",
   "main": "dist/index.js",
   "scripts": {

@@ -7,64 +7,120 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { TABLET_MQ } from '../atoms';
 
-const RadioButtonStyle = styled.button`
-  background-color: #07070c;
-  flex: 1;
+const Wrapper = styled.div`
+  text-align: left;
+  display: flex;
+  align-items: center;
+`;
+
+const Text = styled.div`
+  line-height: 1;
+  :hover {
+    ${({ disabled }) =>
+      !disabled &&
+      `
+      cursor: pointer;
+    `}
+  }
   font-family: Roboto;
-  font-size: 0.75em;
-  font-weight: bold;
-  text-align: center;
-  color: #ffffff;
-  height: 3.5em;
+  font-size: 0.875em;
+  ${TABLET_MQ} {
+    font-size: 1em;
+  }
+  color: ${({ dark }) => (dark ? 'black' : '#e5e5e5')};
+`;
+
+const CheckButton = styled.button`
+  font-size: 1em;
+  min-width: 1em;
+  min-height: 1em;
+  max-width: 1em;
+  max-height: 1em;
+  border-radius: 0.5em;
   box-sizing: border-box;
-  border: solid 1px #646464;
-  ${({ selected }) => selected && 'border: solid 1px #fc6f77;'}
+  padding: 0;
+  line-height: 1em;
+  margin-${({ rtl }) => (rtl ? 'left' : 'right')}: 0.875em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #646464;
+
+  color: transparent;
+
+  ${({ checked }) =>
+    checked &&
+    `
+    background-color: #fc6f77;
+    border-color: #fc6f77;
+  `}
+
   :focus {
     outline: none;
   }
+
   :hover {
-    cursor: pointer;
+    ${({ disabled }) =>
+      !disabled &&
+      `
+      cursor: pointer;
+    `}
   }
-  ${({ disabled }) =>
-    disabled
-    && `
-    border: solid 1px #4a4a4a;
-    color: #505050;
-    :hover {
-      cursor: auto;
-    }
-  `}
+`;
+const Dot = styled.div`
+  width: 0.25em;
+  height: 0.25em;
+  border-radius: 0.125em;
+  background-color: white;
 `;
 
 class RadioButton extends React.PureComponent {
   static propTypes = {
-    onClick: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-    selected: PropTypes.bool.isRequired,
+    id: PropTypes.string,
+    checked: PropTypes.bool,
+    onClick: PropTypes.func,
+    children: PropTypes.node,
     disabled: PropTypes.bool,
-    children: PropTypes.node.isRequired,
-  };
-
-  static defaultProps = {
-    disabled: false,
+    dark: PropTypes.bool,
+    rtl: PropTypes.bool,
+    text: PropTypes.string,
   };
 
   onClick = () => {
-    const { onClick, id } = this.props;
-    onClick(id);
+    const { disabled, id, onClick } = this.props;
+    if (!disabled && onClick) {
+      if (id) {
+        onClick(id);
+      } else {
+        onClick();
+      }
+    }
   };
 
   render() {
-    const { disabled, selected, children } = this.props;
+    const { checked, disabled, children, dark, rtl, text } = this.props;
     return (
-      <RadioButtonStyle
-        disabled={disabled}
-        selected={selected}
-        onClick={this.onClick}
-      >
+      <Wrapper onClick={this.onClick}>
+        {!rtl && (
+          <CheckButton checked={checked} disabled={disabled} rtl={false}>
+            <Dot checked={checked} />
+          </CheckButton>
+        )}
+        {text && (
+          <Text disabled={disabled} dark={dark}>
+            {text}
+          </Text>
+        )}
         {children}
-      </RadioButtonStyle>
+        {rtl && (
+          <CheckButton checked={checked} disabled={disabled} rtl={true}>
+            <Dot checked={checked} />
+          </CheckButton>
+        )}
+      </Wrapper>
     );
   }
 }
