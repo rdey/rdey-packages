@@ -7,8 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
-    libraryTarget: 'commonjs',
-    libraryExport: '',
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
@@ -29,5 +28,8 @@ module.exports = {
       },
     ],
   },
-  externals: [nodeExternals()],
+  externals: {
+    react: 'commonjs2 react',
+    'styled-components': 'commonjs2 styled-components',
+  },
 };

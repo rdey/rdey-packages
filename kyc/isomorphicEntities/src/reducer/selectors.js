@@ -1,23 +1,22 @@
 import invariant from 'invariant';
 import identity from 'lodash/identity';
 import { createSelector } from 'reselect';
-import { FIELDS } from '../constants/fields/form';
-import { BENEFICIAL_OWNERS_FIELDS } from '../constants/fields/beneficialOwners';
 import {
+  FIELDS,
+  BENEFICIAL_OWNERS_FIELDS,
   KYC_TYPE_FUNNEL_MAP,
   getNextPageIdInFunnel,
   getFunnelPageById,
-} from '../constants/funnels';
-import { KYC_TYPE_COMPANY, KYC_TYPE_PERSON } from '../constants/kycTypes';
-import makeMultiRowSelectors from './makeMultiRowSelectors';
-import { AUTHORIZED_BY_COMPANY_FIELDS } from '../constants/fields/agents';
-import { FREE_TEXT_PURPOSES } from '../constants/fields/freeTextPurposes';
-import {
+  KYC_TYPE_COMPANY,
+  KYC_TYPE_PERSON,
+  AUTHORIZED_BY_COMPANY_FIELDS,
+  FREE_TEXT_PURPOSES,
   CLIENT_FULFILLMENTS_SWEDISH_AUTHORITY,
   CLIENT_FULFILLMENTS_ENGAGED_IN,
   CLIENT_FULFILLMENTS_EEA_COMPANY,
   CLIENT_FULFILLMENTS_FIELDS,
-} from '../constants/fields/clientFulfillments';
+} from '@rdey/kyc-constants';
+import makeMultiRowSelectors from './makeMultiRowSelectors';
 
 export const makeSelectFormData = () => (state) =>
   Object.entries(state.formData).reduce((c, [key, value]) => {

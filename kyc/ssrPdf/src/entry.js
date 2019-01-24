@@ -13,8 +13,6 @@ import { renderToString } from 'react-dom/server';
 import { Subject } from 'rxjs';
 import { filter, map, withLatestFrom } from 'rxjs/operators';
 import styled, { ServerStyleSheet } from 'styled-components';
-// import Pdf from '@rdey/kyc-components/src/Pdf';
-// import Pdf from './Pdf';
 import { Pdf } from '@rdey/kyc-components';
 
 const getData = (token, host) => {
@@ -63,10 +61,9 @@ const Test = styled.div`
 const ssrPdf = async (token, host) => {
   const state = await getData(token, host);
   const sheet = new ServerStyleSheet();
+  console.log(state);
   const body = renderToString(sheet.collectStyles(<Pdf state={state} />));
   const scStyles = sheet.getStyleTags();
-
-  console.log(scStyles);
 
   return {
     body,

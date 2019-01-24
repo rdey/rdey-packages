@@ -4,25 +4,24 @@ import fromPairs from 'lodash/fromPairs';
 import { DateTime } from 'luxon';
 import queryString from 'query-string';
 import uuid from 'uuid/v4';
-import { AUTHORIZED_BY_COMPANY_FIELDS } from '../constants/fields/agents';
 import {
   BENEFICIAL_OWNERS_FIELDS,
   BENEFICIAL_OWNERS_ROW_IS_PEP,
-} from '../constants/fields/beneficialOwners';
-import {
+  AUTHORIZED_BY_COMPANY_FIELDS,
   CLIENT_FULFILLMENTS_FIELDS,
   CLIENT_FULFILLMENTS_NONE_OF_THE_ABOVE,
-} from '../constants/fields/clientFulfillments';
-import { FIELDS, FIELD_PERSONAL_BIRTH_DATE } from '../constants/fields/form';
-import { FREE_TEXT_PURPOSES } from '../constants/fields/freeTextPurposes';
-import { PEP_FIELDS, PEP_NONE_OF_THE_ABOVE } from '../constants/fields/pep';
-import { PURPOSE_AND_NATURE_KEYS } from '../constants/fields/purposeAndNature';
-import {
+  FIELDS,
+  FIELD_PERSONAL_BIRTH_DATE,
+  FREE_TEXT_PURPOSES,
+  PEP_FIELDS,
+  PEP_NONE_OF_THE_ABOVE,
+  PURPOSE_AND_NATURE_KEYS,
   TAX_LIABILITY_FALSE,
   TAX_LIABILITY_TRUE,
+  KYC_TYPE_COMPANY,
+  KYC_TYPE_PERSON,
   TAX_LIABILITY_UNSET,
-} from '../constants/fields/taxLiability';
-import { KYC_TYPE_COMPANY, KYC_TYPE_PERSON } from '../constants/kycTypes';
+} from '@rdey/kyc-constants';
 import { SET_KYC_STATE } from './actions';
 import createReducer from './createReducer';
 import makeMultiRowActions from './makeMultiRowActions';
@@ -167,11 +166,6 @@ export {
   removeBeneficialOwner,
   updateBeneficialOwnerField,
 };
-export {
-  addAuthorizedByCompany,
-  removeAuthorizedByCompany,
-  updateAuthorizedByCompanyField,
-};
 
 const {
   addType: ADD_AUTHORIZED_BY_COMPANY,
@@ -181,6 +175,12 @@ const {
   removeAction: removeAuthorizedByCompany,
   updateAction: updateAuthorizedByCompanyField,
 } = makeMultiRowActions('authorized_by_company');
+
+export {
+  addAuthorizedByCompany,
+  removeAuthorizedByCompany,
+  updateAuthorizedByCompanyField,
+};
 
 export const UPDATE_PURPOSE_AND_NATURE = 'UPDATE_PURPOSE_AND_NATURE';
 export const updatePurposeAndNature = (key, value) => {

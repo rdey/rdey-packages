@@ -624,6 +624,10 @@
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@rdey/components/-/components-0.0.32.tgz#a5874f7e916a6442a132ee744e1b92eebdc2cf8c"
 
+"@rdey/kyc-constants@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@rdey/kyc-constants/-/kyc-constants-0.0.5.tgz#b5c01d86560ba060e7a1f8c53339ffa3d7bc3020"
+
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.11.tgz#b988582cafbb2b095e8b556526f30c90d057cace"

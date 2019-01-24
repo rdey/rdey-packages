@@ -1,13 +1,13 @@
 {
   "name": "@rdey/kyc-ssr-pdf",
-  "version": "0.0.2",
+  "version": "0.0.7",
   "description": "",
   "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:webpack": "webpack -p --progress --config=./webpack.config.js",
     "build": "yarn run build:webpack && node ./createCss.js",
-    "exec": "node -e \"require('./dev.js')('wef', 'http://localhost:3001').then(console.log)\"",
+    "exec": "node -e \"require('babel-polyfill');require('./index.js')('LGx4gk', 'http://localhost:3001').then(console.log)\"",
     "dryRun": "yarn run build:webpack && yarn run exec",
     "prepublishOnly": "yarn run build"
   },
@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@rdey/components": "^0.0.32",
-    "@rdey/kyc-components": "^0.0.3",
-    "@rdey/kyc-isomorphic-entities": "^0.0.3",
+    "@rdey/kyc-components": "^0.0.10",
+    "@rdey/kyc-isomorphic-entities": "^0.0.10",
     "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "luxon": "^1.10.0",

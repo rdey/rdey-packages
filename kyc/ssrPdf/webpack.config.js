@@ -5,11 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    dev: resolve(__dirname, './src/entry.js'),
-    index: [
-      'babel-polyfill',
-      resolve(__dirname, './src/entry.js'),
-    ],
+    dev: ['babel-polyfill', resolve(__dirname, './src/entry.js')],
+    index: [resolve(__dirname, './src/entry.js')],
   },
   output: {
     filename: '[name].js',
@@ -28,11 +25,11 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        // exclude: /node_modules/,
-        include: [
-          resolve(__dirname, 'src'),
-          resolve(__dirname, 'node_modules/@rdey/kyc-components'),
-        ],
+        exclude: /node_modules/,
+        // include: [
+        //   resolve(__dirname, 'src'),
+        //   resolve(__dirname, 'node_modules/@rdey/kyc-components'),
+        // ],
         use: {
           loader: 'babel-loader',
           options: JSON.parse(readFileSync(resolve(__dirname, '.babelrc'))),

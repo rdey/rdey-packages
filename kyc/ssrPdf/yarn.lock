@@ -624,19 +624,25 @@
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@rdey/components/-/components-0.0.32.tgz#a5874f7e916a6442a132ee744e1b92eebdc2cf8c"
 
-"@rdey/kyc-components@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@rdey/kyc-components/-/kyc-components-0.0.3.tgz#6102d8cbc9aca71b6133fd2d76830f02153caba6"
+"@rdey/kyc-components@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@rdey/kyc-components/-/kyc-components-0.0.10.tgz#0d520afb58de92f074d413d0edd8204dfbc0a225"
   dependencies:
-    "@rdey/kyc-isomorphic-entities" "^0.0.1"
+    "@rdey/kyc-constants" "^0.0.3"
 
-"@rdey/kyc-isomorphic-entities@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@rdey/kyc-isomorphic-entities/-/kyc-isomorphic-entities-0.0.1.tgz#d521ea83c7d28cb0be27df7a7d9321e91208fcd3"
-
-"@rdey/kyc-isomorphic-entities@^0.0.3":
+"@rdey/kyc-constants@^0.0.3":
   version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@rdey/kyc-isomorphic-entities/-/kyc-isomorphic-entities-0.0.3.tgz#595d3db9c21ecc63e56f051619bcbc1fb2fae8d5"
+  resolved "https://registry.yarnpkg.com/@rdey/kyc-constants/-/kyc-constants-0.0.3.tgz#fb4ca0a608c90a0056fc972125617dfe7f827a43"
+
+"@rdey/kyc-constants@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@rdey/kyc-constants/-/kyc-constants-0.0.5.tgz#b5c01d86560ba060e7a1f8c53339ffa3d7bc3020"
+
+"@rdey/kyc-isomorphic-entities@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@rdey/kyc-isomorphic-entities/-/kyc-isomorphic-entities-0.0.10.tgz#138cfa314171c1c458044641d17f0e8eedc866b4"
+  dependencies:
+    "@rdey/kyc-constants" "^0.0.5"
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"

@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: ['./entry.js'],
@@ -9,6 +8,7 @@ module.exports = {
     filename: 'index.js',
     libraryTarget: 'commonjs2',
   },
+  devtool: 'eval',
   module: {
     rules: [
       {
@@ -20,10 +20,28 @@ module.exports = {
         exclude: /(node_modules|bower_components|dist)/,
         use: {
           loader: 'babel-loader',
-          options: JSON.parse(fs.readFileSync(path.resolve(__dirname, '.babelrc'))),
+          options: JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, '.babelrc')),
+          ),
         },
       },
     ],
   },
-  externals: [nodeExternals()],
+  performance: {
+    hints: false,
+  },
+  // externals: {
+  //   'rxjs/operators': 'commonjs2 rxjs/operators',
+  //   reselect: 'commonjs2 reselect',
+  //   'redux-observable': 'commonjs2 redux-observable',
+  //   rxjs: 'commonjs2 rxjs',
+  //   invariant: 'commonjs2 invariant',
+  //   'uuid/v4': 'commonjs2 uuid/v4',
+  //   redux: 'commonjs2 redux',
+  //   'lodash/flatten': 'commonjs2 lodash/flatten',
+  //   'lodash/fromPairs': 'commonjs2 lodash/fromPairs',
+  //   'lodash/identity': 'commonjs2 lodash/identity',
+  //   luxon: 'commonjs2 luxon',
+  //   'query-string': 'commonjs2 query-string',
+  // },
 };

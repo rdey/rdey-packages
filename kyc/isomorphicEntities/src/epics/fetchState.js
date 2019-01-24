@@ -8,7 +8,7 @@ import {
   take,
   withLatestFrom,
 } from 'rxjs/operators';
-import { KYC_TYPE_COMPANY, KYC_TYPE_PERSON } from '../constants/kycTypes';
+import { KYC_TYPE_COMPANY, KYC_TYPE_PERSON } from '@rdey/kyc-constants';
 import { SET_BEARER, stateError } from '../reducer';
 import { setKycState } from '../reducer/actions';
 import { makeSelectBearer, selectHost } from '../reducer/selectors';

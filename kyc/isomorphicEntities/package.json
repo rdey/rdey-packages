@@ -1,6 +1,6 @@
 {
   "name": "@rdey/kyc-isomorphic-entities",
-  "version": "0.0.3",
+  "version": "0.0.10",
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
@@ -11,7 +11,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@rdey/kyc-constants": "^0.0.5"
+  },
   "peerDependencies": {
     "@rdey/components": "^0.0.32",
     "axios": "^0.18.0",

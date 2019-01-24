@@ -12,8 +12,7 @@ import {
   TAX_LIABILITY_TRUE,
   KYC_TYPE_COMPANY,
   KYC_TYPE_PERSON,
-
-} from '@rdey/kyc-isomorphic-entities';
+} from '@rdey/kyc-constants';
 import {
   Bold,
   Header,
@@ -709,8 +708,8 @@ class Pdf extends React.PureComponent {
                     checked={
                       state.pep.PEP_HAS_BEEN_A_PEP_DURING_THE_LAST_2_YEARS
                     }
+                    text="I am, or have during the past 2 years been, a PEP"
                   >
-                    I am, or have during the past 2 years been, a PEP
                   </Checkbox>
                   <Checkbox
                     dark
@@ -718,9 +717,8 @@ class Pdf extends React.PureComponent {
                       state.pep
                         .PEP_A_BENEFICIAL_OWNER_TO_ME_THE_CLIENT_IS_OR_HAS_DURING_THE_LAST_2_YEARS_BEEN_A_PEP
                     }
+                    text="A beneficial owner to me/the Client is, or has during the past 2 years been, a PEP"
                   >
-                    A beneficial owner to me/the Client is, or has during the
-                    past 2 years been, a PEP
                   </Checkbox>
                   <Checkbox
                     dark
@@ -728,9 +726,8 @@ class Pdf extends React.PureComponent {
                       state.pep
                         .PEP_HAS_DURING_THE_PAST_2_YEARS_BEEN_A_FAMILY_MEMBER_OT_A_PEP
                     }
+                    text="I am, or have during the past 2 years been, a Family Member to a PEP"
                   >
-                    I am, or have during the past 2 years been, a Family Member
-                    to a PEP
                   </Checkbox>
                   <Checkbox
                     dark
@@ -738,12 +735,10 @@ class Pdf extends React.PureComponent {
                       state.pep
                         .PEP_HAS_DURING_THE_PAST_2_YEARS_BEEN_A_CLOSE_ASSOCIATE_TO_A_PEP
                     }
+                    text="I am, or have during the past 2 years been, a Close Associate to a PEP"
                   >
-                    I am, or have during the past 2 years been, a Close
-                    Associate to a PEP
                   </Checkbox>
-                  <Checkbox dark checked={state.pep.PEP_NONE_OF_THE_ABOVE}>
-                    None of the above apply
+                  <Checkbox dark checked={state.pep.PEP_NONE_OF_THE_ABOVE} text="None of the above apply">
                   </Checkbox>
                 </Checkboxes>
                 <Paragraph>
