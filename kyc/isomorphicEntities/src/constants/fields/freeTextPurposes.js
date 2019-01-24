@@ -1,0 +1,58 @@
+import invariant from 'invariant';
+
+export const ORIGIN_SAVINGS = 'ORIGIN_SAVINGS';
+export const ORIGIN_SALARY = 'ORIGIN_SALARY';
+export const ORIGIN_HERITAGE = 'ORIGIN_HERITAGE';
+export const ORIGIN_CAPITAL_GAIN_FROM_COMPANY_DIVESTMENT = 'ORIGIN_CAPITAL_GAIN_FROM_COMPANY_DIVESTMENT';
+export const ORIGIN_CAPITAL_GAIN_FROM_REAL_ESTATE = 'ORIGIN_CAPITAL_GAIN_FROM_REAL_ESTATE';
+export const ORIGIN_INSURANCE_MONIES = 'ORIGIN_INSURANCE_MONIES';
+export const ORIGIN_OTHER = 'ORIGIN_OTHER';
+
+const ORIGIN_LABELS = {
+  [ORIGIN_SAVINGS]: 'Savings',
+  [ORIGIN_SALARY]: 'Salary',
+  [ORIGIN_HERITAGE]: 'Heritage',
+  [ORIGIN_CAPITAL_GAIN_FROM_COMPANY_DIVESTMENT]:
+    'Capital gain from company divestment',
+  [ORIGIN_CAPITAL_GAIN_FROM_REAL_ESTATE]: 'Capital gain from real estate',
+  [ORIGIN_INSURANCE_MONIES]: 'Insurance monies',
+  [ORIGIN_OTHER]: 'Other',
+};
+
+export const PURPOSE_SAVINGS_OTHER_THAN_RETIREMENT = 'PURPOSE_SAVINGS_OTHER_THAN_RETIREMENT';
+export const PURPOSE_SAVINGS_RETIREMENT = 'PURPOSE_SAVINGS_RETIREMENT';
+export const PURPOSE_SPECULATION = 'PURPOSE_SPECULATION';
+export const PURPOSE_INVESTMENTS_TO_MAXIMIZE_PORTFOLIO_DIVERSITY = 'PURPOSE_INVESTMENTS_TO_MAXIMIZE_PORTFOLIO_DIVERSITY';
+export const PURPOSE_OTHER = 'PURPOSE_OTHER';
+
+const PURPOSE_LABELS = {
+  [PURPOSE_SAVINGS_OTHER_THAN_RETIREMENT]: 'Savings, other than retirement',
+  [PURPOSE_SAVINGS_RETIREMENT]: 'Savings, retirement',
+  [PURPOSE_SPECULATION]: 'Speculation',
+  [PURPOSE_INVESTMENTS_TO_MAXIMIZE_PORTFOLIO_DIVERSITY]:
+    'Investments to maximize portfolio diversity',
+  [PURPOSE_OTHER]: 'Other',
+};
+
+export const FREE_TEXT_PURPOSES_PURPOSE_OF_USING_REDEYES_SERVICES = 'FREE_TEXT_PURPOSES_PURPOSE_OF_USING_REDEYES_SERVICES';
+export const FREE_TEXT_PURPOSES_ORIGIN_OF_THE_FUNDS = 'FREE_TEXT_PURPOSES_ORIGIN_OF_THE_FUNDS';
+
+export const FREE_TEXT_PURPOSES = {
+  [FREE_TEXT_PURPOSES_PURPOSE_OF_USING_REDEYES_SERVICES]: {
+    labels: PURPOSE_LABELS,
+    keys: Object.keys(PURPOSE_LABELS),
+    freeTextFields: [PURPOSE_OTHER],
+  },
+  [FREE_TEXT_PURPOSES_ORIGIN_OF_THE_FUNDS]: {
+    labels: ORIGIN_LABELS,
+    keys: Object.keys(ORIGIN_LABELS),
+    freeTextFields: [ORIGIN_OTHER],
+  },
+};
+
+invariant(
+  Object.values(FREE_TEXT_PURPOSES).every(({ keys, freeTextFields }) =>
+    freeTextFields.every((freeTextFieldId) => keys.includes(freeTextFieldId))),
+  'the free text fields must be among the keys of the objects',
+);
+

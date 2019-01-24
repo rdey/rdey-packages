@@ -42,6 +42,7 @@ const CheckButton = styled.button`
   padding: 0;
   line-height: 1em;
   margin-${({ rtl }) => (rtl ? 'left' : 'right')}: 0.875em;
+  ${({ noText }) => noText && 'margin: 0'};
   display: inline-block;
 
   border: 1px solid #646464;
@@ -99,14 +100,28 @@ class Checkbox extends React.PureComponent {
     const { checked, disabled, children, dark, rtl, text } = this.props;
     return (
       <Wrapper onClick={this.onClick}>
-        {!rtl && <CheckButton checked={checked} disabled={disabled} rtl={false} />}
+        {!rtl && (
+          <CheckButton
+            checked={checked}
+            disabled={disabled}
+            rtl={false}
+            noText={!text}
+          />
+        )}
         {text && (
           <Text disabled={disabled} dark={dark}>
             {text}
           </Text>
         )}
         {children}
-        {rtl && <CheckButton checked={checked} disabled={disabled} rtl={true} />}
+        {rtl && (
+          <CheckButton
+            checked={checked}
+            disabled={disabled}
+            rtl={true}
+            noText={!text}
+          />
+        )}
       </Wrapper>
     );
   }

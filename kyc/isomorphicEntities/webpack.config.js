@@ -1,8 +1,9 @@
 const path = require('path');
 const fs = require('fs');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: './index.js',
+  entry: ['./entry.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
@@ -14,23 +15,15 @@ module.exports = {
         test: /\.js$/,
         include: [
           path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'index.js'),
+          path.resolve(__dirname, 'entry.js'),
         ],
         exclude: /(node_modules|bower_components|dist)/,
         use: {
           loader: 'babel-loader',
-          options: JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, '.babelrc')),
-          ),
+          options: JSON.parse(fs.readFileSync(path.resolve(__dirname, '.babelrc'))),
         },
       },
     ],
   },
-  externals: {
-    react: 'commonjs2 react',
-    'styled-components': 'commonjs2 styled-components',
-    'react-dom': 'commonjs2 react-dom',
-    lodash: 'commonjs2 lodash',
-    'prop-types': 'commonjs2 prop-types',
-  },
+  externals: [nodeExternals()],
 };

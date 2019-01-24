@@ -1,0 +1,2 @@
+export const KYC_TYPE_PERSON = 'TYPE_PERSON';
+export const KYC_TYPE_COMPANY = 'TYPE_COMPANY';
