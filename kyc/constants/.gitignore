@@ -5,6 +5,8 @@ invoke_data.*.js
 
 .netlify-functions
 
+dist
+
 **/.webpack/*
 
 # Local .terraform directories
