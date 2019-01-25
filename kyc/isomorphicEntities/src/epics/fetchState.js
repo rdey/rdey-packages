@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import { ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
 import {
@@ -26,21 +25,16 @@ const fetchState = (action$, state$) =>
     })),
     mergeMap(({ endpoint, bearer }) =>
       from(
-        Axios({
+        fetch(endpoint, {
           method: 'get',
-          data: {
-            data: {},
-          },
-          url: endpoint,
+          mode: 'cors',
+          cache: 'no-cache',
           headers: {
             Authorization: `Bearer ${bearer}`,
             'Content-Type': 'application/json',
             Accept: 'application/json',
           },
-        }).then((response) => {
-          const { data, type } = response.data;
-          return { data, type };
-        }),
+        }).then((r) => r.json()),
       )),
     map(({ data, type }) => {
       if (!data || !type) {

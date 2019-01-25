@@ -10,7 +10,6 @@ import {
   take,
   withLatestFrom,
 } from 'rxjs/operators';
-import Axios from 'axios';
 import { makeSelectBearer, selectHost } from '../reducer/selectors';
 import { SET_KYC_STATE } from '../reducer/actions';
 
@@ -32,10 +31,9 @@ const saveStateCron = (action$, state$) =>
         })),
         mergeMap(({ state, bearer, endpoint }) =>
           from(
-            Axios({
-              url: endpoint,
+            fetch(endpoint, {
               method: 'post',
-              data: { data: state },
+              body: JSON.stringify({ data: state }),
               headers: {
                 Authorization: `Bearer ${bearer}`,
                 'Content-Type': 'application/json',

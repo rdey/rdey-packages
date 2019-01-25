@@ -1,6 +1,6 @@
 {
   "name": "@rdey/kyc-ssr-pdf",
-  "version": "0.0.7",
+  "version": "0.0.15",
   "description": "",
   "main": "./index.js",
   "scripts": {
@@ -14,13 +14,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "peerDependencies": {
-    "axios": "^0.18.0"
-  },
   "dependencies": {
     "@rdey/components": "^0.0.32",
-    "@rdey/kyc-components": "^0.0.10",
-    "@rdey/kyc-isomorphic-entities": "^0.0.10",
+    "@rdey/kyc-components": "^0.0.11",
+    "@rdey/kyc-isomorphic-entities": "^0.0.11",
     "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "luxon": "^1.10.0",
@@ -40,7 +37,6 @@
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-styled-components": "^1.10.0",

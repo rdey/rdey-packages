@@ -2,6 +2,7 @@ const { readFileSync } = require('fs');
 const { resolve } = require('path');
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -19,6 +20,9 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: 'main.css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
   ],
   module: {
@@ -52,10 +56,7 @@ module.exports = {
     ],
   },
   target: 'node',
-  externals: [
-    {
-      axios: 'commonjs axios',
-    },
-  ],
+  // externals: {
+  // },
   // externals: [nodeExternals()]
 };
