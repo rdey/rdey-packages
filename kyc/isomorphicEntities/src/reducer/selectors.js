@@ -1,5 +1,6 @@
 import invariant from 'invariant';
 import identity from 'lodash/identity';
+import get from 'lodash/get';
 import { createSelector } from 'reselect';
 import {
   FIELDS,
@@ -216,3 +217,33 @@ export const makeSelectKycError = () =>
   );
 
 export const selectHost = (state) => state.host;
+
+export const makeSelectCaseUrlLoading = () =>
+  createSelector(
+    [selectSession],
+    (session) => session.caseUrlLoading,
+  );
+
+export const makeCaseUrlError = () =>
+  createSelector(
+    [selectSession],
+    (session) => session.caseUrlError,
+  );
+
+export const makeSelectShouldSaveState = () => {
+  const selectCaseUrlLoading = makeSelectCaseUrlLoading();
+  const selectCaseUrlError = makeCaseUrlError();
+  const selectBearer = makeSelectBearer();
+  return createSelector(
+    [selectCaseUrlLoading, selectCaseUrlError, selectBearer, selectHost],
+    (loadingCaseUrl, caseUrlError, bearer, host) => {
+      if (!bearer || !host) {
+        return false;
+      }
+      if (loadingCaseUrl || caseUrlError) {
+        return false;
+      }
+      return true;
+    },
+  );
+};

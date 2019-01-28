@@ -22,7 +22,7 @@ import {
   KYC_TYPE_PERSON,
   TAX_LIABILITY_UNSET,
 } from '@rdey/kyc-constants';
-import { SET_KYC_STATE } from './actions';
+import { SET_KYC_STATE, KYC_CASE_URL_FETCH, KYC_CASE_URL_ERROR } from './actions';
 import createReducer from './createReducer';
 import makeMultiRowActions from './makeMultiRowActions';
 import makeMultiRowReducer from './makeMultiRowReducer';
@@ -51,7 +51,11 @@ export const initialState = (token, host) => ({
     bearer: false,
     loadingSession: true,
     loadingState: true,
+    /* session/state error */
     error: false,
+    /* feching case url */
+    caseUrlLoading: false,
+    caseUrlError: false,
   },
   formData: {
     ...defaultValues('', Object.keys(FIELDS)),
@@ -233,6 +237,25 @@ const { token: clientSideToken = uuid() } = queryString.parse(
 export default createReducer(
   initialState(clientSideToken, 'https://kyc-api.redeye.se'),
   {
+    [KYC_CASE_URL_FETCH](state) {
+      return {
+        ...state,
+        session: {
+          ...state.session,
+          caseUrlLoading: true,
+        },
+      };
+    },
+    [KYC_CASE_URL_ERROR](state, { error }) {
+      return {
+        ...state,
+        session: {
+          ...state.session,
+          caseUrlLoading: false,
+          caseUrlError: error,
+        },
+      };
+    },
     [SET_BEARER](state, { bearer, token }) {
       return {
         ...state,

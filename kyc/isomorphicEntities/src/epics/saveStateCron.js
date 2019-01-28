@@ -1,5 +1,6 @@
 import { ofType } from 'redux-observable';
 import { empty, from, interval } from 'rxjs';
+import get from 'lodash/get';
 import {
   catchError,
   filter,
@@ -9,26 +10,49 @@ import {
   switchMap,
   take,
   withLatestFrom,
+  tap,
 } from 'rxjs/operators';
-import { makeSelectBearer, selectHost } from '../reducer/selectors';
+import {
+  makeSelectBearer,
+  selectHost,
+  makeSelectShouldSaveState,
+} from '../reducer/selectors';
 import { SET_KYC_STATE } from '../reducer/actions';
 
 const selectBearer = makeSelectBearer();
+const selectShouldSaveState = makeSelectShouldSaveState();
 
 const saveStateCron = (action$, state$) =>
   action$.pipe(
     ofType(SET_KYC_STATE),
     take(1),
     filter(() => typeof window !== 'undefined'),
-    filter(() => !window.location.pathname.match(/pdf/)),
     switchMap(() =>
       interval(process.env.NODE_ENV === 'development' ? 20000 : 5000).pipe(
         withLatestFrom(state$),
+        filter(([, state]) => selectShouldSaveState(state)),
+        filter(() => {
+          if (typeof window !== 'undefined') {
+            if (
+              get(window, 'location.pathname', '').match(/(pdf|sign|error)/)
+            ) {
+              return false;
+            }
+          }
+          return true;
+        }),
         map(([, state]) => ({
           state,
           bearer: selectBearer(state),
           endpoint: `${selectHost(state)}/api/v1/kyc`,
         })),
+        tap(({ state }) => {
+          console.log(
+            selectShouldSaveState(state),
+            state,
+            window.location.pathname,
+          );
+        }),
         mergeMap(({ state, bearer, endpoint }) =>
           from(
             fetch(endpoint, {

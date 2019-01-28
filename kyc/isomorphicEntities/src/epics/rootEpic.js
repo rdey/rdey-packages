@@ -7,6 +7,7 @@ import docraptorCompleted from './docraptorCompleted';
 import fetchStateEpic from './fetchState';
 import fetchSessionEpic from './fetchSession';
 import saveStateCron from './saveStateCron';
+import fetchKycCaseUrl from './fetchKycCaseUrl';
 
 const initializeState = (action$) =>
   action$.pipe(
@@ -21,5 +22,6 @@ const rootEpic = combineEpics(
   fetchStateEpic,
   fetchSessionEpic,
   saveStateCron,
+  fetchKycCaseUrl,
 );
 export default rootEpic;
