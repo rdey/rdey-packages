@@ -1,11 +1,11 @@
 {
   "name": "@rdey/query-string",
-  "version": "1.0.3",
+  "version": "3.0.0",
   "description": "Parse and stringify URL query strings",
   "main": "dist/index.js",
   "scripts": {
     "test": "xo && ava",
-    "build": "rollup -c",
+    "build": "rollup -c && babel dist/concated.js --out-file dist/index.js --presets=@babel/preset-env",
     "prepublishOnly": "yarn run build"
   },
   "keywords": [],
@@ -16,13 +16,14 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "decode-uri-component": "^0.2.0",
     "rollup": "^1.1.2",
-    "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "strict-uri-encode": "^2.0.0"
-  }
+  },
+  "dependencies": {}
 }

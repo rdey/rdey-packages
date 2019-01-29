@@ -1,21 +1,21 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
 import path from 'path';
+
+const include = /.*/
 
 export default {
   input: 'index.js',
   output: {
-    file: 'dist/index.js',
-    format: 'cjs',
+    file: 'dist/concated.js',
+    format: 'esm',
   },
   plugins: [
-    nodeResolve(),
-    commonjs({
-      include: 'node_modules/**'
+    nodeResolve({
+      include,
     }),
-    babel({
-      exclude: 'node_modules/**', // only transpile our source code
+    commonjs({
+      include,
     }),
   ],
   external: () => {
