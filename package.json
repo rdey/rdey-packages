@@ -14,7 +14,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "export": "lerna run build-storybook"
+    "export:components": "yarn run --cwd=./components build-storybook",
+    "export:design": "yarn run --cwd=./design build-storybook",
+    "export": "run-p export:*"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
   },
   "homepage": "https://github.com/rdey/rdey-packages#readme",
   "devDependencies": {
-    "lerna": "^3.10.7"
+    "lerna": "^3.10.7",
+    "npm-run-all": "^4.1.5"
   }
 }
