@@ -11,6 +11,7 @@
     "build": "webpack -p -c ./webpack.config.js",
     "prepublish": "rm -rf ./dist && npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
+    "build-storybook": "build-storybook --output-dir ../docs/components",
     "start": "yarn run storybook"
   },
   "keywords": [],
