@@ -1,5 +1,5 @@
 {
-  "name": "rdey-npm",
+  "name": "@rdey/packages",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,8 +16,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "export": "yarn run --cwd=./docs build-storybook",
-    "bump": "run-p bump:*",
-    "bump:design": "npm --prefix ./design run bump"
+    "start:storybook": "yarn run --cwd=./docs start",
+    "commit": "npx git-cz"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
   "homepage": "https://github.com/rdey/rdey-packages#readme",
   "devDependencies": {
     "lerna": "^3.10.7",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.15.3"
   }
 }

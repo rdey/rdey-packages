@@ -1,6 +1,6 @@
 {
   "name": "@rdey/design",
-  "version": "0.0.0-development.0",
+  "version": "0.0.1-development.0",
   "description": "",
   "main": "dist/index.js",
   "jsnext:main": "lib.js",
@@ -10,8 +10,7 @@
     "prepublishOnly": "yarn run build",
     "storybook": "start-storybook -p 6006",
     "start": "yarn run storybook",
-    "build-storybook": "build-storybook --output-dir ../docs/design --config-dir .storybook",
-    "publish": "npm version prepatch --preid=development && npm publish"
+    "build-storybook": "build-storybook --output-dir ../docs/design --config-dir .storybook"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +18,7 @@
   "dependencies": {
     "invariant": "^2.2.4",
     "react": "^16.7.0",
-    "lodash":"^4.17.11",
+    "lodash": "^4.17.11",
     "styled-components": "^4.1.3"
   },
   "devDependencies": {
