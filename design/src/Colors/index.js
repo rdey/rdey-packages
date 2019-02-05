@@ -55,4 +55,3 @@ export const success = 'hsl(120, 48%, 64%)';
 export const warning = 'hsl(40, 96%, 56%)';
 export const error = 'hsl(0, 88%, 48%)';
 export const information = 'hsl(200, 56%, 72%)';
-

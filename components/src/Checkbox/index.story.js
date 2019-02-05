@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import RadioButton from './index';
+import Checkbox from './index';
 
-storiesOf('RadioButton', module)
+storiesOf('Components/Checkbox', module)
   .add('Normal', () => (
-    <RadioButton
+    <Checkbox
       id="wef"
       checked
       text="I am or has been a pep during the last 2 years"
     />
   ))
   .add('Dark', () => (
-    <RadioButton
+    <Checkbox
       id="wef"
       checked
       dark
@@ -20,7 +20,7 @@ storiesOf('RadioButton', module)
     />
   ))
   .add('rtl', () => (
-    <RadioButton
+    <Checkbox
       checked
       dark
       rtl
@@ -30,19 +30,19 @@ storiesOf('RadioButton', module)
   .add('with child', () => (
     <React.Fragment>
 
-      <RadioButton checked dark rtl>
-        <div>
-          wef<br />
-          omg<br />
-          few
+    <Checkbox checked dark rtl>
+      <div>
+        wef<br />
+        omg<br />
+        few
       </div>
-      </RadioButton>
-      <RadioButton checked dark>
-        <ul>
-          <li>wef</li>
-          <li>omg</li>
-          <li>few</li>
-        </ul>
-      </RadioButton>
+    </Checkbox>
+    <Checkbox checked dark>
+      <ul>
+        <li>wef</li>
+        <li>omg</li>
+        <li>few</li>
+      </ul>
+    </Checkbox>
     </React.Fragment>
   ));

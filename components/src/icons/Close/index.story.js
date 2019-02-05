@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import LoadingSpinner from './index';
+import Close from './index';
 
-storiesOf('Loading spinner', module)
+storiesOf('Components/Close', module)
   .add('Normal', () => (
-    <LoadingSpinner />
+    <Close />
+  ))
+  .add('Red', () => (
+    <Close color="red" />
   ))

@@ -1,4 +1,5 @@
 .storybook
 stories
+.eslintrc.js
 .prettierrc
 rollup.config.js

@@ -7,16 +7,17 @@
   "workspaces": [
     "components",
     "design",
-    "query-string"
+    "query-string",
+    "docs"
   ],
   "directories": {
-    "doc": "docs"
+    "doc": "docs/dist"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "export:components": "yarn run --cwd=./components build-storybook",
-    "export:design": "yarn run --cwd=./design build-storybook",
-    "export": "run-p export:*"
+    "export": "yarn run --cwd=./docs build-storybook",
+    "bump": "run-p bump:*",
+    "bump:design": "npm --prefix ./design run bump"
   },
   "repository": {
     "type": "git",

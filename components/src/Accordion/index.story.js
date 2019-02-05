@@ -23,7 +23,7 @@ const A = styled.a`
   font-family: Roboto, 'Libre Franklin', sans-serif;
 `;
 
-storiesOf('Accordion', module).add('Normal', () => (
+storiesOf('Components/Accordion', module).add('Normal', () => (
   <Accordion
     items={[
       {

@@ -5,7 +5,7 @@ import path from 'path';
 import rollupExternalModules from 'rollup-external-modules';
 
 export default {
-  input: 'lib.js',
+  input: 'index.js',
   output: {
     file: 'dist/index.js',
     format: 'cjs',

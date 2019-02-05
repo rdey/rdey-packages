@@ -26,7 +26,7 @@ const Text = styled.div`
   font-family: 'Courier New', Courier, monospace;
 `;
 
-storiesOf('Colors', module).add('Palette', () => (
+storiesOf('Design/Colors', module).add('Palette', () => (
   <>
     <h1>Color Palette</h1>
     <p>

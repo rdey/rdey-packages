@@ -24,7 +24,7 @@ const Container = styled.div`
   margin: 2em 0;
 `;
 
-storiesOf('Grid', module)
+storiesOf('Design/Grid', module)
   .add('With dynamic column width', () => (
     <>
       {range(12).map((i) => (

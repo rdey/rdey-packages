@@ -7,8 +7,8 @@ import { DESKTOP_MQ } from '../atoms';
 const Wrapper = styled.div`
   background: #2e3742;
   ${({ expanded }) =>
-    expanded
-    && `
+    expanded &&
+    `
   `};
   margin-bottom: 0.5em;
   ${DESKTOP_MQ} {
@@ -43,7 +43,7 @@ const Title = styled.h2`
   font-weight: bold;
   margin: 0;
   font-size: 0.875em;
-  font-family: Roboto, 'Libre Franklin', sans-serif;
+  font-family: inherit;
   color: rgb(229, 229, 229);
 `;
 
@@ -54,7 +54,7 @@ const CarretContainer = styled.div`
   height: 0.75em;
   display: flex;
   ${({ expanded }) =>
-    (expanded ? 'transform: rotate(90deg)' : 'transform: rotate(0deg)')};
+    expanded ? 'transform: rotate(90deg)' : 'transform: rotate(0deg)'};
 `;
 
 class Item extends React.PureComponent {
