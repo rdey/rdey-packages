@@ -1,8 +1,6 @@
 {
   "name": "@rdey/packages",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0-development.0",
   "private": true,
   "workspaces": [
     "components",
@@ -17,7 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "export": "yarn run --cwd=./docs build-storybook",
     "start:storybook": "yarn run --cwd=./docs start",
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "l:publish": "lerna publish"
   },
   "repository": {
     "type": "git",
