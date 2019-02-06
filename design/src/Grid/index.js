@@ -139,7 +139,6 @@ const getSize = ({
 };
 const Grid = styled.div`
   display: flex;
-  border: 1px solid black;
   justify-content: flex-start;
   flex-wrap: wrap;
   ${closedMq(0, pstablet)} {

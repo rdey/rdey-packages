@@ -18,9 +18,9 @@
     "commit": "npx git-cz",
     "bump:components": "npm --prefix ./components version patch",
     "bump:design": "npm --prefix ./design version patch",
-    "publish:components": "npm --prefix ./components publish",
-    "publish:design": "npm --prefix ./design publish",
-    "pub:des:comp": "./linkForDev.sh && run-p bump:* && run-p bump:*"
+    "publish:components": "cd ./components && npm publish",
+    "publish:design": "cd ./design && npm publish",
+    "prepare": "./linkForDev.sh && run-p bump:*"
   },
   "repository": {
     "type": "git",
