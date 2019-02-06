@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import get from 'lodash/get';
+import has from 'lodash/has';
 import invariant from 'invariant';
 
 /* (p/l)(s/m/l)(device) = (portrait/landscape)(small/medium/large)(handset/tablet/computer) */
@@ -19,6 +20,10 @@ const lmcomputer = 1360;
 
 const minMq = (px) => `@media (min-width: ${px}px)`;
 
+/*
+  (p/l)(s/m/l)(device)Mq =
+    (portrait/landscape)(small/medium/large)(handset/tablet/computer)(media query)
+*/
 export const pshandsetMq = minMq(pshandset);
 export const pmhandsetMq = minMq(pmhandset);
 export const plhandsetMq = minMq(plhandset);
@@ -34,17 +39,21 @@ export const lmcomputerMq = minMq(lmcomputer);
 const closedMq = (min, max) =>
   `@media (min-width: ${min}px) and (max-width: ${max - 1}px)`;
 
-const pshandsetClosedMq = closedMq(pshandset, pmhandset);
-const pmhandsetClosedMq = closedMq(pmhandset, plhandset);
-const plhandsetClosedMq = closedMq(plhandset, lshandset);
-const lshandsetClosedMq = closedMq(lshandset, pstablet);
-const pstabletClosedMq = closedMq(pstablet, pltablet);
-const pltabletClosedMq = closedMq(pltablet, llhandset);
-const llhandsetClosedMq = closedMq(llhandset, lstablet);
-const lstabletClosedMq = closedMq(lstablet, lltablet);
-const lltabletClosedMq = closedMq(lltablet, lscomputer);
-const lscomputerClosedMq = closedMq(lscomputer, lmcomputer);
-const lmcomputerClosedMq = lmcomputerMq;
+/*
+  (p/l)(s/m/l)(device)ClosedMq =
+    (portrait/landscape)(small/medium/large)(handset/tablet/computer)(closed)(media query)
+*/
+export const pshandsetClosedMq = closedMq(pshandset, pmhandset);
+export const pmhandsetClosedMq = closedMq(pmhandset, plhandset);
+export const plhandsetClosedMq = closedMq(plhandset, lshandset);
+export const lshandsetClosedMq = closedMq(lshandset, pstablet);
+export const pstabletClosedMq = closedMq(pstablet, pltablet);
+export const pltabletClosedMq = closedMq(pltablet, llhandset);
+export const llhandsetClosedMq = closedMq(llhandset, lstablet);
+export const lstabletClosedMq = closedMq(lstablet, lltablet);
+export const lltabletClosedMq = closedMq(lltablet, lscomputer);
+export const lscomputerClosedMq = closedMq(lscomputer, lmcomputer);
+export const lmcomputerClosedMq = lmcomputerMq;
 
 const getChildWidth = ({ columns, margin }) => {
   const baseWidth = `calc(${100 / columns}% + ${margin / columns}em`;
@@ -52,7 +61,6 @@ const getChildWidth = ({ columns, margin }) => {
     / columns}em - ${(margin * 2) / columns}em)`;
   return width;
 };
-
 
 const getChildCss = ({ width, margin }) => `
   min-width: ${width};
@@ -67,12 +75,14 @@ const setChildWidth = (index, css) => `
     }
   `;
 
-const getSize = ({
+const getGridCss = ({
   margin, columns, children, dynamic,
 }) => {
-  const count = React.Children.count(children);
+  const allChildren = [children].flat(Infinity);
 
-  const spans = [children].flat().map(({ props }) => {
+  const count = allChildren.length;
+
+  const spans = allChildren.map(({ props }) => {
     const propSpan = get(props, 'span');
     if (propSpan) {
       const number = Number(propSpan);
@@ -126,56 +136,67 @@ const getSize = ({
     })
     .join('\n');
 
-  // if (nthChildRowException !== null) {
-  //   const lastRowWidth = getChildWidth({ columns: remainder, margin });
-  //   css += `
-  //     & > *:nth-child(n+${nthChildRowException}) {
-  //       ${getChildCss({ width: lastRowWidth, margin })};
-  //     }
-  //   `;
-  // }
-
   return css;
 };
+
+const gridSizes = ['femto', 'nano', 'milli', 'kilo', 'giga', 'peta'];
+
+const gridSizeProperties = {
+  femto: {
+    margin: 1,
+    columns: 4,
+  },
+  nano: {
+    margin: 1,
+    columns: 8,
+  },
+  milli: {
+    margin: 1.5,
+    columns: 8,
+  },
+  kilo: {
+    margin: 1.5,
+    columns: 12,
+  },
+  giga: {
+    margin: 2,
+    columns: 12,
+  },
+  peta: {
+    margin: 2.5,
+    columns: 12,
+  },
+};
+
+const getGridForSize = (size) => (props) =>
+  getGridCss({
+    ...gridSizeProperties[size],
+    ...(has(props, size) ? props[size] : {}),
+    /* children, dynamic, count */
+    ...props,
+  });
+
 const Grid = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   ${closedMq(0, pstablet)} {
-    ${({ children, dynamic }) =>
-    getSize({
-      margin: 1, columns: 4, children, dynamic,
-    })};
+    ${getGridForSize('femto')};
   }
   ${closedMq(pstablet, pltablet)} {
-    ${({ children, dynamic }) =>
-    getSize({
-      margin: 1, columns: 8, children, dynamic,
-    })};
+    ${getGridForSize('nano')};
   }
   ${closedMq(pltablet, lstablet)} {
-    ${({ children, dynamic }) =>
-    getSize({
-      margin: 1.5, columns: 8, children, dynamic,
-    })};
+    ${getGridForSize('milli')};
   }
   ${closedMq(lstablet, lltablet)} {
-    ${({ children, dynamic }) =>
-    getSize({
-      margin: 1.5, columns: 12, children, dynamic,
-    })};
+    ${getGridForSize('kilo')};
   }
   ${closedMq(lltablet, lmcomputer)} {
-    ${({ children, dynamic }) =>
-    getSize({
-      margin: 2, columns: 12, children, dynamic,
-    })};
+    ${getGridForSize('giga')};
   }
   ${lmcomputerMq} {
-    ${({ children, dynamic }) =>
-    getSize({
-      margin: 2.5, columns: 12, children, dynamic,
-    })};
+    ${getGridForSize('peta')};
   }
 `;
 

@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Grid from '.';
+import GridBase from '.';
+
+const Grid = styled(GridBase)`
+  border: 1px solid black;
+`;
 
 const range = (l) => {
   const numbers = [];
@@ -24,6 +28,8 @@ const Container = styled.div`
   margin: 2em 0;
 `;
 
+const xBoxes = (x) => range(x).map((v) => <Box key={v} />);
+
 storiesOf('Design/Grid', module)
   .add('With dynamic column width', () => (
     <>
@@ -41,262 +47,79 @@ storiesOf('Design/Grid', module)
   ))
   .add('With specific with', () => (
     <>
-      {/* <Container>
-        <p>Span 1/12</p>
-        <Grid>
-          <Box span="1" />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 2/12</p>
-        <Grid>
-          <Box span="2" />
-        </Grid>
-      </Container> */}
-      <Container>
-        <p>Span 1/12</p>
-        <Grid>
-          <Box span="1" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 2/12</p>
-        <Grid>
-          <Box span="2" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 3/12</p>
-        <Grid>
-          <Box span="3" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 4/12</p>
-        <Grid>
-          <Box span="4" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 5/12</p>
-        <Grid>
-          <Box span="5" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 6/12</p>
-        <Grid>
-          <Box span="6" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 7/12</p>
-        <Grid>
-          <Box span="7" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 8/12</p>
-        <Grid>
-          <Box span="8" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 9/12</p>
-        <Grid>
-          <Box span="9" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 10/12</p>
-        <Grid>
-          <Box span="10" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 11/12</p>
-        <Grid>
-          <Box span="11" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
-      <Container>
-        <p>Span 12/12</p>
-        <Grid>
-          <Box span="12" />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-        </Grid>
-      </Container>
+      {range(12).map((x) => (
+        <Container>
+          <p>
+            <>Span </>
+            {x}
+            <>/12</>
+          </p>
+          <Grid>
+            <Box span={x} />
+            {xBoxes(12)}
+          </Grid>
+        </Container>
+      ))}
       <Container>
         <p>Span in middle</p>
         <Grid>
           <Box />
           <Box span={8} />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
+          {xBoxes(12)}
         </Grid>
       </Container>
     </>
-  ));
+  ))
+  .add('With specific grid layout', () =>
+    [
+      {
+        femto: {
+          margin: 1,
+          columns: 12,
+        },
+        nano: {
+          margin: 1,
+          columns: 12,
+        },
+        milli: {
+          margin: 1.5,
+          columns: 12,
+        },
+        kilo: {
+          margin: 1.5,
+          columns: 1,
+        },
+        giga: {
+          margin: 2,
+          columns: 1,
+        },
+        peta: {
+          margin: 2.5,
+          columns: 1,
+        },
+      },
+      {
+        femto: {
+          columns: 2,
+        },
+      },
+      {
+        nano: {
+          columns: 1,
+        },
+      },
+    ].map((props) => (
+      <div style={{ padding: '2em', borderBottom: '1px solid black' }}>
+        <pre style={{ fontSize: '0.75em' }}>{JSON.stringify(props, null, 2)}</pre>
+        {range(12).map((i) => (
+          <Container key={i}>
+            <p>{i}</p>
+            <Grid {...props}>
+              {range(i).map((ii) => (
+                <Box key={ii} />
+              ))}
+            </Grid>
+          </Container>
+        ))}
+      </div>
+    )));
