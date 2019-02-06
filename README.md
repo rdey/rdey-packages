@@ -1,2 +1,2 @@
 ### Publishing the packages
-publish: npm publish --access public
+publish: `./publish.sh`

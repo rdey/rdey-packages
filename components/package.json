@@ -1,6 +1,6 @@
 {
   "name": "@rdey/components",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "",
   "main": "dist/index.js",
   "jsnext:main": "index.js",
