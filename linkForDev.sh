@@ -1,10 +1,9 @@
-# remove from page
-rm -rf ./**/node_modules/@rdey/components
 rm -rf ./**/node_modules/@rdey/design
-
-# add to root
-mkdir -p ./node_modules/@rdey/components
-rsync -av --progress ./components/ ./node_modules/@rdey/components/ --exclude node_modules
-
+yarn run --cwd=./design build
 mkdir -p ./node_modules/@rdey/design
-rsync -av --progress ./design/ ./node_modules/@rdey/design/ --exclude node_modules
+rsync -av --progress --exclude="node_modules" ./design/ ./node_modules/@rdey/design/
+
+rm -rf ./**/node_modules/@rdey/components
+yarn run --cwd=./components build
+mkdir -p ./node_modules/@rdey/components
+rsync -av --progress --exclude="node_modules" ./components/ ./node_modules/@rdey/components/
