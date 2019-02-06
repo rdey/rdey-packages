@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import GridBase from '.';
+import GridBase, { defaultGridConfig } from '.';
 
 const Grid = styled(GridBase)`
   border: 1px solid black;
@@ -72,7 +72,9 @@ storiesOf('Design/Grid', module)
   ))
   .add('With specific grid layout', () =>
     [
+      defaultGridConfig,
       {
+        ...defaultGridConfig,
         femto: {
           margin: 1,
           columns: 12,

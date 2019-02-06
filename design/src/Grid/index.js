@@ -3,20 +3,32 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import get from 'lodash/get';
 import has from 'lodash/has';
+import fromPairs from 'lodash/fromPairs';
 import invariant from 'invariant';
 
-/* (p/l)(s/m/l)(device) = (portrait/landscape)(small/medium/large)(handset/tablet/computer) */
-const pshandset = 0;
-const pmhandset = 360;
-const plhandset = 400;
-const lshandset = 480;
-const pstablet = 600;
-const pltablet = 720;
-const llhandset = 840;
-const lstablet = 960;
-const lltablet = 1024;
-const lscomputer = 1280;
-const lmcomputer = 1360;
+// 'femto',
+// 'pico',
+// 'nano',
+// 'micro',
+// 'milli',
+// 'one',
+// 'kilo',
+// 'mega',
+// 'giga',
+// 'tera',
+// 'peta',
+
+const femto = 0;
+const pico = 360;
+const nano = 400;
+const micro = 480;
+const milli = 600;
+const one = 720;
+const kilo = 840;
+const mega = 960;
+const giga = 1024;
+const tera = 1280;
+const peta = 1360;
 
 const minMq = (px) => `@media (min-width: ${px}px)`;
 
@@ -24,17 +36,17 @@ const minMq = (px) => `@media (min-width: ${px}px)`;
   (p/l)(s/m/l)(device)Mq =
     (portrait/landscape)(small/medium/large)(handset/tablet/computer)(media query)
 */
-export const pshandsetMq = minMq(pshandset);
-export const pmhandsetMq = minMq(pmhandset);
-export const plhandsetMq = minMq(plhandset);
-export const lshandsetMq = minMq(lshandset);
-export const pstabletMq = minMq(pstablet);
-export const pltabletMq = minMq(pltablet);
-export const llhandsetMq = minMq(llhandset);
-export const lstabletMq = minMq(lstablet);
-export const lltabletMq = minMq(lltablet);
-export const lscomputerMq = minMq(lscomputer);
-export const lmcomputerMq = minMq(lmcomputer);
+export const femtoMq = minMq(femto);
+export const picoMq = minMq(pico);
+export const nanoMq = minMq(nano);
+export const microMq = minMq(micro);
+export const milliMq = minMq(milli);
+export const oneMq = minMq(one);
+export const kiloMq = minMq(kilo);
+export const megaMq = minMq(mega);
+export const gigaMq = minMq(giga);
+export const teraMq = minMq(tera);
+export const petaMq = minMq(peta);
 
 const closedMq = (min, max) =>
   `@media (min-width: ${min}px) and (max-width: ${max - 1}px)`;
@@ -43,17 +55,17 @@ const closedMq = (min, max) =>
   (p/l)(s/m/l)(device)ClosedMq =
     (portrait/landscape)(small/medium/large)(handset/tablet/computer)(closed)(media query)
 */
-export const pshandsetClosedMq = closedMq(pshandset, pmhandset);
-export const pmhandsetClosedMq = closedMq(pmhandset, plhandset);
-export const plhandsetClosedMq = closedMq(plhandset, lshandset);
-export const lshandsetClosedMq = closedMq(lshandset, pstablet);
-export const pstabletClosedMq = closedMq(pstablet, pltablet);
-export const pltabletClosedMq = closedMq(pltablet, llhandset);
-export const llhandsetClosedMq = closedMq(llhandset, lstablet);
-export const lstabletClosedMq = closedMq(lstablet, lltablet);
-export const lltabletClosedMq = closedMq(lltablet, lscomputer);
-export const lscomputerClosedMq = closedMq(lscomputer, lmcomputer);
-export const lmcomputerClosedMq = lmcomputerMq;
+export const femtoClosedMq = closedMq(femto, pico);
+export const picoClosedMq = closedMq(pico, nano);
+export const nanoClosedMq = closedMq(nano, micro);
+export const microClosedMq = closedMq(micro, milli);
+export const milliClosedMq = closedMq(milli, one);
+export const oneClosedMq = closedMq(one, kilo);
+export const kiloClosedMq = closedMq(kilo, mega);
+export const megaClosedMq = closedMq(mega, giga);
+export const gigaClosedMq = closedMq(giga, tera);
+export const teraClosedMq = closedMq(tera, peta);
+export const petaClosedMq = petaMq;
 
 const getChildWidth = ({ columns, margin }) => {
   const baseWidth = `calc(${100 / columns}% + ${margin / columns}em`;
@@ -139,64 +151,118 @@ const getGridCss = ({
   return css;
 };
 
-const gridSizes = ['femto', 'nano', 'milli', 'kilo', 'giga', 'peta'];
-
-const gridSizeProperties = {
-  femto: {
+const defaultGridSizes = {
+  A: {
     margin: 1,
     columns: 4,
   },
-  nano: {
+  B: {
     margin: 1,
     columns: 8,
   },
-  milli: {
+  C: {
     margin: 1.5,
     columns: 8,
   },
-  kilo: {
+  D: {
     margin: 1.5,
     columns: 12,
   },
-  giga: {
+  E: {
     margin: 2,
     columns: 12,
   },
-  peta: {
+  F: {
     margin: 2.5,
     columns: 12,
   },
 };
 
-const getGridForSize = (size) => (props) =>
-  getGridCss({
-    ...gridSizeProperties[size],
-    ...(has(props, size) ? props[size] : {}),
+const gridSizes = [
+  'femto', // 0
+  'pico', // 360
+  'nano', // 400
+  'micro', // 480
+  'milli', // 600
+  'one', // 720
+  'kilo', // 840
+  'mega', // 960
+  'giga', // 1024
+  'tera', // 1280
+  'peta', // 1360
+];
+
+const defaultGridConfigMap = {
+  A: ['femto', 'pico', 'nano', 'micro'],
+  B: ['milli'],
+  C: ['one', 'kilo'],
+  D: ['mega'],
+  E: ['giga', 'tera'],
+  F: ['peta'],
+};
+
+export const defaultGridConfig = fromPairs(
+  Object.entries(defaultGridConfigMap)
+    .map(([key, bps]) => bps.map((bp) => [bp, defaultGridSizes[key]]))
+    .flat(),
+);
+
+const getGridForSize = (defaultSize, size) => (props) => {
+  const customSize = has(props, size);
+  return getGridCss({
+    ...defaultGridSizes[defaultSize],
+    ...(customSize ? props[size] : {}),
     /* children, dynamic, count */
     ...props,
   });
-
+};
 const Grid = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  ${closedMq(0, pstablet)} {
-    ${getGridForSize('femto')};
+  /* femto: 0-359 */
+  ${closedMq(0, femto)} {
+    ${getGridForSize('A', 'femto')};
   }
-  ${closedMq(pstablet, pltablet)} {
-    ${getGridForSize('nano')};
+  /* pico: 360-39 */
+  ${closedMq(femto, pico)} {
+    ${getGridForSize('A', 'pico')};
   }
-  ${closedMq(pltablet, lstablet)} {
-    ${getGridForSize('milli')};
+  /* nano: 400-479 */
+  ${closedMq(pico, nano)} {
+    ${getGridForSize('A', 'nano')};
   }
-  ${closedMq(lstablet, lltablet)} {
-    ${getGridForSize('kilo')};
+  /* micro: 480-599 */
+  ${closedMq(nano, micro)} {
+    ${getGridForSize('A', 'micro')};
   }
-  ${closedMq(lltablet, lmcomputer)} {
-    ${getGridForSize('giga')};
+  /* milli: 600-719 */
+  ${closedMq(micro, milli)} {
+    ${getGridForSize('B', 'milli')};
   }
-  ${lmcomputerMq} {
-    ${getGridForSize('peta')};
+  /* one: 720-839 */
+  ${closedMq(milli, one)} {
+    ${getGridForSize('C', 'one')};
+  }
+  /* kilo: 840-959 */
+  ${closedMq(one, kilo)} {
+    ${getGridForSize('C', 'kilo')};
+  }
+  /* mega: 960-1023 */
+  ${closedMq(kilo, mega)} {
+    ${getGridForSize('D', 'mega')};
+  }
+  /* giga: 1024-1279 */
+  ${closedMq(mega, giga)} {
+    ${getGridForSize('E', 'giga')};
+  }
+  /* tera: 1280-1359 */
+  ${closedMq(giga, tera)} {
+    ${getGridForSize('E', 'tera')};
+  }
+  /* peta: 1360-Infinity */
+  ${petaMq} {
+    ${getGridForSize('F', 'peta')};
   }
 `;
 
