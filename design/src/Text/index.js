@@ -40,6 +40,7 @@ export const styles = [
     name: 'display56MU',
     id: 'display-56-m-u',
     css: (tag) => styled[tag]`
+      text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${medium};
       font-size: 56px;
@@ -62,6 +63,7 @@ export const styles = [
     name: 'display56RU',
     id: 'display-56-r-u',
     css: (tag) => styled[tag]`
+      text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${regular};
       font-size: 56px;
@@ -85,6 +87,7 @@ export const styles = [
     name: 'display56LU',
     id: 'display-56-l-u',
     css: (tag) => styled[tag]`
+      text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${light};
       font-size: 56px;
@@ -107,6 +110,7 @@ export const styles = [
     name: 'display40MU',
     id: 'display-40-m-u',
     css: (tag) => styled[tag]`
+      text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${medium};
       font-size: 40px;
@@ -129,6 +133,7 @@ export const styles = [
     name: 'display40RU',
     id: 'display-40-r-u',
     css: (tag) => styled[tag]`
+      text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${regular};
       font-size: 40px;
@@ -140,6 +145,7 @@ export const styles = [
     name: 'display40LU',
     id: 'display-40-l-u',
     css: (tag) => styled[tag]`
+      text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${light};
       font-size: 40px;

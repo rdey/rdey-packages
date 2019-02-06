@@ -14,9 +14,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "export": "yarn run --cwd=./docs build-storybook",
-    "start:storybook": "yarn run --cwd=./docs start",
+    "start": "yarn run --cwd=./docs start",
     "commit": "npx git-cz",
-    "l:publish": "lerna publish"
+    "bump": "run-p bump:*",
+    "bump:components": "npm --prefix ./components version patch",
+    "bump:design": "npm --prefix ./design version patch"
   },
   "repository": {
     "type": "git",
@@ -30,8 +32,9 @@
   },
   "homepage": "https://github.com/rdey/rdey-packages#readme",
   "devDependencies": {
-    "lerna": "^3.10.7",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.15.3"
+    "prettier": "^1.15.3",
+    "@rdey/components": "file:./components",
+    "@rdey/design": "file:./design"
   }
 }

@@ -3,6 +3,7 @@ import '../../components/src/Checkbox/index.story';
 import '../../components/src/RadioButton/index.story';
 import '../../components/src/icons/Close/index.story';
 import '../../components/src/LoadingSpinner/index.story';
+import '../../components/src/Tabs/index.story';
 
 
 import '../../design/src/Grid/index.story';

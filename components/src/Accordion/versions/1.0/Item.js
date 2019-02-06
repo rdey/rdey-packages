@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Carret from '../Carret';
-import { DESKTOP_MQ } from '../atoms';
+import Carret from '../../../Carret';
+import { DESKTOP_MQ } from '../../../atoms';
 
 const Wrapper = styled.div`
   background: #2e3742;

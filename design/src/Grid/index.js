@@ -19,17 +19,17 @@ const lmcomputer = 1360;
 
 const minMq = (px) => `@media (min-width: ${px}px)`;
 
-const pshandsetMq = minMq(pshandset);
-const pmhandsetMq = minMq(pmhandset);
-const plhandsetMq = minMq(plhandset);
-const lshandsetMq = minMq(lshandset);
-const pstabletMq = minMq(pstablet);
-const pltabletMq = minMq(pltablet);
-const llhandsetMq = minMq(llhandset);
-const lstabletMq = minMq(lstablet);
-const lltabletMq = minMq(lltablet);
-const lscomputerMq = minMq(lscomputer);
-const lmcomputerMq = minMq(lmcomputer);
+export const pshandsetMq = minMq(pshandset);
+export const pmhandsetMq = minMq(pmhandset);
+export const plhandsetMq = minMq(plhandset);
+export const lshandsetMq = minMq(lshandset);
+export const pstabletMq = minMq(pstablet);
+export const pltabletMq = minMq(pltablet);
+export const llhandsetMq = minMq(llhandset);
+export const lstabletMq = minMq(lstablet);
+export const lltabletMq = minMq(lltablet);
+export const lscomputerMq = minMq(lscomputer);
+export const lmcomputerMq = minMq(lmcomputer);
 
 const closedMq = (min, max) =>
   `@media (min-width: ${min}px) and (max-width: ${max - 1}px)`;

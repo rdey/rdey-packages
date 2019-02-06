@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import Accordion from './index';
+import { versions } from '.';
 
 const AccordionText = styled.p`
   font-size: 0.75em; /* 0.75em */
@@ -23,41 +23,45 @@ const A = styled.a`
   font-family: Roboto, 'Libre Franklin', sans-serif;
 `;
 
-storiesOf('Components/Accordion', module).add('Normal', () => (
-  <Accordion
-    items={[
-      {
-        title: 'How do I change my card details?',
-        body: (
-          <React.Fragment>
-            <AccordionText>
-              To change your card details, go to Payment Settings and enter your
-              new card details. To find Payment Settings, simply click on
-              Settings at the top right corner of our website, under Members
-              Network. You may also use the link below:
-              <br />
-              <A href="/members/settings/payment">Payment Settings</A>
-            </AccordionText>
-          </React.Fragment>
-        ),
-        id: 'howdoichangemycarddetails',
-      },
-      {
-        title: 'How do I cancel my Premium membership?',
-        body: (
-          <React.Fragment>
-            <AccordionText>
-              You can cancel your Premium membership whenever you want, there is
-              no term of notice. Simply get in touch with us and we will help
-              you out!
-              <br />
-              <A href="mailto:info@redeye.se">info@redye.se</A>
-            </AccordionText>
-          </React.Fragment>
-        ),
-        id: 'howdoIcancelmypremiummembership',
-      },
-    ]}
-    viewport={1024}
-  />
-));
+const stories = storiesOf('Components/Accordion', module);
+
+Object.entries(versions).forEach(([version, Component]) => {
+  stories.add(version, () => (
+    <Component
+      items={[
+        {
+          title: 'How do I change my card details?',
+          body: (
+            <React.Fragment>
+              <AccordionText>
+                To change your card details, go to Payment Settings and enter
+                your new card details. To find Payment Settings, simply click on
+                Settings at the top right corner of our website, under Members
+                Network. You may also use the link below:
+                <br />
+                <A href="/members/settings/payment">Payment Settings</A>
+              </AccordionText>
+            </React.Fragment>
+          ),
+          id: 'howdoichangemycarddetails',
+        },
+        {
+          title: 'How do I cancel my Premium membership?',
+          body: (
+            <React.Fragment>
+              <AccordionText>
+                You can cancel your Premium membership whenever you want, there
+                is no term of notice. Simply get in touch with us and we will
+                help you out!
+                <br />
+                <A href="mailto:info@redeye.se">info@redye.se</A>
+              </AccordionText>
+            </React.Fragment>
+          ),
+          id: 'howdoIcancelmypremiummembership',
+        },
+      ]}
+      viewport={1024}
+    />
+  ));
+});

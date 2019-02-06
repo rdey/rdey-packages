@@ -1,15 +1,13 @@
 module.exports = {
   root: true,
   parser: 'babel-eslint',
-  extends: 'airbnb',
+  extends: 'airbnb-base',
   env: {
-    browser: true,
+    node: true,
   },
   rules: {
     'arrow-parens': ['error', 'always'],
     'arrow-body-style': [2, 'as-needed'],
-    'import/no-extraneous-dependencies': 0,
-    'react/jsx-filename-extension': 0,
     'implicit-arrow-linebreak': 0,
   },
 };
