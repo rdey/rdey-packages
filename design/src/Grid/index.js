@@ -221,43 +221,43 @@ const Grid = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
   /* femto: 0-359 */
-  ${closedMq(0, femto)} {
+  ${closedMq(femto, pico)} {
     ${getGridForSize('A', 'femto')};
   }
   /* pico: 360-39 */
-  ${closedMq(femto, pico)} {
+  ${closedMq(pico, nano)} {
     ${getGridForSize('A', 'pico')};
   }
   /* nano: 400-479 */
-  ${closedMq(pico, nano)} {
+  ${closedMq(nano, micro)} {
     ${getGridForSize('A', 'nano')};
   }
   /* micro: 480-599 */
-  ${closedMq(nano, micro)} {
+  ${closedMq(micro, milli)} {
     ${getGridForSize('A', 'micro')};
   }
   /* milli: 600-719 */
-  ${closedMq(micro, milli)} {
+  ${closedMq(milli, one)} {
     ${getGridForSize('B', 'milli')};
   }
   /* one: 720-839 */
-  ${closedMq(milli, one)} {
+  ${closedMq(one, kilo)} {
     ${getGridForSize('C', 'one')};
   }
   /* kilo: 840-959 */
-  ${closedMq(one, kilo)} {
+  ${closedMq(kilo, mega)} {
     ${getGridForSize('C', 'kilo')};
   }
   /* mega: 960-1023 */
-  ${closedMq(kilo, mega)} {
+  ${closedMq(mega, giga)} {
     ${getGridForSize('D', 'mega')};
   }
   /* giga: 1024-1279 */
-  ${closedMq(mega, giga)} {
+  ${closedMq(giga, tera)} {
     ${getGridForSize('E', 'giga')};
   }
   /* tera: 1280-1359 */
-  ${closedMq(giga, tera)} {
+  ${closedMq(tera, peta)} {
     ${getGridForSize('E', 'tera')};
   }
   /* peta: 1360-Infinity */
