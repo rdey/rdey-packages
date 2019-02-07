@@ -126,9 +126,22 @@ const getGridCss = ({
     padding-right: ${margin}em;
   `;
 
+  const childCss = getChildCss({
+    width: getChildWidth({ columns, margin }),
+    margin,
+  });
+
+  css += `
+    & > * {
+      ${childCss};
+    }
+  `;
+
+  /* overrides for & > * styling */
   css += spans
     .map((span, index) => {
       let calculatedColumns = columns;
+      let width = null;
 
       if (
         dynamic
@@ -136,15 +149,19 @@ const getGridCss = ({
         && index >= nthChildRowException
       ) {
         calculatedColumns = remainder;
+        width = getChildWidth({ columns: calculatedColumns, margin });
       }
 
       if (span !== null) {
         calculatedColumns = 12 / span;
+        width = getChildWidth({ columns: calculatedColumns, margin });
       }
 
-      const width = getChildWidth({ columns: calculatedColumns, margin });
+      if (width !== null) {
+        return setChildWidth(index, getChildCss({ width, margin }));
+      }
 
-      return setChildWidth(index, getChildCss({ width, margin }));
+      return '';
     })
     .join('\n');
 
