@@ -1103,6 +1103,22 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@rdey/components@file:./components":
+  version "0.0.41"
+  dependencies:
+    "@rdey/design" latest
+    lodash "^4.17.11"
+    react "^16.6.3"
+    styled-components "^4.1.2"
+
+"@rdey/design@file:./design":
+  version "0.0.8"
+  dependencies:
+    invariant "^2.2.4"
+    lodash "^4.17.11"
+    react "^16.7.0"
+    styled-components "^4.1.3"
+
 "@rdey/design@latest":
   version "0.0.1-development.0"
   resolved "https://registry.yarnpkg.com/@rdey/design/-/design-0.0.1-development.0.tgz#4ecff680ba15ffd3b70cdd31030ebf03c52f7b8f"
