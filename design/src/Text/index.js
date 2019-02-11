@@ -22,6 +22,8 @@ export const inter = `
   @supports (font-variation-settings: normal) {
     font-family: 'Inter var', sans-serif;
   }
+  font-feature-settings: 'case' 1, 'ss01' 1, 'zero' 1, 'frac' 1, 'tnum' 1 ;
+  
 `;
 
 export const styles = [
