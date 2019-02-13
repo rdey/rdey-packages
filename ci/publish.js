@@ -62,35 +62,12 @@ execa('git', ['log', '-1', '--pretty=%B'])
           }),
         )
         .then(
-          awaitAndPipe(
-            'npm',
-            [
-              'set',
-              `registry=https://registry.npmjs.org/:_authToken=${
-                process.env.NPM_TOKEN
-              }`,
-            ],
-            {
-              cwd,
+          awaitAndPipe('bash', ['-c', '"npm publish --access public"'], {
+            env: {
+              NPM_TOKEN: process.env.NPM_TOKEN,
             },
-          ),
-        )
-        .then(
-          awaitAndPipe(
-            'bash',
-            [
-              '-c',
-              `"NPM_TOKEN=${
-                process.env.NPM_TOKEN
-              } npm publish --access public"`,
-            ],
-            {
-              env: {
-                NPM_TOKEN: process.env.NPM_TOKEN,
-              },
-              cwd,
-            },
-          ),
+            cwd,
+          }),
         );
     }
   })
