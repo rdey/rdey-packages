@@ -26,7 +26,7 @@ execa('git', ['log', '-1', '--pretty=%B'])
         return [
           `npm set registry=https://registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`,
           `cd ${cwd}`,
-          'npm publish --access public',
+          'yarn publish --access public',
         ].join('\n');
       })
       .join('\n')}\n`;
