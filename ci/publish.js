@@ -22,26 +22,24 @@ execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
   const scopesToUpdate = scopes.filter((scope) =>
     ['components', 'design'].includes(scope));
 
-  console.log('will publish', JSON.stringify(scopesToUpdate));
-
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < scopesToUpdate.length; i += 1) {
     const scope = scopesToUpdate[i];
+    const prevVersion = await awaitAndPipe(
+      'npm',
+      ['view', `@rdey/${scope}`, 'version'],
+      {
+        cwd: path.resolve(__dirname, `../${scope}`),
+      },
+    )();
+
     await awaitAndPipe('npm', ['run', 'build'], {
       cwd: path.resolve(__dirname, `../${scope}`),
     })()
       .then(
-        awaitAndPipe(
-          'npm',
-          [
-            'set',
-            'registry',
-            `https//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`,
-          ],
-          {
-            cwd: path.resolve(__dirname, `../${scope}`),
-          },
-        ),
+        awaitAndPipe('npm', ['version', prevVersion], {
+          cwd: path.resolve(__dirname, `../${scope}`),
+        }),
       )
       .then(
         awaitAndPipe('npm', ['version', 'patch'], {
