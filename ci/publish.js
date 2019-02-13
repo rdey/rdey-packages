@@ -23,7 +23,11 @@ execa('git', ['log', '-1', '--pretty=%B'])
     const publishScript = `${scopesToUpdate
       .map((scope) => {
         const cwd = path.resolve(__dirname, `../${scope}`);
-        return `cd ${cwd}\nnpm publish --access public\n`;
+        return [
+          `npm set registry=https://registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`,
+          `cd ${cwd}`,
+          'npm publish --access public',
+        ].join('\n');
       })
       .join('\n')}\n`;
 
@@ -48,7 +52,8 @@ execa('git', ['log', '-1', '--pretty=%B'])
 
       const npmrcContent = [
         `registry = https://registry.npmjs.org/:_authToken=${
-          process.env.NPM_TOKEN}`,
+          process.env.NPM_TOKEN
+        }`,
         'user = rdey',
       ].join('\n');
       fs.writeFileSync(path.resolve(cwd, '.npmrc'), npmrcContent, 'utf8');
