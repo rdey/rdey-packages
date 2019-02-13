@@ -13,69 +13,87 @@ const awaitAndPipe = (...args) => () => {
   });
 };
 
-execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
-  const scopes = getScopesFromSubject(stdout);
+execa('git', ['log', '-1', '--pretty=%B'])
+  .then(async ({ stdout }) => {
+    const scopes = getScopesFromSubject(stdout);
 
-  if (!scopes.length) {
-    throw new Error('no scope in message');
-  }
+    if (!scopes.length) {
+      throw new Error('no scope in message');
+    }
 
-  const scopesToUpdate = scopes.filter((scope) =>
-    ['components', 'design'].includes(scope));
+    const scopesToUpdate = scopes.filter((scope) =>
+      ['components', 'design'].includes(scope));
 
-  /* eslint-disable no-await-in-loop */
-  for (let i = 0; i < scopesToUpdate.length; i += 1) {
-    const scope = scopesToUpdate[i];
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < scopesToUpdate.length; i += 1) {
+      const scope = scopesToUpdate[i];
 
-    const cwd = path.resolve(__dirname, `../${scope}`);
+      const cwd = path.resolve(__dirname, `../${scope}`);
 
-    const { stdout: prevVersion } = await awaitAndPipe(
-      'npm',
-      ['view', `@rdey/${scope}`, 'version'],
-      {
-        cwd,
-      },
-    )();
-
-    const npmrcContent = fs.readFileSync(
-      path.resolve(__dirname, '.npmrc'),
-      'utf8',
-    );
-    fs.writeFileSync(path.resolve(cwd, '.npmrc'), npmrcContent, 'utf8');
-
-    await awaitAndPipe('npm', ['run', 'build'], {
-      cwd,
-    })()
-      .then(
-        awaitAndPipe('npm', ['version', prevVersion, '--allow-same-version'], {
+      const { stdout: prevVersion } = await awaitAndPipe(
+        'npm',
+        ['view', `@rdey/${scope}`, 'version'],
+        {
           cwd,
-        }),
-      )
-      .then(
-        awaitAndPipe('npm', ['version', 'patch'], {
-          cwd,
-        }),
-      )
-      .then(
-        awaitAndPipe(
-          'npm',
-          [
-            'set',
-            `registry=https://registry.npmjs.org/:_authToken=${
-              process.env.NPM_TOKEN}`,
-          ],
-          {
-            cwd,
-          },
-        ),
-      )
-      .then(
-        awaitAndPipe('npm', ['publish', '--access', 'public'], {
-          env: {
-            NPM_TOKEN: process.env.NPM_TOKEN,
-          },
-          cwd,
-        }),
+        },
+      )();
+
+      const npmrcContent = fs.readFileSync(
+        path.resolve(__dirname, '.npmrc'),
+        'utf8',
       );
-  }
-});
+      fs.writeFileSync(path.resolve(cwd, '.npmrc'), npmrcContent, 'utf8');
+
+      await awaitAndPipe('npm', ['run', 'build'], {
+        cwd,
+      })()
+        .then(
+          awaitAndPipe(
+            'npm',
+            ['version', prevVersion, '--allow-same-version'],
+            {
+              cwd,
+            },
+          ),
+        )
+        .then(
+          awaitAndPipe('npm', ['version', 'patch'], {
+            cwd,
+          }),
+        )
+        .then(
+          awaitAndPipe(
+            'npm',
+            [
+              'set',
+              `registry=https://registry.npmjs.org/:_authToken=${
+                process.env.NPM_TOKEN
+              }`,
+            ],
+            {
+              cwd,
+            },
+          ),
+        )
+        .then(
+          awaitAndPipe(
+            'bash',
+            [
+              '-c',
+              `"NPM_TOKEN=${
+                process.env.NPM_TOKEN
+              } npm publish --access public"`,
+            ],
+            {
+              env: {
+                NPM_TOKEN: process.env.NPM_TOKEN,
+              },
+              cwd,
+            },
+          ),
+        );
+    }
+  })
+  .catch((err) => {
+    process.exit(1);
+  });
