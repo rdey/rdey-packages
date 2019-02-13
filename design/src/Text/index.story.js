@@ -48,7 +48,7 @@ storiesOf('Design/Text', module).add('Fonts', () => (
             <Pre>
               <>
                 {name}
-                {' '}
+                {'.css '}
                 <>=</>
                 {' '}
               </>
