@@ -57,7 +57,7 @@ execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
         }),
       )
       .then(
-        awaitAndPipe('npm', ['publish', '--access', 'public'], {
+        awaitAndPipe('yarn', ['publish', '--access', 'public'], {
           env: {
             NPM_TOKEN: process.env.NPM_TOKEN,
           },
