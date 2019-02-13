@@ -60,7 +60,6 @@ execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
         awaitAndPipe('npm', ['publish', '--access', 'public'], {
           env: {
             NPM_TOKEN: process.env.NPM_TOKEN,
-            NPM_CONFIG_GLOBALCONFIG: path.resolve(__dirname, '.npmrc'),
           },
           cwd,
         }),
