@@ -22,8 +22,6 @@ execa('git', ['log', '-1', '--pretty=%B'])
 
     console.log('will publish', scopesToUpdate.join(', '));
 
-    console.log('npm token', process.env.NPM_TOKEN);
-
     const publishScript = `${scopesToUpdate
       .map((scope) => {
         const cwd = path.resolve(__dirname, `../${scope}`);
