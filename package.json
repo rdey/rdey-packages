@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "export": "run-p build-storybook ci:publish",
+    "export": "run-p ci:publish",
     "build-storybook": "yarn run --cwd=./docs build-storybook",
     "start": "yarn run --cwd=./docs start",
     "bump:components": "npm --prefix ./components version patch",
