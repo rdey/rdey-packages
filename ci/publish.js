@@ -37,10 +37,11 @@ execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
       },
     )();
 
-    fs.writeFileSync(
-      path.resolve(cwd, '.npmrc'),
-      fs.readFileSync(__dirname, '.npmrc'),
+    const npmrcContent = fs.readFileSync(
+      path.resolve(__dirname, '.npmrc'),
+      'utf8',
     );
+    fs.writeFileSync(path.resolve(cwd, '.npmrc'), npmrcContent, 'utf8');
 
     await awaitAndPipe('npm', ['run', 'build'], {
       cwd,
