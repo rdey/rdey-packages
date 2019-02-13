@@ -25,7 +25,7 @@ execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < scopesToUpdate.length; i += 1) {
     const scope = scopesToUpdate[i];
-    const prevVersion = await awaitAndPipe(
+    const { stdout: prevVersion } = await awaitAndPipe(
       'npm',
       ['view', `@rdey/${scope}`, 'version'],
       {
@@ -33,11 +33,13 @@ execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
       },
     )();
 
+    console.log(prevVersion);
+
     await awaitAndPipe('npm', ['run', 'build'], {
       cwd: path.resolve(__dirname, `../${scope}`),
     })()
       .then(
-        awaitAndPipe('npm', ['version', prevVersion], {
+        awaitAndPipe('npm', ['version', prevVersion, '--allow-same-version'], {
           cwd: path.resolve(__dirname, `../${scope}`),
         }),
       )

@@ -6,4 +6,4 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run: yarn install
-      - run: node ./ci/publish.js
+      - run: yarn run ci:publish
