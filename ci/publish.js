@@ -27,10 +27,10 @@ execa('git', ['log', '-1', '--pretty=%B'])
       })
       .join('\n')}\n`;
 
-    fs.writeFileSync(
-      path.resolve(__dirname, '../', 'publish.sh'),
-      publishScript,
-    );
+    const publishScriptPath = path.resolve(__dirname, '../', 'publish.sh');
+    fs.writeFileSync(publishScriptPath, publishScript);
+
+    await execa('chmod', ['+x', publishScriptPath]);
 
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < scopesToUpdate.length; i += 1) {
