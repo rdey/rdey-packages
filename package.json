@@ -13,15 +13,16 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "export": "yarn run --cwd=./docs build-storybook",
+    "export": "run-p build-storybook ci:publish",
+    "build-storybook": "yarn run --cwd=./docs build-storybook",
     "start": "yarn run --cwd=./docs start",
     "bump:components": "npm --prefix ./components version patch",
     "bump:design": "npm --prefix ./design version patch",
     "publish:components": "cd ./components && npm publish",
     "publish:design": "cd ./design && npm publish",
     "prepareForPublish": "./linkForDev.sh && run-p bump:*",
-    "ci:release": "npx semantic-release",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "ci:publish": "node ci/publish.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,6 @@
     "@babel/plugin-proposal-export-default-from": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
-    "@semantic-release/exec": "^3.3.2",
     "babel-eslint": "^10.0.1",
     "babel-plugin-styled-components": "^1.9.3",
     "commitizen": "^3.0.5",
@@ -58,8 +58,7 @@
     "rollup": "^1.1.2",
     "rollup-external-modules": "^2.0.0",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-local-resolve": "^1.0.7",
-    "semantic-release": "^15.13.3"
+    "rollup-plugin-local-resolve": "^1.0.7"
   },
   "config": {
     "commitizen": {

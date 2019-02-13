@@ -5,9 +5,11 @@ const getScopesFromSubject = (subject) => {
       return scope.split(',').map((s) => s.replace(/\s/), '');
     }
     return [scope];
-  } catch (err) {}
+  } catch (err) {
+    // do nothing
+  }
 
   return [];
-}
+};
 
 module.exports = getScopesFromSubject;
