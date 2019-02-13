@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const execa = require('execa');
 const log = require('./log');
 const getScopesFromSubject = require('./getScopesFromSubject');
@@ -25,36 +26,42 @@ execa('git', ['log', '-1', '--pretty=%B']).then(async ({ stdout }) => {
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < scopesToUpdate.length; i += 1) {
     const scope = scopesToUpdate[i];
+
+    const cwd = path.resolve(__dirname, `../${scope}`);
+
     const { stdout: prevVersion } = await awaitAndPipe(
       'npm',
       ['view', `@rdey/${scope}`, 'version'],
       {
-        cwd: path.resolve(__dirname, `../${scope}`),
+        cwd,
       },
     )();
 
-    console.log(prevVersion);
+    fs.writeFileSync(
+      path.resolve(cwd, '.npmrc'),
+      fs.readFileSync(__dirname, '.npmrc'),
+    );
 
     await awaitAndPipe('npm', ['run', 'build'], {
-      cwd: path.resolve(__dirname, `../${scope}`),
+      cwd,
     })()
       .then(
         awaitAndPipe('npm', ['version', prevVersion, '--allow-same-version'], {
-          cwd: path.resolve(__dirname, `../${scope}`),
+          cwd,
         }),
       )
       .then(
         awaitAndPipe('npm', ['version', 'patch'], {
-          cwd: path.resolve(__dirname, `../${scope}`),
+          cwd,
         }),
       )
       .then(
-        awaitAndPipe('yarn', ['publish', '--access', 'public'], {
+        awaitAndPipe('npm', ['publish', '--access', 'public'], {
           env: {
             NPM_TOKEN: process.env.NPM_TOKEN,
             NPM_CONFIG_GLOBALCONFIG: path.resolve(__dirname, '.npmrc'),
           },
-          cwd: path.resolve(__dirname, `../${scope}`),
+          cwd,
         }),
       );
   }
