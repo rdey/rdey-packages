@@ -1,13 +1,11 @@
 version: 2
-dependencies:
-  pre:
-    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 jobs:
-  build:
-    docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/node:10.15.0 # the primary container, where your job's commands are run
+  publish:
+    docker:
+      - image: circleci/node:10.15.0
     steps:
       - checkout # check out the code in the project directory
       - run: yarn install
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run: yarn run ci:publish
       - run: ./publish.sh
