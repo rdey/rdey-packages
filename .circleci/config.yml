@@ -1,4 +1,7 @@
 version: 2
+dependencies:
+  pre:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 jobs:
   build:
     docker: # use the docker executor type; machine and macos executors are also supported
@@ -6,7 +9,5 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run: yarn install
-      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm set registry=https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
       - run: yarn run ci:publish
       - run: ./publish.sh
