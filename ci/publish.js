@@ -46,10 +46,11 @@ execa('git', ['log', '-1', '--pretty=%B'])
         },
       )();
 
-      const npmrcContent = fs.readFileSync(
-        path.resolve(__dirname, '.npmrc'),
-        'utf8',
-      );
+      const npmrcContent = [
+        `registry = https://registry.npmjs.org/:_authToken=${
+          process.env.NPM_TOKEN}`,
+        'user = rdey',
+      ].join('\n');
       fs.writeFileSync(path.resolve(cwd, '.npmrc'), npmrcContent, 'utf8');
 
       await awaitAndPipe('npm', ['run', 'build'], {
