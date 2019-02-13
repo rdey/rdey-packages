@@ -30,18 +30,25 @@ export const styles = [
   {
     name: 'display56M',
     id: 'display-56-m',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${medium};
       font-size: 56px;
       line-height: 60px;
       letter-spacing: -1px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '56px',
+      lineHeight: '60px',
+      letterSpacing: '-1px',
+    },
   },
   {
     name: 'display56MU',
     id: 'display-56-m-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${medium};
@@ -49,22 +56,37 @@ export const styles = [
       line-height: 60px;
       letter-spacing: -1px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '56px',
+      lineHeight: '60px',
+      letterSpacing: '-1px',
+    },
   },
   {
     name: 'display56R',
     id: 'display-56-r',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${regular};
       font-size: 56px;
       line-height: 60px;
       letter-spacing: -1px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '56px',
+      lineHeight: '60px',
+      letterSpacing: '-1px',
+    },
   },
   {
     name: 'display56RU',
     id: 'display-56-r-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${regular};
@@ -72,23 +94,38 @@ export const styles = [
       line-height: 60px;
       letter-spacing: -1px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '56px',
+      lineHeight: '60px',
+      letterSpacing: '-1px',
+    },
   },
 
   {
     name: 'display56L',
     id: 'display-56-l',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${light};
       font-size: 56px;
       line-height: 60px;
       letter-spacing: -1px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '56px',
+      lineHeight: '60px',
+      letterSpacing: '-1px',
+    },
   },
   {
     name: 'display56LU',
     id: 'display-56-l-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${light};
@@ -96,22 +133,37 @@ export const styles = [
       line-height: 60px;
       letter-spacing: -1px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '56px',
+      lineHeight: '60px',
+      letterSpacing: '-1px',
+    },
   },
   {
     name: 'display40M',
     id: 'display-40-m',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${medium};
       font-size: 40px;
       line-height: 48px;
       letter-spacing: -0.25px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '40px',
+      lineHeight: '48px',
+      letterSpacing: '-0.25px',
+    },
   },
   {
     name: 'display40MU',
     id: 'display-40-m-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${medium};
@@ -119,22 +171,37 @@ export const styles = [
       line-height: 48px;
       letter-spacing: -0.25px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '40px',
+      lineHeight: '48px',
+      letterSpacing: '-0.25px',
+    },
   },
   {
     name: 'display40R',
     id: 'display-40-r',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${regular};
       font-size: 40px;
       line-height: 48px;
       letter-spacing: -0.25px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '40px',
+      lineHeight: '48px',
+      letterSpacing: '-0.25px',
+    },
   },
   {
     name: 'display40RU',
     id: 'display-40-r-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${regular};
@@ -142,11 +209,19 @@ export const styles = [
       line-height: 48px;
       letter-spacing: -0.25px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '40px',
+      lineHeight: '48px',
+      letterSpacing: '-0.25px',
+    },
   },
   {
     name: 'display40LU',
     id: 'display-40-l-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${light};
@@ -154,33 +229,55 @@ export const styles = [
       line-height: 48px;
       letter-spacing: -0.25px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '40px',
+      lineHeight: '48px',
+      letterSpacing: '-0.25px',
+    },
   },
   {
     name: 'titlesDisplay40L',
     id: 'titles/display-40-l',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${light};
       font-size: 40px;
       line-height: 48px;
       letter-spacing: -0.25px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '40px',
+      lineHeight: '48px',
+      letterSpacing: '-0.25px',
+    },
   },
   {
     name: 'header32M',
     id: 'header-32-m',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${medium};
       font-size: 32px;
       line-height: 36px;
       letter-spacing: 0.25px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '32px',
+      lineHeight: '36px',
+      letterSpacing: '0.25px',
+    },
   },
   {
     name: 'headersUppercaseHeader32MU',
     id: 'headers/uppercase/header-32-m-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${medium};
@@ -188,22 +285,37 @@ export const styles = [
       line-height: 36px;
       letter-spacing: 0.25px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '32px',
+      lineHeight: '36px',
+      letterSpacing: '0.25px',
+    },
   },
   {
     name: 'headersHeader32R',
     id: 'headers/header-32-r',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${regular};
       font-size: 32px;
       line-height: 36px;
       letter-spacing: 0.25px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '32px',
+      lineHeight: '36px',
+      letterSpacing: '0.25px',
+    },
   },
   {
     name: 'headersUppercaseHeader32RU',
     id: 'headers/uppercase/header-32-r-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${regular};
@@ -211,22 +323,37 @@ export const styles = [
       line-height: 36px;
       letter-spacing: 0.25px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '32px',
+      lineHeight: '36px',
+      letterSpacing: '0.25px',
+    },
   },
   {
     name: 'headersHeader32L',
     id: 'headers/header-32-l',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${light};
       font-size: 32px;
       line-height: 36px;
       letter-spacing: 0.25px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '32px',
+      lineHeight: '36px',
+      letterSpacing: '0.25px',
+    },
   },
   {
     name: 'headersUppercaseHeader32LU',
     id: 'headers/uppercase/header-32-l-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${light};
@@ -234,22 +361,37 @@ export const styles = [
       line-height: 36px;
       letter-spacing: 0.25px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '32px',
+      lineHeight: '36px',
+      letterSpacing: '0.25px',
+    },
   },
   {
     name: 'headersHeader28M',
     id: 'headers/header-28-m',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${medium};
       font-size: 28px;
       line-height: 32px;
       letter-spacing: 0px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '28px',
+      lineHeight: '32px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersUppercaseHeader28MU',
     id: 'headers/uppercase/header-28-m-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${medium};
@@ -257,22 +399,37 @@ export const styles = [
       line-height: 32px;
       letter-spacing: 0px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '28px',
+      lineHeight: '32px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersHeader28R',
     id: 'headers/header-28-r',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${regular};
       font-size: 28px;
       line-height: 32px;
       letter-spacing: 0px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '28px',
+      lineHeight: '32px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersUppercaseHeader28RU',
     id: 'headers/uppercase/header-28-r-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${regular};
@@ -280,22 +437,37 @@ export const styles = [
       line-height: 32px;
       letter-spacing: 0px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '28px',
+      lineHeight: '32px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersHeader28L',
     id: 'headers/header-28-l',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${light};
       font-size: 28px;
       line-height: 32px;
       letter-spacing: 0px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '28px',
+      lineHeight: '32px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersUppercaseHeader28LU',
     id: 'headers/uppercase/header-28-l-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${light};
@@ -303,22 +475,37 @@ export const styles = [
       line-height: 32px;
       letter-spacing: 0px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '28px',
+      lineHeight: '32px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersHeader24M',
     id: 'headers/header-24-m',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${medium};
       font-size: 24px;
       line-height: 28px;
       letter-spacing: 0px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '24px',
+      lineHeight: '28px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersUppercaseHeader24MU',
     id: 'headers/uppercase/header-24-m-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${medium};
@@ -326,22 +513,37 @@ export const styles = [
       line-height: 28px;
       letter-spacing: 0px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${medium}`,
+      fontSize: '24px',
+      lineHeight: '28px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersHeader24R',
     id: 'headers/header-24-r',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${regular};
       font-size: 24px;
       line-height: 28px;
       letter-spacing: 0px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '24px',
+      lineHeight: '28px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersUppercaseHeader24RU',
     id: 'headers/uppercase/header-24-r-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${regular};
@@ -349,22 +551,37 @@ export const styles = [
       line-height: 28px;
       letter-spacing: 0px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${regular}`,
+      fontSize: '24px',
+      lineHeight: '28px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersHeader24L',
     id: 'headers/header-24-l',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: Oswald;
       font-weight: ${light};
       font-size: 24px;
       line-height: 28px;
       letter-spacing: 0px;
     `,
+    css: {
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '24px',
+      lineHeight: '28px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'headersUppercaseHeader24LU',
     id: 'headers/uppercase/header-24-l-u',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       text-transform: uppercase;
       font-family: Oswald;
       font-weight: ${light};
@@ -372,116 +589,185 @@ export const styles = [
       line-height: 28px;
       letter-spacing: 0px;
     `,
+    css: {
+      textTransform: 'uppercase',
+      fontFamily: 'Oswald',
+      fontWeight: `${light}`,
+      fontSize: '24px',
+      lineHeight: '28px',
+      letterSpacing: '0px',
+    },
   },
   {
     name: 'bodyBody20',
     id: 'body/body-20',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${light};
       font-size: 20px;
       line-height: 24px;
       letter-spacing: 0.15px;
     `,
+    css: {
+      fontWeight: `${light}`,
+      fontSize: '20px',
+      lineHeight: '24px',
+      letterSpacing: '0.15px',
+    },
   },
   {
     name: 'subtitlesSubtitle16',
     id: 'subtitles/subtitle-16',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${bold};
       font-size: 16px;
       line-height: 20px;
       letter-spacing: 0.5px;
     `,
+    css: {
+      fontWeight: `${bold}`,
+      fontSize: '16px',
+      lineHeight: '20px',
+      letterSpacing: '0.5px',
+    },
   },
   {
     name: 'bodyBody16',
     id: 'body/body-16',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${light};
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.5px;
     `,
+    css: {
+      fontWeight: `${light}`,
+      fontSize: '16px',
+      lineHeight: '24px',
+      letterSpacing: '0.5px',
+    },
   },
   {
     name: 'otherButton14',
     id: 'other/button-14',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${medium};
       font-size: 14px;
       line-height: 14px;
       letter-spacing: 0.75px;
     `,
+    css: {
+      fontWeight: `${medium}`,
+      fontSize: '14px',
+      lineHeight: '14px',
+      letterSpacing: '0.75px',
+    },
   },
   {
     name: 'subtitlesSubtitle14',
     id: 'subtitles/subtitle-14',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${medium};
       font-size: 14px;
       line-height: 18px;
       letter-spacing: 0.5px;
     `,
+    css: {
+      fontWeight: `${medium}`,
+      fontSize: '14px',
+      lineHeight: '18px',
+      letterSpacing: '0.5px',
+    },
   },
   {
     name: 'bodyBody14',
     id: 'body/body-14',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${light};
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 0.25px;
     `,
+    css: {
+      fontWeight: `${light}`,
+      fontSize: '14px',
+      lineHeight: '22px',
+      letterSpacing: '0.25px',
+    },
   },
   {
     name: 'otherButton12',
     id: 'other/button-12',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${medium};
       font-size: 12px;
       line-height: 12px;
       letter-spacing: 1px;
     `,
+    css: {
+      fontWeight: `${medium}`,
+      fontSize: '12px',
+      lineHeight: '12px',
+      letterSpacing: '1px',
+    },
   },
   {
     name: 'otherCaption12',
     id: 'other/caption-12',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${regular};
       font-size: 12px;
       line-height: 16px;
       letter-spacing: 0.4px;
     `,
+    css: {
+      fontWeight: `${regular}`,
+      fontSize: '12px',
+      lineHeight: '16px',
+      letterSpacing: '0.4px',
+    },
   },
   {
     name: 'otherOverline10',
     id: 'other/overline-10',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       ${inter};
       font-weight: ${medium};
       font-size: 10px;
       line-height: 10px;
       letter-spacing: 0.5px;
     `,
+    css: {
+      fontWeight: `${medium}`,
+      fontSize: '10px',
+      lineHeight: '10px',
+      letterSpacing: '0.5px',
+    },
   },
   {
     name: 'otherTabular09',
     id: 'other/tabular-09',
-    css: (tag) => styled[tag]`
+    sc: (tag) => styled[tag]`
       font-family: ${inter};
       font-weight: ${regular};
       font-size: 9px;
       line-height: 9px;
       letter-spacing: 1px;
     `,
+    css: {
+      fontFamily: `${inter}`,
+      fontWeight: `${regular}`,
+      fontSize: '9px',
+      lineHeight: '9px',
+      letterSpacing: '1px',
+    },
   },
 ];
 
