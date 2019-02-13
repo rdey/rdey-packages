@@ -20,11 +20,15 @@ execa('git', ['log', '-1', '--pretty=%B'])
     const scopesToUpdate = scopes.filter((scope) =>
       ['components', 'design'].includes(scope));
 
+    console.log('will publish', scopesToUpdate.join(', '));
+
+    console.log('npm token', process.env.NPM_TOKEN);
+
     const publishScript = `${scopesToUpdate
       .map((scope) => {
         const cwd = path.resolve(__dirname, `../${scope}`);
         return [
-          `npm set registry=https://registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`,
+          // `npm set registry=https://registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`,
           `cd ${cwd}`,
           'yarn publish --access public',
         ].join('\n');
@@ -49,14 +53,6 @@ execa('git', ['log', '-1', '--pretty=%B'])
           cwd,
         },
       )();
-
-      const npmrcContent = [
-        `registry = https://registry.npmjs.org/:_authToken=${
-          process.env.NPM_TOKEN
-        }`,
-        'user = rdey',
-      ].join('\n');
-      fs.writeFileSync(path.resolve(cwd, '.npmrc'), npmrcContent, 'utf8');
 
       await awaitAndPipe('npm', ['run', 'build'], {
         cwd,
