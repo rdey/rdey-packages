@@ -10,7 +10,6 @@
     "prettier": "prettier --config .prettierrc --write \"**/*.js\"",
     "format": "yarn run prettier && yarn run eslint --fix",
     "build": "rollup -c",
-    "prepublishOnly": "npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook --output-dir ../docs/components --config-dir .storybook",
     "start": "yarn run storybook"
