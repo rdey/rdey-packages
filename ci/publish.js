@@ -17,12 +17,20 @@ execa('git', ['log', '-1', '--pretty=%B'])
   .then(async ({ stdout }) => {
     const scopes = getScopesFromSubject(stdout);
 
-    if (!scopes.length) {
-      throw new Error('no scope in message');
-    }
-
     const scopesToUpdate = scopes.filter((scope) =>
       ['components', 'design'].includes(scope));
+
+    const publishScript = `${scopesToUpdate
+      .map((scope) => {
+        const cwd = path.resolve(__dirname, `../${scope}`);
+        return `cd ${cwd}\nnpm publish --access public\n`;
+      })
+      .join('\n')}\n`;
+
+    fs.writeFileSync(
+      path.resolve(__dirname, '../', 'publish.sh'),
+      publishScript,
+    );
 
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < scopesToUpdate.length; i += 1) {
@@ -58,14 +66,6 @@ execa('git', ['log', '-1', '--pretty=%B'])
         )
         .then(
           awaitAndPipe('npm', ['version', 'patch'], {
-            cwd,
-          }),
-        )
-        .then(
-          awaitAndPipe('bash', ['-c', '"npm publish --access public"'], {
-            env: {
-              NPM_TOKEN: process.env.NPM_TOKEN,
-            },
             cwd,
           }),
         );

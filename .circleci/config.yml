@@ -8,3 +8,4 @@ jobs:
       - run: yarn install
       - run: npm set registry=https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
       - run: yarn run ci:publish
+      - run: ./publish.sh
