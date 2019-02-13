@@ -1,6 +1,6 @@
 {
   "name": "@rdey/design",
-  "version": "0.0.15",
+  "version": "0.0.27",
   "description": "",
   "main": "dist/index.js",
   "jsnext:main": "lib.js",
