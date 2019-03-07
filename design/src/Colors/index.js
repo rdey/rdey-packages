@@ -1,60 +1,115 @@
-export const base0 = 'hsl(240, 20%, 6%)';
-export const base1 = 'hsl(240, 20%, 8%)';
-export const base2 = 'hsl(240, 20%, 10%)';
-export const base3 = 'hsl(240, 20%, 12%)';
-export const base4 = 'hsl(240, 16%, 14%)';
-export const base5 = 'hsl(240, 16%, 16%)';
-export const base6 = 'hsl(240, 16%, 18%)';
-export const base7 = 'hsl(240, 16%, 20%)';
-export const base8 = 'hsl(240, 16%, 22%)';
-export const base9 = 'hsl(240, 12%, 24%)';
-export const base10 = 'hsl(240, 12%, 26%)';
-export const base11 = 'hsl(240, 12%, 28%)';
-export const base12 = 'hsl(240, 12%, 30%)';
+import fromPairs from 'lodash/fromPairs';
 
-export const primary0 = 'hsl(360, 88%, 64%)';
-export const primary1 = 'hsl(360, 88%, 68%)';
-export const primary2 = 'hsl(360, 88%, 72%)';
-export const primary3 = 'hsl(360, 88%, 76%)';
-export const primary4 = 'hsl(360, 88%, 80%)';
+const hslColors = {
+  base0: 'hsl(240, 20%, 6%)',
+  base1: 'hsl(240, 20%, 8%)',
+  base2: 'hsl(240, 20%, 10%)',
+  base3: 'hsl(240, 20%, 12%)',
+  base4: 'hsl(240, 16%, 14%)',
+  base5: 'hsl(240, 16%, 16%)',
+  base6: 'hsl(240, 16%, 18%)',
+  base7: 'hsl(240, 16%, 20%)',
+  base8: 'hsl(240, 16%, 22%)',
+  base9: 'hsl(240, 12%, 24%)',
+  base10: 'hsl(240, 12%, 26%)',
+  base11: 'hsl(240, 12%, 28%)',
+  base12: 'hsl(240, 12%, 30%)',
+  base13: 'hsl(240, 14%, 30%)',
+  base14: 'hsl(240, 14%, 32%)',
+  base15: 'hsl(240, 12%, 34%)',
+  base16: 'hsl(240, 12%, 36%)',
+  base17: 'hsl(240, 12%, 38%)',
+  base18: 'hsl(240, 12%, 40%)',
+  base19: 'hsl(240, 12%, 42%)',
+  primary0: 'hsl(360, 88%, 64%)',
+  primary1: 'hsl(360, 88%, 68%)',
+  primary2: 'hsl(360, 88%, 72%)',
+  primary3: 'hsl(360, 88%, 76%)',
+  primary4: 'hsl(360, 88%, 80%)',
+  secondary0: 'hsl(0, 0%, 80%)',
+  secondary1: 'hsl(0, 0%, 84%)',
+  secondary2: 'hsl(0, 0%, 88%)',
+  secondary3: 'hsl(0, 0%, 92%)',
+  secondary4: 'hsl(0, 0%, 96%)',
+  supplementBlue0: 'hsl(208, 96%, 48%)',
+  supplementBlue1: 'hsl(208, 96%, 52%)',
+  supplementBlue2: 'hsl(208, 96%, 56%)',
+  supplementBlue3: 'hsl(208, 96%, 60%)',
+  supplementBlue4: 'hsl(208, 96%, 64%)',
+  supplementGreen0: 'hsl(120, 64%, 48%)',
+  supplementGreen1: 'hsl(120, 64%, 52%)',
+  supplementGreen2: 'hsl(120, 64%, 56%)',
+  supplementGreen3: 'hsl(120, 64%, 64%)',
+  supplementGreen4: 'hsl(120, 64%, 72%)',
+  supplementOrange0: 'hsl(20, 96%, 48%)',
+  supplementOrange1: 'hsl(20, 96%, 52%)',
+  supplementOrange2: 'hsl(20, 96%, 56%)',
+  supplementOrange3: 'hsl(20, 96%, 64%)',
+  supplementOrange4: 'hsl(20, 96%, 72%)',
+  supplementPurple0: 'hsl(288, 96%, 64%)',
+  supplementPurple1: 'hsl(288, 96%, 68%)',
+  supplementPurple2: 'hsl(288, 94%, 72%)',
+  supplementPurple3: 'hsl(288, 96%, 80%)',
+  supplementPurple4: 'hsl(288, 96%, 88%)',
+  supplementPink0: 'hsl(328, 96%, 60%)',
+  supplementPink1: 'hsl(328, 96%, 64%)',
+  supplementPink2: 'hsl(328, 96%, 68%)',
+  supplementPink3: 'hsl(328, 96%, 72%)',
+  supplementPink4: 'hsl(328, 96%, 84%)',
+  success: 'hsl(120, 48%, 64%)',
+  warning: 'hsl(40, 96%, 56%)',
+  error: 'hsl(0, 88%, 48%)',
+  information: 'hsl(200, 56%, 72%)',
+};
 
-export const secondary0 = 'hsl(0, 0%, 80%)';
-export const secondary1 = 'hsl(0, 0%, 84%)';
-export const secondary2 = 'hsl(0, 0%, 88%)';
-export const secondary3 = 'hsl(0, 0%, 92%)';
-export const secondary4 = 'hsl(0, 0%, 96%)';
+function hslToRgb(h, s, l) {
+  let r;
+  let g;
+  let b;
 
-export const supplementBlue0 = 'hsl(208, 96%, 48%)';
-export const supplementBlue1 = 'hsl(208, 96%, 52%)';
-export const supplementBlue2 = 'hsl(208, 96%, 56%)';
-export const supplementBlue3 = 'hsl(208, 96%, 60%)';
-export const supplementBlue4 = 'hsl(208, 96%, 64%)';
+  if (s === 0) {
+    r = l;
+    g = l;
+    b = l; // achromatic
+  } else {
+    const hue2rgb = function hue2rgb(p, q, t) {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
 
-export const supplementGreen0 = 'hsl(120, 64%, 48%)';
-export const supplementGreen1 = 'hsl(120, 64%, 52%)';
-export const supplementGreen2 = 'hsl(120, 64%, 56%)';
-export const supplementGreen3 = 'hsl(120, 64%, 64%)';
-export const supplementGreen4 = 'hsl(120, 64%, 72%)';
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1 / 3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1 / 3);
+  }
 
-export const supplementOrange0 = 'hsl(20, 96%, 48%)';
-export const supplementOrange1 = 'hsl(20, 96%, 52%)';
-export const supplementOrange2 = 'hsl(20, 96%, 56%)';
-export const supplementOrange3 = 'hsl(20, 96%, 64%)';
-export const supplementOrange4 = 'hsl(20, 96%, 72%)';
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
 
-export const supplementPurple0 = 'hsl(288, 96%, 64%)';
-export const supplementPurple1 = 'hsl(288, 96%, 68%)';
-export const supplementPurple2 = 'hsl(288, 94%, 72%)';
-export const supplementPurple3 = 'hsl(288, 96%, 80%)';
-export const supplementPurple4 = 'hsl(288, 96%, 88%)';
+const colors = fromPairs(
+  Object.entries(hslColors).map(([key, hsl]) => {
+    const [h, s, l] = hsl
+      .match(/^hsl\((\d+),\s(\d+)%,\s(\d+)%\)/)
+      .slice(1)
+      .map((a) => Number(a));
+    const hslArr = [h / 360, s / 100, l / 100];
+    const rgbArr = hslToRgb(...hslArr);
+    const rgbCss = `rgb(${rgbArr[0]}, ${rgbArr[1]}, ${rgbArr[2]})`;
+    return [
+      key,
+      {
+        rgb: rgbArr,
+        hsl: hslArr,
+        hslCss: hsl,
+        rgbCss,
+      },
+    ];
+  }),
+);
 
-export const supplementPink0 = 'hsl(328, 96%, 60%)';
-export const supplementPink1 = 'hsl(328, 96%, 64%)';
-export const supplementPink2 = 'hsl(328, 96%, 68%)';
-export const supplementPink3 = 'hsl(328, 96%, 72%)';
-export const supplementPink4 = 'hsl(328, 96%, 84%)';
-
-export const success = 'hsl(120, 48%, 64%)';
-export const warning = 'hsl(40, 96%, 56%)';
-export const error = 'hsl(0, 88%, 48%)';
-export const information = 'hsl(200, 56%, 72%)';
+export default colors;

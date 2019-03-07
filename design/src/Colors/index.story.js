@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import * as colors from '.';
+import colors from '.';
 
 const Blocks = styled.div`
   display: flex;
@@ -40,12 +40,12 @@ storiesOf('Design/Colors', module).add('Palette', () => (
       </a>
     </p>
     <Blocks>
-      {Object.entries(colors).map(([key, color]) => (
-        <Block color={color} key={key}>
+      {Object.entries(colors).map(([key, { hslCss }]) => (
+        <Block color={hslCss} key={key}>
           <Text>
             {key}
             <>: </>
-            {color}
+            {hslCss}
           </Text>
         </Block>
       ))}
