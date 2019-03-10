@@ -13,7 +13,7 @@ import s from './utils/s';
 export * from './Grid';
 export s from './utils/s';
 
-const rdeyDesign = {
+export const rdeyDesign = {
   colors,
   grid,
   fontSizes,
@@ -60,8 +60,6 @@ const rdeyDesign = {
     },
   },
 };
-
-export default rdeyDesign;
 
 export const primaryTextMixin = rdeyDesign.mixins.text.primary;
 export const secondaryTextMixin = rdeyDesign.mixins.text.secondary;
