@@ -123,3 +123,6 @@ export const viewportEpic = () =>
     distinctUntilChanged(),
     map((vp) => viewportChange(vp)),
   );
+
+export Grid from './TheGridComponent';
+export * from './TheGridComponent';

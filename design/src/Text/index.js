@@ -1,19 +1,6 @@
 import invariant from 'invariant';
 import has from 'lodash/has';
-import styled from 'styled-components';
 import colors from '../Colors';
-
-/* for in editor tooling syntax highlighitng purposes */
-styled.css = (...args) => {
-  const parts = args.slice(1);
-  const c = args[0].reduce((css, chunk, index) => {
-    if (index > 0) {
-      return css + parts[index - 1] + chunk;
-    }
-    return css + chunk;
-  }, '');
-  return c;
-};
 
 export const thin = 100;
 export const hairline = 100;

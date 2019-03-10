@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import React from 'react';
 import { storiesOf } from '@storybook/react';
-import GridBase, { defaultGridConfig } from '.';
+import React from 'react';
+import styled from 'styled-components';
+import GridBase, { defaultGridConfig } from '..';
 
 const Grid = styled(GridBase)`
   border: 1px solid black;
@@ -112,7 +111,9 @@ storiesOf('Design/Grid', module)
       },
     ].map((props) => (
       <div style={{ padding: '2em', borderBottom: '1px solid black' }}>
-        <pre style={{ fontSize: '0.75em' }}>{JSON.stringify(props, null, 2)}</pre>
+        <pre style={{ fontSize: '0.75em' }}>
+          {JSON.stringify(props, null, 2)}
+        </pre>
         {range(12).map((i) => (
           <Container key={i}>
             <p>{i}</p>
@@ -124,4 +125,4 @@ storiesOf('Design/Grid', module)
           </Container>
         ))}
       </div>
-    )));
+    )) );
