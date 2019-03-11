@@ -10,7 +10,7 @@ import {
 import colors from './Colors';
 import s from './utils/s';
 
-export * from './colors';
+export colors from './Colors';
 export * from './Grid';
 export s from './utils/s';
 
