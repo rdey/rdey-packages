@@ -13,6 +13,7 @@ export const VIEWPORT_960 = 960;
 export const VIEWPORT_1024 = 1024;
 export const VIEWPORT_1280 = 1280;
 export const VIEWPORT_1360 = 1360;
+export const VIEWPORT_1600 = 1600;
 
 export const viewports = [
   VIEWPORT_320,
@@ -26,6 +27,7 @@ export const viewports = [
   VIEWPORT_1024,
   VIEWPORT_1280,
   VIEWPORT_1360,
+  VIEWPORT_1600,
 ];
 
 export const margins = {
@@ -40,6 +42,7 @@ export const margins = {
   [VIEWPORT_1024]: 32,
   [VIEWPORT_1280]: 32,
   [VIEWPORT_1360]: 40,
+  [VIEWPORT_1600]: 40,
 };
 
 export const numberOfCols = {
@@ -54,6 +57,7 @@ export const numberOfCols = {
   [VIEWPORT_1024]: 12,
   [VIEWPORT_1280]: 12,
   [VIEWPORT_1360]: 12,
+  [VIEWPORT_1600]: 12,
 };
 
 export const columnWidths = {
