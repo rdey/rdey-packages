@@ -14,6 +14,9 @@ const RandomCompOtherHeader = styled.h3`
 const RandomCompOtherHeader2 = styled.h3`
   ${secondaryTextMixin({ size: 14 })};
 `;
+const RandomCompOtherHeader3 = styled.h3`
+  ${primaryTextMixin()};
+`;
 
 const Entry = () => (
   <div>
@@ -21,6 +24,7 @@ const Entry = () => (
     <p>Magic component</p>
     <RandomCompOtherHeader>Header</RandomCompOtherHeader>
     <RandomCompOtherHeader2>Header</RandomCompOtherHeader2>
+    <RandomCompOtherHeader3>Header</RandomCompOtherHeader3>
   </div>
 );
 storiesOf('Showcase', module).add('Various component', () => (

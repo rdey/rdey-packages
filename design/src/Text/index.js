@@ -111,7 +111,7 @@ export const fontMixin = (fontKey) => {
 
 export const primaryTextMixin = ({
   fontSize, fontFamily, color, opacity,
-}) => {
+} = {}) => {
   const p = parseTextArgs(
     {
       fontSize,
@@ -140,7 +140,7 @@ export const secondaryTextMixin = ({
   fontFamily,
   color,
   opacity,
-}) => {
+} = {}) => {
   const p = parseTextArgs(
     {
       fontSize,
