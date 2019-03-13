@@ -73,7 +73,9 @@ const parseTextArgs = (inputArgs, parseProps) => {
       validTextArgs.includes(key),
       `key must in in ${validTextArgs.join(', ')}`,
     );
-    const input = has(inputArgs, key) ? inputArgs[key] : defaultValue;
+    const input = has(inputArgs, key) && typeof inputArgs[key] !== 'undefined'
+      ? inputArgs[key]
+      : defaultValue;
     switch (key) {
       case 'fontSize':
         result[key] = getFontSize(input);
