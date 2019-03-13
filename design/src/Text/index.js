@@ -129,7 +129,7 @@ export const primaryTextMixin = ({
 
   return s.css`
     ${fontMixin(p.fontFamily)};
-    color: ${colorMixin({ color: p.color, opacity: p.opacity })};
+    ${colorMixin({ color: p.color, opacity: p.opacity })};
     font-size: ${p.fontSize}px;
     font-weight: 400;
   `;
@@ -158,7 +158,7 @@ export const secondaryTextMixin = ({
 
   return s.css`
     ${fontMixin(p.fontFamily)};
-    color: ${colorMixin({ color: p.color, opacity: p.opacity })};
+    ${colorMixin({ color: p.color, opacity: p.opacity })};
     font-size: ${p.fontSize}px;
     font-weight: 200;
     text-transform: uppercase;
