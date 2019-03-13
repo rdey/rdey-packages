@@ -131,9 +131,9 @@ export const getColor = ({ rgb, opacity, color }) => {
         opacity >= 0 && opacity <= 1,
         'opacity must be a number between 0 and 1',
       );
-      return `color: rgba(${rgb.join(',')}, ${opacity});`;
+      return `rgba(${rgb.join(',')}, ${opacity})`;
     }
-    return `color: rgb(${rgb.join(',')});`;
+    return `rgb(${rgb.join(',')})`;
   }
 
   invariant(
@@ -147,9 +147,9 @@ export const getColor = ({ rgb, opacity, color }) => {
       opacity >= 0 && opacity <= 1,
       'opacity must be a number between 0 and 1',
     );
-    return `color: rgba(${rgbVariant.join(',')}, ${opacity});`;
+    return `rgba(${rgbVariant.join(',')}, ${opacity})`;
   }
-  return `color: ${colors[color].hslCss};`;
+  return `${colors[color].hslCss}`;
 };
 
 export const colorMixin = (args) => {
