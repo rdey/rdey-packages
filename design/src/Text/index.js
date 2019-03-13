@@ -1,6 +1,7 @@
 import invariant from 'invariant';
 import has from 'lodash/has';
-import colors from '../Colors';
+import colors, { colorMixin } from '../Colors';
+import s from '../utils/s';
 
 export const thin = 100;
 export const hairline = 100;
@@ -65,7 +66,7 @@ const getColor = (color) => {
 };
 
 const validTextArgs = ['fontSize', 'color', 'fontFamily', 'opacity'];
-export const parseTextArgs = (inputArgs, parseProps) => {
+const parseTextArgs = (inputArgs, parseProps) => {
   const result = {};
   Object.entries(parseProps).forEach(([key, defaultValue]) => {
     invariant(
@@ -106,39 +107,58 @@ export const fontMixin = (fontKey) => {
   return `font-family: ${fontFamilies.secondary};`;
 };
 
-export const colorMixin = ({ rgb, opacity, color }) => {
-  if (rgb) {
-    invariant(Array.isArray(rgb), 'rgb must be an array');
-    const validColor = Object.values(colors).find(
-      ({ rgb: someRgb }) =>
-        someRgb[0] === rgb[0] && someRgb[0] === rgb[0] && someRgb[0] === rgb[0],
-    );
-    invariant(
-      validColor,
-      `The provided rgb value (${rgb.join(', ')}) is not in the design system!`,
-    );
-    if (typeof opacity === 'number') {
-      invariant(
-        opacity >= 0 && opacity <= 1,
-        'opacity must be a number between 0 and 1',
-      );
-      return `color: rgba(${rgb.join(',')}, ${opacity});`;
-    }
-    return `color: rgb(${rgb.join(',')});`;
-  }
-
-  invariant(
-    Object.keys(colors).includes(color),
-    'You must provide a color that is included in the design system, ',
+export const primaryTextMixin = ({
+  fontSize, fontFamily, color, opacity,
+}) => {
+  const p = parseTextArgs(
+    {
+      fontSize,
+      fontFamily,
+      color,
+      opacity,
+    },
+    {
+      fontSize: 16,
+      fontFamily: fontFamilies.primary,
+      color: 'primary4',
+      opacity: 1,
+    },
   );
 
-  if (typeof opacity === 'number') {
-    const rgbVariant = colors[color].rgb;
-    invariant(
-      opacity >= 0 && opacity <= 1,
-      'opacity must be a number between 0 and 1',
-    );
-    return `color: rgba(${rgbVariant.join(',')}, ${opacity});`;
-  }
-  return `color: ${colors[color].hslCss};`;
+  return s.css`
+    ${fontMixin(p.fontFamily)};
+    color: ${colorMixin({ color: p.color, opacity: p.opacity })};
+    font-size: ${p.fontSize}px;
+    font-weight: 400;
+  `;
+};
+
+export const secondaryTextMixin = ({
+  fontSize,
+  fontFamily,
+  color,
+  opacity,
+}) => {
+  const p = parseTextArgs(
+    {
+      fontSize,
+      fontFamily,
+      color,
+      opacity,
+    },
+    {
+      fontSize: 24,
+      fontFamily: fontFamilies.secondary,
+      color: 'primary4',
+      opacity: 1,
+    },
+  );
+
+  return s.css`
+    ${fontMixin(p.fontFamily)};
+    color: ${colorMixin({ color: p.color, opacity: p.opacity })};
+    font-size: ${p.fontSize}px;
+    font-weight: 200;
+    text-transform: uppercase;
+  `;
 };

@@ -1,4 +1,5 @@
 import fromPairs from 'lodash/fromPairs';
+import invariant from 'invariant';
 
 const hslColors = {
   base0: 'hsl(240, 20%, 6%)',
@@ -113,3 +114,45 @@ const colors = fromPairs(
 );
 
 export default colors;
+
+export const getColor = ({ rgb, opacity, color }) => {
+  if (rgb) {
+    invariant(Array.isArray(rgb), 'rgb must be an array');
+    const validColor = Object.values(colors).find(
+      ({ rgb: someRgb }) =>
+        someRgb[0] === rgb[0] && someRgb[0] === rgb[0] && someRgb[0] === rgb[0],
+    );
+    invariant(
+      validColor,
+      `The provided rgb value (${rgb.join(', ')}) is not in the design system!`,
+    );
+    if (typeof opacity === 'number') {
+      invariant(
+        opacity >= 0 && opacity <= 1,
+        'opacity must be a number between 0 and 1',
+      );
+      return `color: rgba(${rgb.join(',')}, ${opacity});`;
+    }
+    return `color: rgb(${rgb.join(',')});`;
+  }
+
+  invariant(
+    Object.keys(colors).includes(color),
+    'You must provide a color that is included in the design system, ',
+  );
+
+  if (typeof opacity === 'number') {
+    const rgbVariant = colors[color].rgb;
+    invariant(
+      opacity >= 0 && opacity <= 1,
+      'opacity must be a number between 0 and 1',
+    );
+    return `color: rgba(${rgbVariant.join(',')}, ${opacity});`;
+  }
+  return `color: ${colors[color].hslCss};`;
+};
+
+export const colorMixin = (args) => {
+  const color = getColor(args);
+  return `color: ${color};`;
+};

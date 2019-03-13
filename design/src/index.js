@@ -1,16 +1,16 @@
-import styled from 'styled-components';
+import colors, { getColor, colorMixin } from './Colors';
 import * as grid from './Grid';
 import {
-  colorMixin,
   fontFamilies,
   fontMixin,
   fontSizes,
-  parseTextArgs,
+  primaryTextMixin,
+  secondaryTextMixin,
 } from './Text';
-import colors from './Colors';
-import s from './utils/s';
 
 export colors from './Colors';
+export * from './Text';
+export * from './Colors';
 export * from './Grid';
 export s from './utils/s';
 
@@ -20,47 +20,10 @@ export const rdeyDesign = {
   fontSizes,
   fontFamilies,
   mixins: {
-    text: {
-      fontMixin,
-      colorMixin,
-      primary: (args) => {
-        const {
-          fontSize, fontFamily, color, opacity,
-        } = parseTextArgs(args, {
-          fontSize: 16,
-          fontFamily: fontFamilies.primary,
-          color: 'primary4',
-          opacity: 1,
-        });
-
-        return s.css`
-          ${fontMixin(fontFamily)};
-          ${colorMixin({ color, opacity })};
-          font-size: ${fontSize}px;
-          font-weight: 400;
-        `;
-      },
-      secondary: (args) => {
-        const {
-          fontSize, fontFamily, color, opacity,
-        } = parseTextArgs(args, {
-          fontSize: 24,
-          fontFamily: fontFamilies.secondary,
-          color: 'primary4',
-          opacity: 1,
-        });
-
-        return s.css`
-          ${fontMixin(fontFamily)};
-          ${colorMixin({ color, opacity })};
-          font-size: ${fontSize}px;
-          font-weight: 200;
-          text-transform: uppercase;
-        `;
-      },
-    },
+    color: colorMixin,
+    font: fontMixin,
+    primaryText: primaryTextMixin,
+    secondaryText: secondaryTextMixin,
   },
+  getColor,
 };
-
-export const primaryTextMixin = rdeyDesign.mixins.text.primary;
-export const secondaryTextMixin = rdeyDesign.mixins.text.secondary;
