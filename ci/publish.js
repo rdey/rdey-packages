@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const execa = require('execa');
+const allPosibleScopes = require('../scopes');
 const log = require('./log');
 const getScopesFromSubject = require('./getScopesFromSubject');
 
@@ -18,7 +19,7 @@ execa('git', ['log', '-1', '--pretty=%B'])
     const scopes = getScopesFromSubject(stdout);
 
     const scopesToUpdate = scopes.filter((scope) =>
-      ['components', 'design'].includes(scope));
+      allPosibleScopes.includes(scope));
 
     console.log('will publish', scopesToUpdate.join(', '));
 

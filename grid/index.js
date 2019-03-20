@@ -6,18 +6,6 @@ import has from 'lodash/has';
 import fromPairs from 'lodash/fromPairs';
 import invariant from 'invariant';
 
-// 'femto',
-// 'pico',
-// 'nano',
-// 'micro',
-// 'milli',
-// 'one',
-// 'kilo',
-// 'mega',
-// 'giga',
-// 'tera',
-// 'peta',
-
 const femto = 0;
 const pico = 360;
 const nano = 400;
@@ -88,7 +76,7 @@ const setChildWidth = (index, css) => `
   `;
 
 const getGridCss = ({
-  margin, columns, children, dynamic,
+ margin, columns, children, dynamic 
 }) => {
   const allChildren = [children].flat(Infinity);
 
@@ -108,7 +96,7 @@ const getGridCss = ({
   });
 
   /* start lastRowCalulations: make the last row span correctly */
-  const countWithSpans = count + spans.reduce((total, span) => (span ? span - 1 : 0), 0);
+  const countWithSpans =    count + spans.reduce((total, span) => (span ? span - 1 : 0), 0);
   let nthChildRowException = null;
   let remainder = countWithSpans % columns;
   if (countWithSpans < columns) {
@@ -233,7 +221,7 @@ const getGridForSize = (defaultSize, size) => (props) => {
     ...props,
   });
 };
-const Grid = styled.div`
+export const Grid = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -282,5 +270,3 @@ const Grid = styled.div`
     ${getGridForSize('F', 'peta')};
   }
 `;
-
-export default Grid;

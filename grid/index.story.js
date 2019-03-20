@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
-import GridBase, { defaultGridConfig } from '..';
+import { Grid as GridBase, defaultGridConfig } from '.';
 
 const Grid = styled(GridBase)`
   border: 1px solid black;
@@ -125,4 +125,4 @@ storiesOf('Design/Grid', module)
           </Container>
         ))}
       </div>
-    )) );
+    )),);

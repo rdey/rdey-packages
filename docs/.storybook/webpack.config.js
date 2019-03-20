@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+const scopes = require('../../scopes');
 const pushArray = (orig, additional) => {
   additional.forEach((add) => {
     orig.push(add);
@@ -12,13 +13,13 @@ module.exports = (storybookBaseConfig) => {
   if (!rule || !rule.include || !rule.exclude) {
     return storybookBaseConfig;
   }
-  pushArray(rule.include, [
-    resolve(__dirname, '../../design'),
-    resolve(__dirname, '../../components'),
-  ]);
-  pushArray(rule.exclude, [
-    resolve(__dirname, '../../design/node_modules'),
-    resolve(__dirname, '../../components/node_modules'),
-  ]);
+  scopes.forEach((scope) => {
+    pushArray(rule.include, [
+      resolve(__dirname, '../../' + scope),
+    ]);
+    pushArray(rule.exclude, [
+      resolve(__dirname, '../../' + scope + '/node_modules'),
+    ]);
+  });
   return storybookBaseConfig;
 };
