@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "export": "./linkForDev && yarn run build-storybook && yarn run create:docs",
+    "export": "./linkForDev.sh && yarn run build-storybook && yarn run create:docs",
     "build-storybook": "yarn run --cwd=./docs build-storybook",
     "create:docs": "yarn run --cwd=./design create:docs",
     "start": "yarn run --cwd=./docs start",
