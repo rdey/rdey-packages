@@ -7,7 +7,7 @@
   "jsnext:main": "lib.js",
   "scripts": {
     "test": "jest --watch",
-    "build": "npx run-p create:*",
+    "build": "npx npm-run-all --parallel create:*",
     "create:bundle": "npx rollup -c rollup.config.ts",
     "create:types": "npx tsc --module commonjs",
     "create:docs": "npx typedoc --out ../docs/dist/design --target es6 --theme minimal --mode file src",
