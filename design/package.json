@@ -4,7 +4,11 @@
   "description": "",
   "main": "dist/rdey-design.umd.js",
   "module": "dist/rdey-design.es5.js",
-  "jsnext:main": "lib.js",
+  "typings": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "fonts"
+  ],
   "scripts": {
     "test": "jest --watch",
     "build": "npx npm-run-all --parallel create:*",
