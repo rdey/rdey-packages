@@ -75,37 +75,56 @@ const parseTextArgs = (inputArgs: Partial<TextArgs>, defaults: TextArgs): TextAr
   return result;
 };
 
-export const fontMixin = ({
-  key,
-  fontWeight = '400',
-  fontStyle = 'normal',
-  native = navigator.product === 'ReactNative' ? true : false,
-}: {
+type fontArgs = {
   key: string
   fontWeight?: string
   fontStyle?: string
   native?: boolean
-}) => {
+}
+
+export const getNativeFont = ({
+  key,
+  fontWeight = '400',
+  fontStyle = 'normal',
+}: fontArgs) => {
   const fontKeys = Object.keys(fontFamilies);
   invariant(
     fontKeys.includes(key),
     `you must provide a valid key, one of ${fontKeys.join(',')}`
   );
   invariant(
-    !native || ['normal', 'italic'].includes(fontStyle),
+    ['normal', 'italic'].includes(fontStyle),
     'font style must be one of normal or italic'
   );
   const font = normalizeGetFontFamily(key);
 
+  const weights = nativeFonts[font];
+  const fontWeightValue = normalizeFontWeight(fontWeight);
+  invariant(
+    weights[fontWeightValue],
+    `${fontWeight} is an invalid font weight for ${font}`
+  );
+  const fontFamily = weights[fontWeightValue][fontStyle].fontFamilyName;
+  return fontFamily;
+}
+
+export const fontMixin = ({
+  key,
+  fontWeight = '400',
+  fontStyle = 'normal',
+  native = navigator.product === 'ReactNative' ? true : false,
+}: fontArgs) => {
+  const fontKeys = Object.keys(fontFamilies);
+  invariant(
+    fontKeys.includes(key),
+    `you must provide a valid key, one of ${fontKeys.join(',')}`
+  );
+  const font = normalizeGetFontFamily(key);
+
   if (native) {
-    const weights = nativeFonts[font];
-    const fontWeightValue = normalizeFontWeight(fontWeight);
-    invariant(
-      weights[fontWeightValue],
-      `${fontWeight} is an invalid font weight for ${font}`
-    );
-    const fontFamily = weights[fontWeightValue][fontStyle].fontFamilyName;
-    return `font-family: ${fontFamily};`;
+    return getNativeFont({
+      key, fontWeight, fontStyle
+    });
   }
 
   if (font === 'primary') {
