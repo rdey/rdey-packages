@@ -22,18 +22,19 @@ jobs:
           command: yarn run export
       - persist_to_workspace:
           root: docs
-          paths: dist
+          paths:
+            - dist
   deploy-docs:
     docker:
       - image: circleci/node:10.15.0
     steps:
       - checkout
       - attach_workspace:
-          at: docs/dist
+          at: docs
       - run:
           name: Install and configure dependencies
           command: |
-            npm install -g --silent gh-pages@2.0.1
+            npm install -g gh-pages@2.0.1
             git config user.email "richard.samuelsson@redeye.se"
             git config user.name "Richard Samuelsson"
       - add_ssh_keys:
