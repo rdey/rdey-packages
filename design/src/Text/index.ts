@@ -79,7 +79,7 @@ export const fontMixin = ({
   key,
   fontWeight = '400',
   fontStyle = 'normal',
-  native = process.env.REACT_NATIVE ? true : false,
+  native = navigator.product === 'ReactNative' ? true : false,
 }: {
   key: string
   fontWeight?: string
