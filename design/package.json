@@ -26,6 +26,7 @@
     "react": "^16.7.0",
     "rxjs": "^6.4.0"
   },
+  "sideEffects": false,
   "devDependencies": {
     "@types/invariant": "^2.2.29",
     "@types/jest": "^24.0.11",

@@ -176,6 +176,7 @@ interface FontFileNames {
   [fontFamilyName: string]: string 
 }
 
+/* this is just the list you can find in fonts/index.js */
 export const nativeFontFamilyFilePathDirectory = Object.values(nativeFonts).reduce((a1, weights) => {
   return {
     ...a1,
