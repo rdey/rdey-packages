@@ -18,5 +18,10 @@
     "lodash": "^4.17.11",
     "react": "^16.6.3",
     "styled-components": "^4.1.2"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.11",
+    "react": "^16.6.3",
+    "styled-components": "^4.1.2"
   }
 }
