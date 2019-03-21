@@ -122,9 +122,10 @@ export const fontMixin = ({
   const font = normalizeGetFontFamily(key);
 
   if (native) {
-    return getNativeFont({
+    const fontFamily = getNativeFont({
       key, fontWeight, fontStyle
     });
+    return `font-family: ${fontFamily};`;
   }
 
   if (font === 'primary') {
