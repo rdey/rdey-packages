@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   'inter-black': require('@rdey/design/fonts/Inter-Black.ttf'),
   'inter-black-italic': require('@rdey/design/fonts/Inter-BlackItalic.ttf'),
   'inter-bold': require('@rdey/design/fonts/Inter-Bold.ttf'),
