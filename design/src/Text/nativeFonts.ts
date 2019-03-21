@@ -1,4 +1,4 @@
-const nativeFonts = {
+export const nativeFonts = {
   primary: {
     100: {
       normal: {
@@ -172,4 +172,9 @@ const nativeFonts = {
   }
 }};
 
-export default nativeFonts;
+export const fontFileNames = Object.values(nativeFonts).reduce((a1, weights) => {
+  return a1.concat(Object.values(weights).reduce((a2, fontStyles) => {
+    const fontFileNames = Object.values(fontStyles).map(({ fontFamilyName }) => fontFamilyName);
+    return a2.concat(fontFileNames)
+  }, [] as string[]))
+}, [] as string[]);

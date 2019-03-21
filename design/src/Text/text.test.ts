@@ -1,4 +1,5 @@
 import { fontMixin } from '.';
+import { fontFileNames } from './nativeFonts';
 
 describe('fontMixin', () => {
   test('defaults', () => {
@@ -31,5 +32,8 @@ describe('fontMixin', () => {
       native: true,
     });
     expect(mixin).toBe('font-family: inter-bold-italic;');
+  });
+  test('fontFileNames', () => {
+    console.log(fontFileNames);
   });
 });

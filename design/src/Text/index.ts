@@ -2,7 +2,7 @@ import invariant from 'invariant'
 import { colorMixin } from '../Colors';
 import { s } from '../utils/s';
 import { fontFamilies, fontWeights } from './fontConfig';
-import nativeFonts from './nativeFonts';
+import { nativeFonts } from './nativeFonts';
 import {
   normalizeFontSize,
   normalizeGetFontFamily,
