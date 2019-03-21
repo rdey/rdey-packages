@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import get from 'lodash/get';
-import has from 'lodash/has';
-import fromPairs from 'lodash/fromPairs';
+import { get, has, fromPairs } from 'lodash';
 import invariant from 'invariant';
 
 const femto = 0;
@@ -76,7 +74,7 @@ const setChildWidth = (index, css) => `
   `;
 
 const getGridCss = ({
- margin, columns, children, dynamic 
+  margin, columns, children, dynamic,
 }) => {
   const allChildren = [children].flat(Infinity);
 
@@ -96,7 +94,7 @@ const getGridCss = ({
   });
 
   /* start lastRowCalulations: make the last row span correctly */
-  const countWithSpans =    count + spans.reduce((total, span) => (span ? span - 1 : 0), 0);
+  const countWithSpans = count + spans.reduce((total, span) => (span ? span - 1 : 0), 0);
   let nthChildRowException = null;
   let remainder = countWithSpans % columns;
   if (countWithSpans < columns) {

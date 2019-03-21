@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import range from 'lodash/range';
+import { range } from 'lodash';
 import styled from 'styled-components';
 import { TABLET_MQ, TABLET_MIN_WIDTH } from '../../../atoms';
 import If from '../../../If';

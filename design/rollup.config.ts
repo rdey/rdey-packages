@@ -2,7 +2,7 @@
 import resolve from 'rollup-plugin-local-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import sourceMaps from 'rollup-plugin-sourcemaps';
-import camelCase from 'lodash/camelcase';
+import { camelCase } from 'lodash';
 import typescript from 'rollup-plugin-typescript2';
 import json from 'rollup-plugin-json';
 

@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  publish-npm:
     docker:
       - image: circleci/node:10.15.0
     steps:
@@ -9,3 +9,49 @@ jobs:
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run: yarn run ci:publish
       - run: ./publish.sh
+  build-docs:
+    docker:
+      - image: richi3/cci-node-rsync:latest
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - run:
+          name: Build docs
+          command: yarn run export
+      - persist_to_workspace:
+          root: docs/dist
+          paths: html
+  deploy-docs:
+    docker:
+      - image: circleci/node:10.15.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: docs/dist
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "richard.samuelsson@redeye.se"
+            git config user.name "Richard Samuelsson"
+      - add_ssh_keys:
+          fingerprints:
+            - "75:bf:87:3c:61:91:45:6f:93:31:65:46:37:77:41:6c"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/dist
+workflows:
+  version: 2
+  build:
+    jobs:
+      - publish-npm
+      - build-docs
+      - deploy-docs:
+          requires:
+            - publish-npm
+            - build-docs
+          filters:
+            branches:
+              only: master
