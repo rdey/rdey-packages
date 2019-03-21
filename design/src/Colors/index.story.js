@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import colors from '.';
+import { colors } from '@rdey/design';
 
 const Blocks = styled.div`
   display: flex;

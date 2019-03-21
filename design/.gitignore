@@ -1,3 +1,5 @@
 node_modules
 dist
 storybook-static
+docs
+.rpt2_cache

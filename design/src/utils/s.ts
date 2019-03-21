@@ -1,5 +1,5 @@
-const s = {
-  css: (...args) => {
+export const s = {
+  css: (...args: [TemplateStringsArray, ...any[]]) => {
     const parts = args.slice(1);
     const c = args[0].reduce((css, chunk, index) => {
       if (index > 0) {
@@ -10,4 +10,3 @@ const s = {
     return c;
   },
 };
-export default s;

@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
-import { primaryTextMixin, secondaryTextMixin } from '.';
+import { primaryTextMixin, secondaryTextMixin } from '@rdey/design';
 
 const RandomCompMainHeader = styled.h1`
   ${primaryTextMixin({ size: 24, color: 'primary0' })}

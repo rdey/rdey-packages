@@ -2,22 +2,67 @@
   "name": "@rdey/design",
   "version": "0.0.33",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/rdey-design.umd.js",
+  "module": "dist/rdey-design.es5.js",
   "jsnext:main": "lib.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c",
-    "storybook": "start-storybook -p 6006",
-    "start": "yarn run storybook",
-    "build-storybook": "build-storybook --output-dir ../docs/design --config-dir .storybook"
+    "test": "jest --watch",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts",
+    "start": "rollup -c rollup.config.ts -w",
+    "create:docs": "typedoc --out ../docs/dist/design --target es6 --theme minimal --mode file src"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts}"
+    ]
+  },
   "peerDependencies": {
     "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "react": "^16.7.0",
     "rxjs": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/invariant": "^2.2.29",
+    "@types/jest": "^24.0.11",
+    "@types/lodash": "^4.14.123",
+    "@types/node": "^11.11.4",
+    "jest": "^24.5.0",
+    "jest-config": "^24.5.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.20.1",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.3.4000"
   }
 }

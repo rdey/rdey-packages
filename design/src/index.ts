@@ -1,4 +1,4 @@
-import colors, { getColor, colorMixin } from './Colors';
+import { colors, getColor, colorMixin } from './Colors';
 import * as grid from './Grid';
 import {
   fontFamilies,
@@ -8,11 +8,10 @@ import {
   secondaryTextMixin,
 } from './Text';
 
-export colors from './Colors';
 export * from './Text';
 export * from './Colors';
 export * from './Grid';
-export s from './utils/s';
+export * from './utils/s';
 
 export const rdeyDesign = {
   colors,

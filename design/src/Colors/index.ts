@@ -1,4 +1,4 @@
-import fromPairs from 'lodash/fromPairs';
+import { fromPairs } from 'lodash';
 import invariant from 'invariant';
 
 const hslColors = {
@@ -63,7 +63,7 @@ const hslColors = {
   information: 'hsl(200, 56%, 72%)',
 };
 
-function hslToRgb(h, s, l) {
+function hslToRgb(h: number, s: number, l: number) {
   let r;
   let g;
   let b;
@@ -73,7 +73,7 @@ function hslToRgb(h, s, l) {
     g = l;
     b = l; // achromatic
   } else {
-    const hue2rgb = function hue2rgb(p, q, t) {
+    const hue2rgb = function hue2rgb(p: number, q: number, t: number) {
       if (t < 0) t += 1;
       if (t > 1) t -= 1;
       if (t < 1 / 6) return p + (q - p) * 6 * t;
@@ -92,14 +92,15 @@ function hslToRgb(h, s, l) {
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
 
-const colors = fromPairs(
+export const colors = fromPairs(
   Object.entries(hslColors).map(([key, hsl]) => {
-    const [h, s, l] = hsl
-      .match(/^hsl\((\d+),\s(\d+)%,\s(\d+)%\)/)
-      .slice(1)
-      .map((a) => Number(a));
+    const match = hsl.match(/^hsl\((\d+),\s(\d+)%,\s(\d+)%\)/);
+    if (!match) {
+      throw new Error('Invalid color ' + hsl);
+    }
+    const [h, s, l] = match.slice(1).map((a) => Number(a));
     const hslArr = [h / 360, s / 100, l / 100];
-    const rgbArr = hslToRgb(...hslArr);
+    const rgbArr = hslToRgb(hslArr[0], hslArr[1], hslArr[2]);
     const rgbCss = `rgb(${rgbArr[0]}, ${rgbArr[1]}, ${rgbArr[2]})`;
     return [
       key,
@@ -110,49 +111,53 @@ const colors = fromPairs(
         rgbCss,
       },
     ];
-  }),
+  })
 );
 
-export default colors;
+type getColorSig = { rgb?: number[], opacity?: number, color?: string };
 
-export const getColor = ({ rgb, opacity, color }) => {
+export const getColor = ({ rgb, opacity, color }: getColorSig) => {
   if (rgb) {
     invariant(Array.isArray(rgb), 'rgb must be an array');
     const validColor = Object.values(colors).find(
       ({ rgb: someRgb }) =>
-        someRgb[0] === rgb[0] && someRgb[0] === rgb[0] && someRgb[0] === rgb[0],
+        someRgb[0] === rgb[0] && someRgb[0] === rgb[0] && someRgb[0] === rgb[0]
     );
     invariant(
       validColor,
-      `The provided rgb value (${rgb.join(', ')}) is not in the design system!`,
+      `The provided rgb value (${rgb.join(', ')}) is not in the design system!`
     );
     if (typeof opacity === 'number') {
       invariant(
         opacity >= 0 && opacity <= 1,
-        'opacity must be a number between 0 and 1',
+        'opacity must be a number between 0 and 1'
       );
       return `rgba(${rgb.join(',')}, ${opacity})`;
     }
     return `rgb(${rgb.join(',')})`;
   }
 
+  if (!color) {
+    throw new Error('You must provide a color');
+  }
+
   invariant(
     Object.keys(colors).includes(color),
-    'You must provide a color that is included in the design system, ',
+    'You must provide a color that is included in the design system, '
   );
 
   if (typeof opacity === 'number') {
     const rgbVariant = colors[color].rgb;
     invariant(
       opacity >= 0 && opacity <= 1,
-      'opacity must be a number between 0 and 1',
+      'opacity must be a number between 0 and 1'
     );
     return `rgba(${rgbVariant.join(',')}, ${opacity})`;
   }
   return `${colors[color].hslCss}`;
 };
 
-export const colorMixin = (args) => {
+export const colorMixin = (args: getColorSig) => {
   const color = getColor(args);
   return `color: ${color};`;
 };

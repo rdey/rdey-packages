@@ -43,6 +43,8 @@ export const margins = {
   [VIEWPORT_1280]: 32,
   [VIEWPORT_1360]: 40,
   [VIEWPORT_1600]: 40,
+} as {
+  [key: string]: number
 };
 
 export const numberOfCols = {
@@ -58,6 +60,8 @@ export const numberOfCols = {
   [VIEWPORT_1280]: 12,
   [VIEWPORT_1360]: 12,
   [VIEWPORT_1600]: 12,
+} as {
+  [key: string]: number
 };
 
 export const columnWidths = {
@@ -95,9 +99,9 @@ export const getViewport = () => {
 
 export const VIEWPORT_CHANGE = 'VIEWPORT_CHANGE';
 
-export const viewportChange = (viewport) => {
+export const viewportChange = (viewport: number) => {
   invariant(
-    typeof viewport === 'number' && viewports.includes(viewport),
+    viewports.includes(viewport),
     'invalid viewport, must be included in viewport and of type string',
   );
   return {

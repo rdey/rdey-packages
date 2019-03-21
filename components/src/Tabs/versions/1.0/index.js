@@ -24,6 +24,6 @@ export const Tab = styled.button`
   }
 `;
 
-export const TabText = styled(otherCaption12.css('div'))`
+export const TabText = styled.div`
   white-space: nowrap;
 `;

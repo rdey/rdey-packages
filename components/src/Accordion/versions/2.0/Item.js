@@ -1,4 +1,4 @@
-import { base22, subtitlesSubtitle14 } from '@rdey/design';
+import { colors } from '@rdey/design';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -6,7 +6,7 @@ import { DESKTOP_MQ } from '../../../atoms';
 import Carret from '../../../Carret';
 
 const Wrapper = styled.div`
-  background: ${base22};
+  background: ${colors.base8.hslCss};
   margin-bottom: 0.5em;
   ${DESKTOP_MQ} {
     margin-bottom: 1em;
@@ -35,12 +35,6 @@ const Header = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 1em;
-`;
-const Title = styled(subtitlesSubtitle14.css('h2'))`
-  font-weight: bold;
-  margin: 0;
-  font-size: 0.875em;
-  color: rgb(229, 229, 229);
 `;
 
 const CarretContainer = styled.div`

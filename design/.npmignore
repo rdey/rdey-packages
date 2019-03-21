@@ -3,3 +3,5 @@ stories
 .eslintrc.js
 .prettierrc
 rollup.config.js
+.rpt2_cache
+docs
