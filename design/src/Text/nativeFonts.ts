@@ -172,9 +172,18 @@ export const nativeFonts = {
   }
 }};
 
-export const fontFileNames = Object.values(nativeFonts).reduce((a1, weights) => {
-  return a1.concat(Object.values(weights).reduce((a2, fontStyles) => {
-    const fontFileNames = Object.values(fontStyles).map(({ fontFamilyName }) => fontFamilyName);
-    return a2.concat(fontFileNames)
-  }, [] as string[]))
-}, [] as string[]);
+interface FontFileNames {
+  [fontFamilyName: string]: string 
+}
+
+export const nativeFontFamilyFilePathDirectory = Object.values(nativeFonts).reduce((a1, weights) => {
+  return {
+    ...a1,
+    ...(Object.values(weights).reduce((a2, fontStyles) => {
+      return {
+        ...a2,
+        ...Object.values(fontStyles).reduce((a3, { fontFamilyName, fileName }) => ({ ...a3, [fontFamilyName]: '@rdey/design/fonts/' + fileName }), {})
+      };
+    }, {} as FontFileNames))
+  };
+}, {} as FontFileNames);

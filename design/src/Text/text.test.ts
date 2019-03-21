@@ -1,5 +1,5 @@
 import { fontMixin } from '.';
-import { fontFileNames } from './nativeFonts';
+import { nativeFontFamilyFilePathDirectory } from './nativeFonts';
 
 describe('fontMixin', () => {
   test('defaults', () => {
@@ -33,7 +33,7 @@ describe('fontMixin', () => {
     });
     expect(mixin).toBe('font-family: inter-bold-italic;');
   });
-  test('fontFileNames', () => {
-    console.log(fontFileNames);
+  test('nativeFontFamilyFilePathDirectory', () => {
+    console.log(nativeFontFamilyFilePathDirectory);
   });
 });
