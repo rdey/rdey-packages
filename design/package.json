@@ -7,7 +7,7 @@
   "jsnext:main": "lib.js",
   "scripts": {
     "test": "jest --watch",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts",
+    "build": "npx tsc --module commonjs && rollup -c rollup.config.ts",
     "start": "rollup -c rollup.config.ts -w",
     "create:docs": "typedoc --out ../docs/dist/design --target es6 --theme minimal --mode file src"
   },
