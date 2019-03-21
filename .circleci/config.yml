@@ -34,6 +34,7 @@ jobs:
       - run:
           name: Install and configure dependencies
           command: |
+            sudo npm install -g gh-pages@2.0.1
             git config user.email "richard.samuelsson@redeye.se"
             git config user.name "Richard Samuelsson"
       - add_ssh_keys:
@@ -41,7 +42,7 @@ jobs:
             - "70:24:5e:86:55:f6:cf:56:ac:a4:a3:82:e1:47:37:56"
       - run:
           name: Deploy docs to gh-pages branch
-          command: npx gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/dist
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/dist
 workflows:
   version: 2
   build:
