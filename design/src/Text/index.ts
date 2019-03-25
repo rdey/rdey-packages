@@ -121,6 +121,8 @@ export const fontMixin = ({
   );
   const font = normalizeGetFontFamily(key);
 
+  const fontAdditionalStyle = `font-weight: ${fontWeight}; font-style: ${fontStyle};`;
+
   if (native) {
     const fontFamily = getNativeFont({
       key, fontWeight, fontStyle
@@ -129,9 +131,15 @@ export const fontMixin = ({
   }
 
   if (font === 'primary') {
-    return inter;
+    return `
+      ${inter};
+      ${fontAdditionalStyle};
+    `;
   }
-  return `font-family: ${fontFamilies.secondary};`;
+  return `
+    font-family: ${fontFamilies.secondary};
+    ${fontAdditionalStyle};
+  `;
 };
 
 
@@ -150,6 +158,7 @@ const primaryDefaults = {
   color: 'primary4',
   opacity: '1',
   fontWeight: '400',
+  /* font style will just be the fontMixin default (normal) */
 };
 
 
@@ -173,6 +182,7 @@ const secondaryDefaults = {
   color: 'primary4',
   opacity: '1',
   fontWeight: '200'
+  /* font style will just be the fontMixin default (normal) */
 };
 
 export const secondaryTextMixin = (input: textMixinInputType = secondaryDefaults) => {
