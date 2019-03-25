@@ -161,6 +161,13 @@ const primaryDefaults = {
   /* font style will just be the fontMixin default (normal) */
 };
 
+const getFontOnParsedArgs = (parsedArgs: TextArgs) => {
+  return `
+    ${fontMixin({ key: parsedArgs.fontFamily, fontWeight: parsedArgs.fontWeight.toString() })};
+    ${colorMixin({ color: parsedArgs.color, opacity: Number(parsedArgs.opacity) })};
+  `
+};
+
 
 export const primaryTextMixin = (input: textMixinInputType = primaryDefaults) => {
   const p: TextArgs = parseTextArgs(
@@ -169,10 +176,8 @@ export const primaryTextMixin = (input: textMixinInputType = primaryDefaults) =>
   );
 
   return s.css`
-    ${fontMixin({ key: p.fontFamily, fontWeight: p.fontWeight.toString() })};
-    ${colorMixin({ color: p.color, opacity: Number(p.opacity) })};
+    ${getFontOnParsedArgs(p)};
     font-size: ${p.fontSize}px;
-    font-weight: 400;
   `;
 };
 
@@ -192,8 +197,7 @@ export const secondaryTextMixin = (input: textMixinInputType = secondaryDefaults
   );
 
   return s.css`
-    ${fontMixin({ key: p.fontFamily })};
-    ${colorMixin({ color: p.color, opacity: Number(p.opacity) })};
+    ${getFontOnParsedArgs(p)};
     font-size: ${p.fontSize}px;
     text-transform: uppercase;
   `;
