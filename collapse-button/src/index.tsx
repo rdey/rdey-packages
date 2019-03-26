@@ -28,6 +28,8 @@ type StyledProps = {
   styling: string,
 };
 
+const overlap = 0.75;
+
 const getSizes = ({ size }: Theme) => {
   const rotatedWidth = Math.sqrt(2 * (size / 2) ** 2) * 2;
   const normalizeWidth = rotatedWidth / 2 - size / 2;
@@ -67,7 +69,7 @@ const getStyle = ({
     }
     :last-child {
       transform: translate(${normalizeWidth +
-        0.75 * rotatedWidth}px, ${normalizeWidth + marginTop}px) rotate(${180 +
+        overlap * rotatedWidth}px, ${normalizeWidth + marginTop}px) rotate(${180 +
     45}deg);
       border-bottom-width: ${borderWidth}px;
       border-right-width: ${borderWidth}px;
@@ -80,7 +82,7 @@ const getStyle = ({
         ? `
     :first-child {
       transform: translate(${normalizeWidth +
-        0.75 * rotatedWidth}px, ${normalizeWidth + marginTop}px) rotate(${45 +
+        overlap * rotatedWidth}px, ${normalizeWidth + marginTop}px) rotate(${45 +
             180}deg);
     }
     :last-child {
@@ -102,10 +104,22 @@ const Box =
   ${({ styling }) => styling};
 `;
 
-const BoxContainer = styled.div`
+const getContainerSize = ({ theme }: StyledProps) => {
+  const size = getSizes(theme).rotatedWidth;
+  return `
+    min-width: ${size * 2 - (1 - overlap) * size}px;
+    max-width: ${size * 2 - (1 - overlap) * size}px;
+    min-height: ${size}px;
+    max-height: ${size}px;
+  `;
+};
+const BoxContainer =
+  styled.div <
+  { theme: Theme } >
+  `
   display: flex;
-  height: ${({ theme }) => getSizes(theme).rotatedWidth}px;
   position: relative;
+  ${getContainerSize};
 `;
 
 class CollapseButton extends React.PureComponent<Props> {
@@ -120,7 +134,9 @@ class CollapseButton extends React.PureComponent<Props> {
       colorRight = '#000000',
     } = this.props;
     return (
-      <ThemeProvider theme={{ active, size, borderWidth, colorLeft, colorRight }}>
+      <ThemeProvider
+        theme={{ active, size, borderWidth, colorLeft, colorRight }}
+      >
         <BoxContainer>
           <Box styling={cssLeft} />
           <Box styling={cssRight} />
