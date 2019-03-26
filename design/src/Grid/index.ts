@@ -78,8 +78,8 @@ export const columnWidths = {
   ),
 };
 
-export const getViewport = () => {
-  const w = (window && window.innerWidth) || 1280;
+export const getViewport = (viewport: number) => {
+  const w = viewport || (window && window.innerWidth) || 1280;
 
   const maxIndex = viewports.length - 1;
 

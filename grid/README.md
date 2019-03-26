@@ -1,38 +1,31 @@
 # @rdey/grid
 
-A grid component. Has multiple break points
+> A grid component. Has multiple break points
 
+[![NPM](https://img.shields.io/npm/v/@rdey/grid.svg)](https://www.npmjs.com/package/@rdey/grid) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-| Name | WindowSize (px) |
--------|-------------
-| femto | 0 |
-| pico | 360 |
-| nano | 400 |
-| micro | 480 |
-| milli | 600 |
-| one | 720 |
-| kilo | 840 |
-| mega | 960 |
-| giga | 1024 |
-| tera | 1280 |
-| peta | 1360 |
+## Install
 
-Usage:
-```jsx
-<Grid>
-  {range(12).map((ii) => (
-    <Box key={ii} />
-  ))}
-</Grid>
+```bash
+npm install --save @rdey/grid
 ```
 
-To specify the margin size and the number of column at a specific break point use:
+## Usage
 
-```jsx
-<Grid kilo={{ margin: 1, columns: 12 }}>
-  {range(12).map((ii) => (
-    <Box key={ii} />
-  ))}
-</Grid>
+```tsx
+import * as React from 'react'
+
+import MyComponent from '@rdey/grid'
+
+class Example extends React.Component {
+  render () {
+    return (
+      <MyComponent />
+    )
+  }
+}
 ```
 
+## License
+
+MIT © [ricsam](https://github.com/ricsam)

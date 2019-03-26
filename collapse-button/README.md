@@ -2,7 +2,7 @@
 
 > A button indicating a collapse of e.g. an accordion
 
-[![NPM](https://img.shields.io/npm/v/collapse-button.svg)](https://www.npmjs.com/package/collapse-button) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@rdey/collapse-button.svg)](https://www.npmjs.com/package/collapse-button) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
