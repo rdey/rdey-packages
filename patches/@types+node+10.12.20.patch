@@ -1,0 +1,17 @@
+diff --git a/node_modules/@types/node/index.d.ts b/node_modules/@types/node/index.d.ts
+index ffa98c3..0c62a3c 100644
+--- a/node_modules/@types/node/index.d.ts
++++ b/node_modules/@types/node/index.d.ts
+@@ -7907,9 +7907,9 @@ declare module "timers" {
+     function clearImmediate(immediateId: NodeJS.Immediate): void;
+ }
+ 
+-declare module "console" {
+-    export = console;
+-}
++// declare module "console" {
++//     export = console;
++// }
+ 
+ /**
+  * Async Hooks module: https://nodejs.org/api/async_hooks.html

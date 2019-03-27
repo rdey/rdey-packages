@@ -24,7 +24,8 @@
     "publish:design": "cd ./design && npm publish",
     "prepareForPublish": "./linkForDev.sh && run-p bump:*",
     "commit": "git-cz",
-    "ci:publish": "node ci/publish.js"
+    "ci:publish": "node ci/publish.js",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -67,5 +68,7 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "patch-package": "^6.0.7"
+  }
 }
