@@ -10,8 +10,6 @@ import '../../components/src/icons/Close/index.story';
 import '../../components/src/LoadingSpinner/index.story';
 import '../../components/src/Tabs/index.story';
 
-import '../../grid/index.story';
-
 const RandomCompMainHeader = styled.h1`
   ${primaryTextMixin({ size: 24, color: 'primary0' })}
 `;
