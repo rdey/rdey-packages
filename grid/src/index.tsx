@@ -5,7 +5,6 @@
 import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { getViewport, numberOfCols, margins } from '@rdey/design';
-// import console = require('console');
 
 type Position = {
   x: number;
@@ -25,6 +24,7 @@ type Items = Array<{ key: string; Cell: React.FC }>;
 
 type Props = {
   items: Items;
+  viewport: number
 };
 
 type Action = {
@@ -57,17 +57,10 @@ const Row = styled.div<{ emptySpace: number }>`
 const TRANSITION_DURATION: number = 5000;
 
 const CellWrapper = styled.div<
-  { first: boolean; last: boolean; shouldHaveTransition: boolean } & Position
+  { first: boolean; last: boolean; }
 >`
 
-  ${({ shouldHaveTransition }) =>
-    shouldHaveTransition &&
-    `
-    transition: transform ${TRANSITION_DURATION}ms ease;
-  `}
-
-
-  ${({ theme: { viewport }, first, last }) => {
+ ${({ theme: { viewport }, first, last }) => {
     const columns = numberOfCols[viewport];
     const margin = margins[viewport];
     const baseWidth = `calc(${100 / columns}% + ${margin / columns}px`;
@@ -80,9 +73,7 @@ const CellWrapper = styled.div<
       ${!last ? `margin-right: ${margin}px` : ''}
     `;
   }}
-  ${({ x, y, z }) => {
-    return `transform: translate3d(${[x, y, z].join('px,')}px);`;
-  }}
+
 `;
 
 function getRows<T>(arr: T[], rowSize: number): T[][] {
@@ -168,8 +159,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-const Grid = ({ items }: Props) => {
-  const viewport = getViewport();
+const Grid = ({ items, viewport = getViewport() }: Props) => {
   const cols = numberOfCols[viewport];
   const [{ positions, hash, animate }, dispatch] = React.useReducer(
     reducer,
@@ -187,6 +177,38 @@ const Grid = ({ items }: Props) => {
     currentItems: items,
     previousItems: [],
   });
+
+  const rows = (
+    itemsToRender: Items,
+    ref: (key: string, el: HTMLElement | null) => void,
+    translateMatrix = positions
+  ) =>
+    getRows(itemsToRender, cols).map((rowItems, index) => {
+      return (
+        <Row emptySpace={cols - rowItems.length} key={index}>
+          {rowItems.map(({ Cell, key }, index) => {
+            const { x, y, z } = translateMatrix[key];
+            const style: React.CSSProperties = {
+              transform: `translate3d(${[x, y, z].join('px,')}px)`,
+            };
+            if (animate) {
+              style.transition = `transform ${TRANSITION_DURATION}ms ease`;
+            }
+            return (
+              <CellWrapper
+                key={key}
+                first={index === 0}
+                last={index === rowItems.length - 1}
+                ref={(el) => ref(key, el)}
+                style={style}
+              >
+                <Cell />
+              </CellWrapper>
+            );
+          })}
+        </Row>
+      );
+    });
 
   const newHash = getItemsHash(items);
 
@@ -223,31 +245,7 @@ const Grid = ({ items }: Props) => {
     return clear;
   }, [animate, newHash]);
 
-  const rows = (
-    itemsToRender: Items,
-    ref: (key: string, el: HTMLElement | null) => void,
-    translateMatrix = positions
-  ) =>
-    getRows(itemsToRender, cols).map((rowItems, index) => {
-      return (
-        <Row emptySpace={cols - rowItems.length} key={index}>
-          {rowItems.map(({ Cell, key }, index) => {
-            return (
-              <CellWrapper
-                key={key}
-                first={index === 0}
-                last={index === rowItems.length - 1}
-                {...translateMatrix[key]}
-                ref={(el) => ref(key, el)}
-                shouldHaveTransition={animate}
-              >
-                <Cell />
-              </CellWrapper>
-            );
-          })}
-        </Row>
-      );
-    });
+
 
   let renderItems = refs.current.currentItems;
   let measureItems = refs.current.currentItems;

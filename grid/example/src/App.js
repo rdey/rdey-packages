@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { range, shuffle } from 'lodash';
 import GridBase from '@rdey/grid';
+import { viewportEpic, getViewport } from '@rdey/design';
 
 const Grid = styled(GridBase)`
   border: 1px solid black;
@@ -30,7 +31,20 @@ const numItems = 44;
 export default class App extends Component {
   state = {
     items: range(numItems),
+    viewport: getViewport(),
   };
+
+  componentDidMount() {
+    this.subscription = viewportEpic().subscribe(({ viewport }) => {
+      this.setState({ viewport });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   shuffle = () => {
     this.setState({
@@ -39,11 +53,12 @@ export default class App extends Component {
   };
 
   render() {
+    const { viewport } = this.state;
     return (
       <Fragment>
         <button onClick={this.shuffle}>Shuffle</button>
         <Grid
-          dynamic
+          viewport={viewport}
           items={this.state.items.map((ii) => ({
             Cell: () => <Box key={ii}>{ii}</Box>,
             key: ii,
