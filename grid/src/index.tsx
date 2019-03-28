@@ -3,8 +3,8 @@
  */
 
 import * as React from 'react';
+import * as rdeyDesign from '@rdey/design';
 import styled, { ThemeProvider } from 'styled-components';
-import { getViewport, numberOfCols, margins } from '@rdey/design';
 
 type Position = {
   x: number;
@@ -24,7 +24,13 @@ type Items = Array<{ key: string; Cell: React.FC }>;
 
 type Props = {
   items: Items;
-  viewport: number
+  viewport: number;
+  numberOfCols: {
+    [key: string]: number;
+  };
+  margins: {
+    [key: string]: number;
+  };
 };
 
 type Action = {
@@ -56,11 +62,8 @@ const Row = styled.div<{ emptySpace: number }>`
 
 const TRANSITION_DURATION: number = 5000;
 
-const CellWrapper = styled.div<
-  { first: boolean; last: boolean; }
->`
-
- ${({ theme: { viewport }, first, last }) => {
+const CellWrapper = styled.div<{ first: boolean; last: boolean }>`
+  ${({ theme: { viewport, numberOfCols, margins }, first, last }) => {
     const columns = numberOfCols[viewport];
     const margin = margins[viewport];
     const baseWidth = `calc(${100 / columns}% + ${margin / columns}px`;
@@ -73,7 +76,6 @@ const CellWrapper = styled.div<
       ${!last ? `margin-right: ${margin}px` : ''}
     `;
   }}
-
 `;
 
 function getRows<T>(arr: T[], rowSize: number): T[][] {
@@ -159,7 +161,12 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-const Grid = ({ items, viewport = getViewport() }: Props) => {
+const Grid = ({
+  items,
+  viewport = rdeyDesign.getViewport(),
+  numberOfCols = rdeyDesign.numberOfCols,
+  margins = rdeyDesign.margins,
+}: Props) => {
   const cols = numberOfCols[viewport];
   const [{ positions, hash, animate }, dispatch] = React.useReducer(
     reducer,
@@ -245,8 +252,6 @@ const Grid = ({ items, viewport = getViewport() }: Props) => {
     return clear;
   }, [animate, newHash]);
 
-
-
   let renderItems = refs.current.currentItems;
   let measureItems = refs.current.currentItems;
   if (newGrid || animate) {
@@ -275,7 +280,7 @@ const Grid = ({ items, viewport = getViewport() }: Props) => {
   }
 
   return (
-    <ThemeProvider theme={{ viewport }}>
+    <ThemeProvider theme={{ viewport, numberOfCols, margins }}>
       <OuterBound>
         <Wrapper>
           {rows(
