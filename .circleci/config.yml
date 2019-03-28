@@ -40,7 +40,7 @@ jobs:
             - docs/node_modules
             - design/node_modules
             - components/node_modules
-          key: docs-deps-{{ checksum "docs/package.json" }}-{{ checksum "design/package.json" }}-{{{{ checksum "components/package.json" }}}}
+          key: docs-deps-{{ checksum "docs/package.json" }}-{{ checksum "design/package.json" }}-{{ checksum "components/package.json" }}
       - run:
           name: Link design, components to the root node_modules
           command: ./linkForDev.sh
