@@ -29,9 +29,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - docs-deps-{{ checksum "package.json" }}
-          - docs-deps
+          keys:
+            - docs-deps-{{ checksum "package.json" }}
+            - docs-deps 
       - run:
           name: Install dependencies for the storybook and for typedocs # (these packages are referenced by their name e.g. @rdey/packages and must thus be build and linked)
           command:
