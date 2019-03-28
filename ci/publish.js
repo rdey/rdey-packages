@@ -29,6 +29,7 @@ execa('git', ['log', '-1', '--pretty=%B'])
         return [
           // `npm set registry=https://registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`,
           `cd ${cwd}`,
+          'yarn install',
           'npm publish --access public',
         ].join('\n');
       })
@@ -56,20 +57,16 @@ execa('git', ['log', '-1', '--pretty=%B'])
       await awaitAndPipe('npm', ['run', 'build'], {
         cwd,
       })()
-        .then(
-          awaitAndPipe(
+        .then(awaitAndPipe(
             'npm',
             ['version', prevVersion, '--allow-same-version'],
             {
               cwd,
             },
-          ),
-        )
-        .then(
-          awaitAndPipe('npm', ['version', 'patch'], {
+          ),)
+        .then(awaitAndPipe('npm', ['version', 'patch'], {
             cwd,
-          }),
-        );
+          }),);
     }
   })
   .catch((err) => {

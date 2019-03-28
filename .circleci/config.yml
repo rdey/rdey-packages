@@ -5,21 +5,52 @@ jobs:
       - image: circleci/node:10.15.0
     steps:
       - checkout # check out the code in the project directory
+      - restore_cache:
+          keys:
+            - root-deps-{{ checksum "package.json" }}
+            - root-deps
       - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: root-deps-{{ checksum "package.json" }}      
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      # Creates a bash file with installlation instruction depending on the latest commit message
       - run: yarn run ci:publish
+      # Run the bash file
+      # Content of the bash file (for each package that should be published):
+      ### cd ${package_name}
+      ### yarn install
+      ### npm publish --access public
       - run: ./publish.sh
   build-docs:
     docker:
       - image: richi3/cci-node-rsync:latest
     steps:
       - checkout
+      - restore_cache:
+        keys:
+          - docs-deps-{{ checksum "package.json" }}
+          - docs-deps
       - run:
-          name: Install dependencies
-          command: yarn install
+          name: Install dependencies for the storybook and for typedocs # (these packages are referenced by their name e.g. @rdey/packages and must thus be build and linked)
+          command:
+            - yarn install --cwd=design
+            - yarn install --cwd=components
+            - yarn install --cwd=docs
+      - save_cache:
+          paths:
+            - node_modules
+          key: docs-deps-{{ checksum "docs/package.json" }}-{{ checksum "design/package.json" }}-{{{{ checksum "components/package.json" }}}}
       - run:
-          name: Build docs
-          command: yarn run export
+          name: Link design, components to the root node_modules
+          command: ./linkForDev.sh
+      - run:
+          name: Build storybook
+          command: yarn run --cwd=./docs build-storybook
+      - run:
+          name: Build design typedocs # (will build to ./docs/dist/design)
+          command: yarn run --cwd=./design create:docs
       - persist_to_workspace:
           root: docs
           paths:

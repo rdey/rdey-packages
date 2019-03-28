@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c",
+    "build": "yarn run build-storybook",
     "prepublishOnly": "yarn run build",
     "storybook": "start-storybook -p 6006",
     "start": "yarn run storybook",

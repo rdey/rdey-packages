@@ -14,12 +14,15 @@ module.exports = (storybookBaseConfig) => {
     return storybookBaseConfig;
   }
   scopes.forEach((scope) => {
-    pushArray(rule.include, [
-      resolve(__dirname, '../../' + scope),
-    ]);
-    pushArray(rule.exclude, [
-      resolve(__dirname, '../../' + scope + '/node_modules'),
-    ]);
+    rule.include.push(resolve(__dirname, '../../' + scope));
+    rule.exclude.push(resolve(__dirname, '../../' + scope + '/node_modules'));
+    storybookBaseConfig.resolve.modules.push(
+      resolve(__dirname, '../../' + scope + '/node_modules')
+    );
   });
+
+  storybookBaseConfig.resolve.modules.push(
+    resolve(__dirname, '../node_modules')
+  );
   return storybookBaseConfig;
 };

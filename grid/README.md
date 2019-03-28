@@ -15,12 +15,13 @@ npm install --save @rdey/grid
 ```tsx
 import * as React from 'react'
 
-import MyComponent from '@rdey/grid'
+import Grid from '@rdey/grid'
 
 class Example extends React.Component {
   render () {
+    const viewport = 1024;
     return (
-      <MyComponent />
+      <Grid viewport={viewport} margins={{ 1024: 32 }} numberOfCols={{ 1024: 8 }} />
     )
   }
 }

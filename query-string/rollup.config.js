@@ -1,8 +1,7 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import path from 'path';
 
-const include = /.*/
+const include = /.*/;
 
 export default {
   input: 'index.js',
@@ -18,7 +17,5 @@ export default {
       include,
     }),
   ],
-  external: () => {
-    return false;
-  },
+  external: () => false,
 };
