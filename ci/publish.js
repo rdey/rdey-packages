@@ -54,21 +54,19 @@ execa('git', ['log', '-1', '--pretty=%B'])
         },
       )();
 
-      await awaitAndPipe('npm', ['run', 'build'], {
-        cwd,
-      })()
-        .then(awaitAndPipe(
-            'npm',
-            ['version', prevVersion, '--allow-same-version'],
-            {
-              cwd,
-            },
-          ),)
-        .then(awaitAndPipe('npm', ['version', 'patch'], {
-            cwd,
-          }),);
+      await awaitAndPipe(
+        'npm',
+        ['version', prevVersion, '--allow-same-version'],
+        {
+          cwd,
+        },
+      )().then(
+        awaitAndPipe('npm', ['version', 'patch'], {
+          cwd,
+        }),
+      );
     }
   })
-  .catch((err) => {
+  .catch(() => {
     process.exit(1);
   });
