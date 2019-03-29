@@ -27,10 +27,12 @@ const Container = styled.div`
 `;
 
 const numItems = 44;
+const initialSubsetLength = 2;
 
 export default class App extends Component {
   state = {
     items: range(numItems),
+    subset: range(2),
     viewport: getViewport(),
   };
 
@@ -52,6 +54,21 @@ export default class App extends Component {
     });
   };
 
+  toggleSubset = () => {
+    this.setState((prevState) => {
+      return {
+        subset:
+          prevState.subset.length === initialSubsetLength
+            ? [
+                ...range(2),
+                ...shuffle(range(12)).map((i) => i + 24),
+                ...range(2).map((i) => i + 50),
+              ]
+            : range(initialSubsetLength),
+      };
+    });
+  }
+
   render() {
     const { viewport } = this.state;
     return (
@@ -63,6 +80,16 @@ export default class App extends Component {
             Cell: () => <Box key={ii}>{ii}</Box>,
             key: ii,
           }))}
+          duration={5000}
+        />
+        <button onClick={this.toggleSubset}>Toggle subset</button>
+        <Grid
+          viewport={viewport}
+          items={this.state.subset.map((ii) => ({
+            Cell: () => <Box key={ii}>{ii}</Box>,
+            key: ii,
+          }))}
+          duration={3000}
         />
       </Fragment>
     );
