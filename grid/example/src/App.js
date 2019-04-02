@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { range, shuffle } from 'lodash';
 import GridBase from '@rdey/grid';
-import { viewportEpic, getViewport } from '@rdey/design';
+import { viewportEpic, getViewport, margins, numberOfCols } from '@rdey/design';
 
 const Grid = styled(GridBase)`
   border: 1px solid black;
@@ -28,6 +28,42 @@ const Container = styled.div`
 
 const numItems = 44;
 const initialSubsetLength = 2;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const CellWrapper = styled.div`
+  ${({ theme: { viewport, numberOfCols, margins }, first, last }) => {
+    const columns = numberOfCols[viewport];
+    const margin = margins[viewport];
+    const baseWidth = `calc(${100 / columns}% + ${margin / columns}px`;
+    const width = `${baseWidth} - ${(margin * columns) /
+      columns}px - ${(margin * 2) / columns}px)`;
+    return `
+      min-width: ${width};
+      max-width: ${width};
+      ${first ? `margin-left: ${margin}px` : ''}
+      ${!last ? `margin-right: ${margin}px` : ''}
+    `;
+  }}
+`;
+
+function getRows(arr, rowSize: number) {
+  if (arr.length < rowSize) {
+    return [arr];
+  }
+  const rows = [[]];
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (i % rowSize === 0 && i > 0) {
+      rows.push([]);
+    }
+    rows[rows.length - 1].push(arr[i]);
+  }
+  return rows;
+}
 
 export default class App extends Component {
   state = {
@@ -67,13 +103,17 @@ export default class App extends Component {
             : range(initialSubsetLength),
       };
     });
-  }
+  };
 
   render() {
     const { viewport } = this.state;
+    const cols = numberOfCols[viewport];
     return (
-      <Fragment>
-        <button onClick={this.shuffle}>Shuffle</button>
+      <ThemeProvider
+        theme={{ viewport, margins: margins, numberOfCols: numberOfCols }}
+      >
+        <Fragment>
+          {/* <button onClick={this.shuffle}>Shuffle</button>
         <Grid
           viewport={viewport}
           items={this.state.items.map((ii) => ({
@@ -81,17 +121,39 @@ export default class App extends Component {
             key: ii,
           }))}
           duration={5000}
-        />
-        <button onClick={this.toggleSubset}>Toggle subset</button>
-        <Grid
-          viewport={viewport}
-          items={this.state.subset.map((ii) => ({
-            Cell: () => <Box key={ii}>{ii}</Box>,
-            key: ii,
-          }))}
-          duration={3000}
-        />
-      </Fragment>
+        /> */}
+          <button onClick={this.toggleSubset}>Toggle subset</button>
+          <Grid
+            items={this.state.subset}
+            duration={5000}
+            renderCells={(items) => {
+              /* items = { key, ref, style }[] */
+              return getRows(items, cols).map((rowItems, index) => {
+                const rowKey = rowItems.map(({ key }) => key).join(',');
+                return (
+                  <Row emptySpace={cols - rowItems.length} key={rowKey}>
+                    {rowItems.map(({ ref, style, key }, index) => {
+                      return (
+                        <CellWrapper
+                          key={key}
+                          first={index === 0}
+                          last={
+                            index === rowItems.length - 1
+                          }
+                          ref={ref}
+                          style={style}
+                        >
+                          <Box>{key}</Box>
+                        </CellWrapper>
+                      );
+                    })}
+                  </Row>
+                );
+              });
+            }}
+          />
+        </Fragment>
+      </ThemeProvider>
     );
   }
 }

@@ -3,9 +3,7 @@
  */
 
 import * as React from 'react';
-import * as rdeyDesign from '@rdey/design';
-import { uniqBy, sortBy } from 'lodash';
-import styled, { ThemeProvider } from 'styled-components';
+import uniq from 'lodash.uniq';
 
 type Position = {
   x: number;
@@ -17,96 +15,82 @@ type Positions = {
 };
 type State = {
   hash: null | string;
-  animate: boolean;
   mount: boolean;
+  commit: boolean;
+  animate: boolean;
   firstRender: boolean;
 };
 
-type UnparsedItems = Array<{ key: string | number | boolean; Cell: React.FC }>;
-type Item = { key: string; Cell: React.FC };
+type UnparsedItems = Array<string | number | boolean>;
+type Item = string;
 type Items = Array<Item>;
 
 type Props = {
   items: UnparsedItems;
-  viewport: number;
-  numberOfCols: {
-    [key: string]: number;
-  };
-  margins: {
-    [key: string]: number;
-  };
   duration: number;
+  renderCells: (
+    items: {
+      key: string;
+      ref?: (el: HTMLElement | null) => void;
+      style?: React.CSSProperties;
+    }[]
+  ) => React.ReactNode;
 };
 
 type Action = {
-  type: 'SET_HASH' | 'STOP_ANIMATION' | 'ANIMATE';
-  hash?: string;
+  type: 'SET_HASH' | 'STOP_ANIMATION' | 'ANIMATE' | 'COMMIT';
+  hash?: string | null;
   key?: string;
   el?: HTMLElement | null;
 };
 
-const OuterBound = styled.div`
-  position: relative;
-`;
+const OuterBound = React.memo(
+  React.forwardRef(
+    (props: { children: React.ReactNode }, ref?: React.Ref<any>) => (
+      <div style={{ position: 'relative' }} {...props} ref={ref} />
+    )
+  )
+);
 
-const Wrapper = styled.div``;
+const Wrapper = React.memo(
+  React.forwardRef(
+    (props: { children: React.ReactNode, style?: React.CSSProperties }, ref?: React.Ref<any>) => (
+      <div {...props} ref={ref} />
+    )
+  )
+);
 
-const AbsoluteWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  visibility: hidden;
-  z-index: -1;
-`;
-
-const Row = styled.div<{ emptySpace: number }>`
-  display: flex;
-  justify-content: flex-start;
-`;
-
-const CellWrapper = styled.div<{ first: boolean; last: boolean }>`
-  ${({ theme: { viewport, numberOfCols, margins }, first, last }) => {
-    const columns = numberOfCols[viewport];
-    const margin = margins[viewport];
-    const baseWidth = `calc(${100 / columns}% + ${margin / columns}px`;
-    const width = `${baseWidth} - ${(margin * columns) /
-      columns}px - ${(margin * 2) / columns}px)`;
-    return `
-      min-width: ${width};
-      max-width: ${width};
-      ${first ? `margin-left: ${margin}px` : ''}
-      ${!last ? `margin-right: ${margin}px` : ''}
-    `;
-  }}
-`;
-
-function getRows<T>(arr: T[], rowSize: number): T[][] {
-  if (arr.length < rowSize) {
-    return [arr];
-  }
-  const rows: T[][] = [[]];
-
-  for (let i = 0; i < arr.length; i += 1) {
-    if (i % rowSize === 0 && i > 0) {
-      rows.push([]);
-    }
-    rows[rows.length - 1].push(arr[i]);
-  }
-  return rows;
-}
+const AbsoluteWrapper = React.memo(
+  React.forwardRef(
+    (props: { children: React.ReactNode }, ref?: React.Ref<any>) => (
+      <div
+        style={{
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          right: '0',
+          visibility: 'hidden',
+          zIndex: -1,
+        }}
+        {...props}
+        ref={ref}
+      />
+    )
+  )
+);
 
 function init(items: Items): State {
   return {
     hash: null,
-    animate: false,
     mount: false,
+    commit: false,
+    animate: false,
     firstRender: true,
   };
 }
 
-const getItemsHash = (items: Items) => {
-  return items.map(({ key }) => key).join(',');
+const getItemsHash = (items: Items): string => {
+  return items.join(',');
 };
 
 function reducer(state: State, action: Action): State {
@@ -116,7 +100,7 @@ function reducer(state: State, action: Action): State {
         throw new Error();
       }
       let mount = true;
-      if (state.firstRender || state.animate) {
+      if (state.firstRender || state.animate || state.mount || state.commit) {
         mount = false;
       }
       return {
@@ -125,11 +109,17 @@ function reducer(state: State, action: Action): State {
         firstRender: false,
         mount,
       };
+    case 'COMMIT':
+      return {
+        ...state,
+        commit: true,
+        mount: false,
+      };
     case 'ANIMATE':
       return {
         ...state,
         animate: true,
-        mount: false,
+        commit: false,
       };
     case 'STOP_ANIMATION':
       return {
@@ -149,61 +139,37 @@ const getConfig = ({
   currentItems: Items;
   nextItems: Items;
 }) => {
-  const currentKeys = currentItems.map(({ key }) => key);
-  const nextKeys = nextItems.map(({ key }) => key);
-
-  const addedKeys = nextKeys.filter((currentKey) => {
-    return !currentKeys.includes(currentKey);
+  const addedItems = nextItems.filter((currentKey) => {
+    return !currentItems.includes(currentKey);
   });
-  const removedKeys = currentKeys.filter((previousKey) => {
-    return !nextKeys.includes(previousKey);
+  const removedItems = currentItems.filter((previousKey) => {
+    return !nextItems.includes(previousKey);
   });
 
-  const shuffledKeys = nextKeys.filter((currentKey, index) => {
+  const shuffledItems = nextItems.filter((currentKey, index) => {
     return (
-      !addedKeys.includes(currentKey) &&
-      !removedKeys.includes(currentKey) &&
-      index !== currentKeys.indexOf(currentKey)
+      !addedItems.includes(currentKey) &&
+      !removedItems.includes(currentKey) &&
+      index !== currentItems.indexOf(currentKey)
     );
   });
 
-  const getOriginal = (arr: Items) => (k: string) => {
-    const r = arr.find(({ key }) => k === key);
-    if (!r) {
-      throw new Error('invalid code');
-    }
-    return r;
-  };
-
   return {
-    addedKeys,
-    removedKeys,
-    shuffledKeys,
-    addedItems: addedKeys.map(getOriginal(nextItems)),
-    removedItems: removedKeys.map(getOriginal(currentItems)),
-    shuffledItems: shuffledKeys.map(getOriginal(nextItems)),
+    addedItems,
+    removedItems,
+    shuffledItems,
   };
 };
 
 function onNextFrame(callback: () => any) {
-  setTimeout(function () {
-    window.requestAnimationFrame(callback)
-  }, 0)
+  setTimeout(function() {
+    window.requestAnimationFrame(callback);
+  }, 0);
 }
 
-const Grid = ({
-  items: unparsedItems,
-  viewport = rdeyDesign.getViewport(),
-  numberOfCols = rdeyDesign.numberOfCols,
-  margins = rdeyDesign.margins,
-  duration = 500,
-}: Props) => {
-  const items: Items = unparsedItems.map((ob) => ({
-    ...ob,
-    key: ob.key.toString(),
-  }));
-  const cols = numberOfCols[viewport];
-  const [{ hash, animate, firstRender, mount }, dispatch] = React.useReducer(
+const Grid = ({ items: unparsedItems, duration = 500, renderCells }: Props) => {
+  const items: Items = unparsedItems.map((key) => key.toString());
+  const [{ hash, animate, mount, commit }, dispatch] = React.useReducer(
     reducer,
     items,
     init
@@ -218,13 +184,11 @@ const Grid = ({
     currentItems: Items;
     previousItems: Items;
     config: {
-      addedKeys: string[];
-      removedKeys: string[];
-      shuffledKeys: string[];
       addedItems: Items;
       removedItems: Items;
       shuffledItems: Items;
     };
+    persistedElement: React.ReactNode;
   }>({
     containerHeight: { current: null, previous: null },
     previousPositions: {},
@@ -232,17 +196,19 @@ const Grid = ({
     currentItems: items,
     previousItems: [],
     config: {
-      addedKeys: [],
-      removedKeys: [],
-      shuffledKeys: [],
       addedItems: [],
       removedItems: [],
       shuffledItems: [],
     },
+    persistedElement: null,
   });
-  const newHash = getItemsHash(items);
-
-  const newGrid = newHash !== hash;
+  let newHash: string | null = getItemsHash(items);
+  let newGrid = newHash !== hash;
+  /* just to handle if clicking really fast, then ignore the update */
+  if (mount || commit) {
+    newGrid = false;
+    newHash = hash;
+  }
 
   if (newGrid) {
     refs.current.config = getConfig({
@@ -263,14 +229,7 @@ const Grid = ({
     currentPositions,
     currentItems,
     previousItems,
-    config: {
-      addedKeys,
-      removedKeys,
-      shuffledKeys,
-      addedItems,
-      removedItems,
-      shuffledItems,
-    },
+    config: { addedItems, removedItems, shuffledItems },
   } = refs.current;
 
   React.useEffect(() => {
@@ -284,14 +243,24 @@ const Grid = ({
 
   React.useEffect(() => {
     if (mount) {
-      /* make sure the mount has been committed to the DOM */
+      /* make sure the mount has been committed to the DOM, double make sure by wrapping in onNextFrame */
+      onNextFrame(() => {
+        dispatch({
+          type: 'COMMIT',
+        });
+      });
+    }
+  }, [mount]);
+
+  React.useEffect(() => {
+    if (commit) {
       onNextFrame(() => {
         dispatch({
           type: 'ANIMATE',
         });
       });
     }
-  }, [mount]);
+  }, [commit]);
 
   React.useEffect(() => {
     let timer: number;
@@ -310,39 +279,42 @@ const Grid = ({
     return clear;
   }, [animate, newHash]);
 
+  if (commit) {
+    return refs.current.persistedElement;
+  }
+
   const rows = ({
     itemsToRender,
     ref,
     style,
   }: {
     itemsToRender: Items;
-    ref?: (key: string, el: HTMLElement | null) => void;
+    ref?: (key: string, el: HTMLElement) => void;
     style?: (key: string) => React.CSSProperties;
-  }) =>
-    getRows(itemsToRender, cols).map((rowItems, index) => {
-      const rowKey = rowItems.map(({ key }) => key).join(',');
-      return (
-        <Row emptySpace={cols - rowItems.length} key={rowKey}>
-          {rowItems.map(({ Cell, key }, index) => {
-            return (
-              <CellWrapper
-                key={key}
-                first={index === 0}
-                last={index === rowItems.length - 1}
-                ref={(el) => {
-                  if (ref) {
-                    ref(key, el);
-                  }
-                }}
-                style={style ? style(key) : undefined}
-              >
-                <Cell />
-              </CellWrapper>
-            );
-          })}
-        </Row>
-      );
-    });
+  }) => {
+    const makeRef = (key: string) => {
+      if (typeof ref === 'undefined') {
+        return;
+      }
+      return (el: HTMLElement | null) => {
+        if (el) {
+          ref(key, el);
+        }
+      };
+    };
+
+    const makeStyle = (key: string) => {
+      return typeof style !== 'undefined' ? style(key) : undefined;
+    };
+
+    return renderCells(
+      itemsToRender.map((key) => ({
+        key,
+        ref: makeRef(key),
+        style: makeStyle(key),
+      }))
+    );
+  };
   const wrapperMeasureContainerHeight = (context: 'previous' | 'current') => (
     el: HTMLElement | null
   ) => {
@@ -362,12 +334,10 @@ const Grid = ({
         {rows({
           itemsToRender: currentItems,
           ref: (key, el) => {
-            if (el) {
-              currentPositions[key] = {
-                x: el.offsetLeft,
-                y: el.offsetTop,
-              };
-            }
+            currentPositions[key] = {
+              x: el.offsetLeft,
+              y: el.offsetTop,
+            };
           },
         })}
       </AbsoluteWrapper>
@@ -379,12 +349,10 @@ const Grid = ({
       {rows({
         itemsToRender: currentItems,
         ref: (key, el) => {
-          if (el) {
-            currentPositions[key] = {
-              x: el.offsetLeft,
-              y: el.offsetTop,
-            };
-          }
+          currentPositions[key] = {
+            x: el.offsetLeft,
+            y: el.offsetTop,
+          };
         },
       })}
     </AbsoluteWrapper>
@@ -411,10 +379,11 @@ const Grid = ({
     );
   }
 
-  const animationRenderItems = sortBy(
-    uniqBy([...previousItems, ...addedItems, ...removedItems], 'key'),
-    'key'
-  );
+  const animationRenderItems = uniq([
+    ...previousItems,
+    ...addedItems,
+    ...removedItems,
+  ]).sort();
 
   if (mount) {
     child = (
@@ -425,8 +394,8 @@ const Grid = ({
           {rows({
             itemsToRender: animationRenderItems,
             style(key) {
-              const added = addedKeys.includes(key);
-              const removed = removedKeys.includes(key);
+              const added = addedItems.includes(key);
+              const removed = removedItems.includes(key);
               const { x, y } = added
                 ? currentPositions[key]
                 : previousPositions[key];
@@ -470,8 +439,8 @@ const Grid = ({
           {rows({
             itemsToRender: animationRenderItems,
             style(key) {
-              const added = addedKeys.includes(key);
-              const removed = removedKeys.includes(key);
+              const added = addedItems.includes(key);
+              const removed = removedItems.includes(key);
               const { x, y } = currentPositions[key];
 
               let z = 1;
@@ -505,11 +474,9 @@ const Grid = ({
     );
   }
 
-  return (
-    <ThemeProvider theme={{ viewport, numberOfCols, margins }}>
-      <OuterBound>{child}</OuterBound>
-    </ThemeProvider>
-  );
+  refs.current.persistedElement = <OuterBound>{child}</OuterBound>;
+
+  return refs.current.persistedElement;
 };
 
 export default Grid;
