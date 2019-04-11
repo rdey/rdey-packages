@@ -1,6 +1,6 @@
 {
   "name": "@rdey/design",
-  "version": "0.0.33",
+  "version": "0.0.55",
   "description": "",
   "main": "dist/rdey-design.umd.js",
   "module": "dist/rdey-design.es5.js",
@@ -15,7 +15,8 @@
     "create:bundle": "rollup -c rollup.config.ts",
     "create:types": "tsc --module commonjs",
     "create:docs": "typedoc --out ../docs/dist/design --target es6 --theme minimal --mode file src --tsconfig ./tsconfig.json",
-    "start": "rollup -c rollup.config.ts -w"
+    "start": "rollup -c rollup.config.ts -w",
+    "prepublishOnly": "yarn run build"
   },
   "keywords": [],
   "author": "",
