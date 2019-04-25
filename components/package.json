@@ -8,6 +8,7 @@
     "eslint": "eslint -c ./.eslintrc.js .",
     "prettier": "prettier --config .prettierrc --write \"**/*.js\"",
     "format": "yarn run prettier && yarn run eslint --fix",
+    "prepublishOnly": "yarn run build",
     "build": "npx rollup -c"
   },
   "keywords": [],
