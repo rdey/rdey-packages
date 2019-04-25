@@ -90,6 +90,7 @@ class LoadingSpinner extends React.PureComponent {
 
   render() {
     const { message } = this.state;
+    const { noMessage } = this.props;
     return (
       <LoadingWrapper>
         <SpinnerWrapper>
@@ -99,7 +100,7 @@ class LoadingSpinner extends React.PureComponent {
           <div className="rect4" />
           <div className="rect5" />
         </SpinnerWrapper>
-        <LoadingMessage>{MESSAGES[message]}</LoadingMessage>
+        {!noMessage && <LoadingMessage>{MESSAGES[message]}</LoadingMessage>}
       </LoadingWrapper>
     );
   }
