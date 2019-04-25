@@ -76,12 +76,15 @@ class LoadingSpinner extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.interval = window.setInterval(() => {
-      this.setState((prevState) => ({
-        message:
-          prevState.message === MESSAGES.length - 1 ? 0 : prevState.message + 1,
-      }));
-    }, 1100);
+    const { noMessage } = this.props;
+    if (!noMessage) {
+      this.interval = window.setInterval(() => {
+        this.setState((prevState) => ({
+          message:
+            prevState.message === MESSAGES.length - 1 ? 0 : prevState.message + 1,
+        }));
+      }, 1100);
+    }
   }
 
   componentWillUnmount() {
