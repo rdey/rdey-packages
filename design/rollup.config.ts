@@ -2,7 +2,7 @@
 import resolve from 'rollup-plugin-local-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import sourceMaps from 'rollup-plugin-sourcemaps';
-import { camelCase } from 'lodash';
+import { camelCase } from 'lodash-es';
 import typescript from 'rollup-plugin-typescript2';
 import json from 'rollup-plugin-json';
 
@@ -11,7 +11,7 @@ const pkg = require('./package.json');
 const libraryName = '@rdey/design';
 const globals = {
   invariant: 'invariant',
-  lodash: 'lodash',
+  'lodash-es': 'lodash-es',
   react: 'react',
   rxjs: 'rxjs',
   'rxjs/operators': 'rxjs.operators',
