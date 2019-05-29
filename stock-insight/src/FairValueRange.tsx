@@ -73,6 +73,7 @@ const Indicator = () => {
 const Styling = styled.div`
   * {
     box-sizing: border-box;
+    line-height: 1;
   }
 `;
 

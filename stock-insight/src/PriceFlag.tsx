@@ -100,7 +100,7 @@ const PriceFlag = () => {
               text-align: ${direction};
             `}
           >
-            {size === 'l' && <Title>Last Price</Title>}
+            {size === 'l' && <Title css="margin-bottom: 4px;">Last Price</Title>}
             <Price>{price.toFixed(1)}</Price>
           </LabelWrapper>
         </AbsoluteWrapper>

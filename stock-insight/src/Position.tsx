@@ -43,8 +43,11 @@ const Top =
 
 const Price = styled.div`
   ${primaryTextMixin({
-  color: 'secondary4',
-})};
+    color: 'secondary4',
+    fontSize: 12,
+    fontWeight: '500',
+  })};
+  padding-top: 6px;
 `;
 
 type Props = {
