@@ -23,12 +23,14 @@ const makeCss = (width: number, height: number) => {
     width: ${width}px;
     height: ${height}px;
   `;
-}
+};
 
-const sizeMixin = ({ theme: { size }}: {
+const sizeMixin = ({
+  theme: { size },
+}: {
   theme: {
-    size: Size
-  }
+    size: Size,
+  },
 }) => {
   if (size === 'l') {
     return makeCss(88, 72);
@@ -38,7 +40,7 @@ const sizeMixin = ({ theme: { size }}: {
     return makeCss(31, 24);
   }
   return '';
- }
+};
 
 const Svg = styled.svg`
   ${sizeMixin};
@@ -148,10 +150,7 @@ const Impact = ({
           </SvgWrapper>
           {size !== 's' && <Label>{value}</Label>}
         </Wrapper>
-        <CatalystHeaderTitle>
-          {size === 'm' && 'Catalyst Potential'}
-          {size === 'l' && 'Impact'}
-        </CatalystHeaderTitle>
+        {size === 'l' && <CatalystHeaderTitle>Impact</CatalystHeaderTitle>}
       </div>
     </ThemeProvider>
   );

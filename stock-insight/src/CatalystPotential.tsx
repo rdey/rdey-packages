@@ -2,7 +2,7 @@
  * @class CatalystPotential
  */
 
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import * as React from 'react';
 import { primaryTextMixin } from '@rdey/design';
 import Polygon from './Polygon';
@@ -10,22 +10,7 @@ import Hexagon from './Hexagon';
 import { Size } from './types';
 import Impact from './Impact';
 import Timeframe from './Timeframe';
-import { CatalystHeaderTitle } from './components';
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-`;
-const SvgWrapper = styled.div`
-  display: flex;
-`;
-
-const Svg = styled.svg`
-  width: 80px;
-  height: 64px;
-`;
-
-const Line = styled.line``;
+import { CatalystHeaderTitle, ComponentTitle } from './components';
 
 type LayerProps = {
   outerWidth: number,
@@ -77,6 +62,7 @@ const Label = styled.div`
 `;
 
 type Values = 0 | 1 | 2 | 3;
+
 type Catalyst = {
   comment: string,
   id: string,
@@ -90,12 +76,22 @@ type Catalyst = {
   title: string,
   updatedAt: string,
 };
+export type Catalysts = Catalyst[];
 type Props = {
   size: Size,
-  catalysts: Catalyst[],
+  catalysts: Catalysts,
+  className?: string,
 };
 
-const CatalystPotential = ({ size, catalysts }: Props) => {
+const Wrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  ${({ theme: { size } }) => size === 'm' && 'padding-bottom: 16px'};
+  ${({ theme: { size } }) => size === 'l' && 'padding-bottom: 24px'};
+`;
+
+const CatalystPotential = ({ size, catalysts, className }: Props) => {
   const impactStrength = (
     potency: 1 | 2 | 3,
     {
@@ -170,29 +166,36 @@ const CatalystPotential = ({ size, catalysts }: Props) => {
     timeframe = 2;
   }
   return (
-    <div css="display: flex; align-items: flex-end;">
-      <Impact
-        size={size}
-        short={impact >= 1}
-        mid={impact >= 2}
-        long={impact >= 3}
-        value={catalysts.length}
-      />
-      {size === 'l' && (
-        <>
-          <div style={{ width: '2em' }} />
-          <div>
-            <Timeframe
-              timeframe={timeframe}
-              width={72}
-              height={40}
+    <ThemeProvider theme={{ size }}>
+      <div className={className}>
+        <div>
+          <Wrapper>
+            <Impact
               size={size}
+              short={impact >= 1}
+              mid={impact >= 2}
+              long={impact >= 3}
+              value={catalysts.length}
             />
-            <CatalystHeaderTitle>Timeframe</CatalystHeaderTitle>
-          </div>
-        </>
-      )}
-    </div>
+            {size === 'l' && (
+              <>
+                <div style={{ width: '2em' }} />
+                <div>
+                  <Timeframe
+                    timeframe={timeframe}
+                    width={72}
+                    height={40}
+                    size={size}
+                  />
+                  <CatalystHeaderTitle>Timeframe</CatalystHeaderTitle>
+                </div>
+              </>
+            )}
+          </Wrapper>
+          {size !== 's' && <ComponentTitle>Catalyst Potential</ComponentTitle>}
+        </div>
+      </div>
+    </ThemeProvider>
   );
 };
 

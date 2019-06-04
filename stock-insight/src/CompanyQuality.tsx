@@ -75,13 +75,15 @@ const Bar = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  padding-top: 1em;
+  padding-top: 0.5em;
 `;
 
 const Title = styled.div`
   transition: font-size 0.5s ease;
   ${primaryTextMixin({
     color: 'secondary4',
+    fontWeight: 300,
+    opacity: 0.75,
   })};
   ${({ theme: { selected } }) =>
     !selected &&
@@ -127,13 +129,13 @@ const sizes = {
   l: '1.5',
   m: '1',
   s: '0',
-}
+};
 
 const Flex = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding-bottom: ${({ theme: { size }}) => sizes[size]}em;
+  padding-bottom: ${({ theme: { size } }) => sizes[size]}em;
 `;
 
 const Pillar = ({
@@ -174,52 +176,56 @@ const Pillar = ({
 
 type area = 'people' | 'financials' | 'business';
 type Value = 1 | 2 | 3 | 4 | 5;
-type Props = {
+export type CompanyQualityProps = {
   people: Value,
   financials: Value,
   business: Value,
   selected: area,
   onClick: (arg: area) => void,
   size: 's' | 'm' | 'l',
+  className?: string,
 };
 
-const CompanyQuality = ({
-  people,
-  financials,
-  business,
-  selected,
-  onClick,
-  size,
-}: Props) => {
+const CompanyQuality = (props: CompanyQualityProps) => {
+  const {
+    people,
+    financials,
+    business,
+    selected,
+    onClick,
+    size,
+    css,
+    className,
+  } = props;
   return (
     <ThemeProvider theme={{ size }}>
-      <div css="text-align: center;">
-        <Flex>
-          <Pillar
-            value={people}
-            title="People"
-            selected={selected === 'people'}
-            onClick={() => onClick('people')}
-            size={size}
-          />
-          <Pillar
-            value={financials}
-            title="Financials"
-            selected={selected === 'financials'}
-            onClick={() => onClick('financials')}
-            size={size}
-          />
-          <Pillar
-            value={business}
-            title="Business"
-            selected={selected === 'business'}
-            onClick={() => onClick('business')}
-            size={size}
-          />
-        </Flex>
-        {size !== 's' && (
-          <ComponentTitle>Company quality</ComponentTitle>
-        )}
+      <div className={className}>
+        <div css="text-align: center;">
+          <Flex>
+            <Pillar
+              value={people}
+              title="People"
+              selected={selected === 'people'}
+              onClick={() => onClick('people')}
+              size={size}
+            />
+            <Pillar
+              value={financials}
+              title="Financials"
+              selected={selected === 'financials'}
+              onClick={() => onClick('financials')}
+              size={size}
+            />
+            <Pillar
+              value={business}
+              title="Business"
+              selected={selected === 'business'}
+              onClick={() => onClick('business')}
+              size={size}
+            />
+          </Flex>
+          {size !== 's' && <ComponentTitle>Company quality</ComponentTitle>}
+        </div>
       </div>
     </ThemeProvider>
   );

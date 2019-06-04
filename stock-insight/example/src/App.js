@@ -7,6 +7,7 @@ import {
   Impact,
   Timeframe,
   CatalystPotential,
+  StockInsightTopBlock,
 } from 'stock-insight';
 
 const Wrapper = styled.div``;
@@ -68,19 +69,34 @@ export default () => {
     'people'
   );
 
+  const companyQualityProps = {
+    people: 3,
+    financials: 5,
+    business: 4,
+    selected: selectedCompanyQuality,
+    onClick: setSelectedCompanyQuality,
+  };
+
+  const fairValueRangeProps = {
+    bear: 23,
+    base: 43,
+    bull: 77,
+    price: 33,
+  };
+
   const makeQc = (size) => {
     return (
       <GCWrapper>
-        <CompanyQuality
-          people={3}
-          financials={5}
-          business={4}
-          selected={selectedCompanyQuality}
-          onClick={setSelectedCompanyQuality}
-          size={size}
-        />
+        <CompanyQuality {...companyQualityProps} size={size} />
       </GCWrapper>
     );
+  };
+
+  const stockInsightProps = {
+    companyQuality: companyQualityProps,
+    fairValueRange: fairValueRangeProps,
+    catalysts: catalysts,
+    AnalystView: () => <div>AA</div>,
   };
 
   return (
@@ -93,9 +109,9 @@ export default () => {
       </Section>
       <Section>
         <Header>Fair value range</Header>
-        <FairValueRange bear={23} base={43} bull={77} price={33} size="s" />
-        <FairValueRange bear={23} base={43} bull={77} price={33} size="m" />
-        <FairValueRange bear={23} base={43} bull={77} price={33} size="l" />
+        <FairValueRange {...fairValueRangeProps} size="s" />
+        <FairValueRange {...fairValueRangeProps} size="m" />
+        <FairValueRange {...fairValueRangeProps} size="l" />
       </Section>
       <Section>
         <Header>Catalyst Potential</Header>
@@ -118,6 +134,12 @@ export default () => {
         <GCWrapper>
           <CatalystPotential catalysts={catalysts} size="l" />
         </GCWrapper>
+      </Section>
+      <Section>
+        <Header>StockInsightBar</Header>
+        <StockInsightTopBlock size={'s'} {...stockInsightProps} />
+        <StockInsightTopBlock size={'m'} {...stockInsightProps} />
+        <StockInsightTopBlock size={'l'} {...stockInsightProps} />
       </Section>
     </Wrapper>
   );

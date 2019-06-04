@@ -5,3 +5,4 @@ export { default as Impact } from './Impact';
 export { default as CatalystPotential } from './CatalystPotential';
 export { default as CompanyQuality } from './CompanyQuality';
 export { default as FairValueRange } from './FairValueRange';
+export { default as StockInsightTopBlock } from './StockInsightTopBlock';

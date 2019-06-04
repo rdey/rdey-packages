@@ -11,12 +11,13 @@ import LabelBar from './LabelBar';
 import { fairValueRangeHeights } from './fairValueRangeTheme';
 import { ComponentTitle } from './components';
 
-export type Props = {
+export type FairValueRangeProps = {
   bear: number,
   base: number,
   bull: number,
   price: number,
   size: 's' | 'm' | 'l';
+  className?: string;
 };
 
 const useResize = (cb: () => any) => {
@@ -84,7 +85,7 @@ const Styling = styled.div`
 `;
 
 
-const IndicatorEnvironment = ({ bull, bear, base, price, size }: Props) => {
+const IndicatorEnvironment = ({ bull, bear, base, price, size }: FairValueRangeProps) => {
   const [rect, wrapperRef] = useResponsiveClientRect();
 
   const minValue = Math.min(bear, base, bull, price);
@@ -120,13 +121,13 @@ const IndicatorEnvironment = ({ bull, bear, base, price, size }: Props) => {
   );
 };
 
-const FairValueRange = (props: Props) => {
-  const { bear, base, bull, price, size } = props;
+const FairValueRange = (props: FairValueRangeProps) => {
+  const { bear, base, bull, price, size, className } = props;
 
   return (
 
     <ThemeProvider theme={{ size }}>
-      <div>
+      <div className={className}>
         <IndicatorEnvironment bear={bear} base={base} bull={bull} price={price} size={size} />
         {size !== 's' && (
           <ComponentTitle>Fair Value Range</ComponentTitle>
