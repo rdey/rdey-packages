@@ -6,12 +6,14 @@ import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { range } from 'lodash-es';
 import { colors, primaryTextMixin } from '@rdey/design';
+import { ComponentTitle } from './components';
+import { Size } from './types';
 
 const margins = {
   l: 24,
   m: 1,
   s: 1,
-}
+};
 
 const PillarWrapper = styled.a`
   display: flex;
@@ -47,7 +49,7 @@ const increments = {
 
 const Bars =
   styled.div <
-  { value: number } >
+  { value: 1 | 2 | 3 | 4 | 5 } >
   `
   width: ${({ theme: { selected, size }, value }) =>
     widths[size][value - 1] + (selected ? increments[size] : 0)}px;
@@ -88,14 +90,6 @@ const Title = styled.div`
   `};
 `;
 
-type Props = {
-  value: number,
-  title: string,
-  selected?: boolean,
-  onClick?: () => void,
-  size: 's' | 'm' | 'l',
-};
-
 const wrapperPaddings = {
   l: 8,
   m: 4,
@@ -105,8 +99,7 @@ const wrapperPaddings = {
 const ValueWrapper = styled.div`
   ${({ theme: { size } }) => size === 's' && 'display: none;'};
   display: block;
-  padding-bottom: ${({ theme: { size } }) =>
-    wrapperPaddings[size]}px;
+  padding-bottom: ${({ theme: { size } }) => wrapperPaddings[size]}px;
 `;
 
 const valueFontSizes = {
@@ -117,21 +110,47 @@ const valueFontSizes = {
 const valueFontWeights = {
   l: '500',
   m: 'normal',
-  s: 'normal'
-}
+  s: 'normal',
+};
 
 const Value = styled.div`
-  ${({ theme: { size } }) => primaryTextMixin({
-    color: 'secondary4',
-    fontWeight: valueFontWeights[size],
-  })};
+  ${({ theme: { size } }) =>
+    primaryTextMixin({
+      color: 'secondary4',
+      fontWeight: valueFontWeights[size],
+    })};
   line-height: 1;
   font-size: ${({ theme: { size } }) => valueFontSizes[size]}px;
 `;
 
-const CompanyQuality = ({ value, title, selected, onClick, size }: Props) => {
+const sizes = {
+  l: '1.5',
+  m: '1',
+  s: '0',
+}
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: ${({ theme: { size }}) => sizes[size]}em;
+`;
+
+const Pillar = ({
+  selected,
+  size,
+  onClick,
+  value,
+  title,
+}: {
+  selected: boolean,
+  size: Size,
+  onClick: () => void,
+  value: 1 | 2 | 3 | 4 | 5,
+  title: string,
+}) => {
   return (
-    <ThemeProvider theme={{ selected, size }}>
+    <ThemeProvider theme={{ selected }}>
       <PillarWrapper onClick={onClick}>
         {size !== 's' && (
           <ValueWrapper>
@@ -149,6 +168,59 @@ const CompanyQuality = ({ value, title, selected, onClick, size }: Props) => {
           </TitleWrapper>
         )}
       </PillarWrapper>
+    </ThemeProvider>
+  );
+};
+
+type area = 'people' | 'financials' | 'business';
+type Value = 1 | 2 | 3 | 4 | 5;
+type Props = {
+  people: Value,
+  financials: Value,
+  business: Value,
+  selected: area,
+  onClick: (arg: area) => void,
+  size: 's' | 'm' | 'l',
+};
+
+const CompanyQuality = ({
+  people,
+  financials,
+  business,
+  selected,
+  onClick,
+  size,
+}: Props) => {
+  return (
+    <ThemeProvider theme={{ size }}>
+      <div css="text-align: center;">
+        <Flex>
+          <Pillar
+            value={people}
+            title="People"
+            selected={selected === 'people'}
+            onClick={() => onClick('people')}
+            size={size}
+          />
+          <Pillar
+            value={financials}
+            title="Financials"
+            selected={selected === 'financials'}
+            onClick={() => onClick('financials')}
+            size={size}
+          />
+          <Pillar
+            value={business}
+            title="Business"
+            selected={selected === 'business'}
+            onClick={() => onClick('business')}
+            size={size}
+          />
+        </Flex>
+        {size !== 's' && (
+          <ComponentTitle>Company quality</ComponentTitle>
+        )}
+      </div>
     </ThemeProvider>
   );
 };

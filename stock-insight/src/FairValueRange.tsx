@@ -9,6 +9,7 @@ import PriceFlag from './PriceFlag';
 import BearToBullLine from './BearToBullLine';
 import LabelBar from './LabelBar';
 import { fairValueRangeHeights } from './fairValueRangeTheme';
+import { ComponentTitle } from './components';
 
 export type Props = {
   bear: number,
@@ -51,13 +52,18 @@ const useResponsiveClientRect = () => {
 
 const IndicatorWrapper = styled.div``;
 
+const bottomPadding = {
+  s: 0,
+  m: 16,
+  l: 24,
+}
 const IndicatorPadding = styled.div`
-  padding: 16px ${6 + 24}px 24px ${6 + 24}px;
+  padding: 16px ${6 + 24}px ${({ theme: { size }}) => bottomPadding[size]}px ${6 + 24}px;
 `;
 
 const Relative = styled.div`
   position: relative;
-  height: ${({ theme: { size }}) => fairValueRangeHeights[size]}px;
+  height: ${({ theme: { size } }) => fairValueRangeHeights[size]}px;
 `;
 
 const Indicator = () => {
@@ -102,12 +108,12 @@ const IndicatorEnvironment = ({ bull, bear, base, price, size }: Props) => {
     >
       <ThemeProvider theme={context}>
         <Styling>
-        <IndicatorPadding>
-          <IndicatorWrapper ref={wrapperRef}>
-            {rect && <Indicator />}
-          </IndicatorWrapper>
-        </IndicatorPadding>
-      </Styling>
+          <IndicatorPadding>
+            <IndicatorWrapper ref={wrapperRef}>
+              {rect && <Indicator />}
+            </IndicatorWrapper>
+          </IndicatorPadding>
+        </Styling>
       </ThemeProvider>
 
     </Context.Provider>
@@ -118,7 +124,15 @@ const FairValueRange = (props: Props) => {
   const { bear, base, bull, price, size } = props;
 
   return (
-    <IndicatorEnvironment bear={bear} base={base} bull={bull} price={price} size={size} />
+
+    <ThemeProvider theme={{ size }}>
+      <div>
+        <IndicatorEnvironment bear={bear} base={base} bull={bull} price={price} size={size} />
+        {size !== 's' && (
+          <ComponentTitle>Fair Value Range</ComponentTitle>
+        )}
+      </div>
+    </ThemeProvider>
   );
 };
 
