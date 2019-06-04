@@ -34,7 +34,10 @@ jobs:
             - docs-deps
       - run:
           name: Install dependencies for the storybook and for typedocs # (these packages are referenced by their name e.g. @rdey/packages and must thus be build and linked)
-          command: yarn install --cwd=design && yarn install --cwd=components && yarn install --cwd=docs
+          command: >-
+            yarn install --cwd=design && 
+            yarn install --cwd=components &&
+            yarn install --cwd=docs
       - save_cache:
           paths:
             - docs/node_modules
