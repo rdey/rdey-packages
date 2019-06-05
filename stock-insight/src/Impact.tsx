@@ -109,7 +109,6 @@ const Impact = ({
   value,
   size,
 }: Props) => {
-  console.log(value);
   return (
     <ThemeProvider theme={{ size }}>
       <div css="display: inline-block;">
