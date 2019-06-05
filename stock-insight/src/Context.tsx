@@ -31,5 +31,9 @@ export const usePriceToX = (price: number) => {
   const delta = maxValue - minValue;
   const noOffset = price - minValue;
   const scale = noOffset / delta;
+  const result = width * scale;
+  if (Number.isNaN(result) || !result) {
+    return 0;
+  }
   return width * scale;
 };

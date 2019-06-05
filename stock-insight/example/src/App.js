@@ -29,6 +29,23 @@ const Section = styled.div`
   background: #1b1b22;
 `;
 
+const stockInsightTestProps = {
+  companyQuality: {
+    people: 0,
+    financials: 0,
+    business: 0,
+    selected: 'people',
+  },
+  fairValueRange: {
+    bear: 0,
+    base: 0,
+    bull: 0,
+    price: 0,
+  },
+  catalysts: [],
+  AnalystView: () => <div>wef</div>
+};
+
 const catalysts = [
   {
     id: '434ada18-13ce-3c08-8b40-a1a1ae030569',
@@ -148,6 +165,7 @@ export default () => {
         <StockInsightTopBlock size={'s'} {...stockInsightProps} />
         <StockInsightTopBlock size={'m'} {...stockInsightProps} />
         <StockInsightTopBlock size={'l'} {...stockInsightProps} />
+        <StockInsightTopBlock size={'l'} {...stockInsightTestProps} />
       </Section>
     </Wrapper>
   );
