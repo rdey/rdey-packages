@@ -21,31 +21,33 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "postinstall": "patch-package"
   },
-  "dependencies": {
-    "@rdey/design": "^0.0.56",
-    "@types/lodash-es": "^4.17.3",
-    "invariant": "^2.2.4",
-    "lodash": "^4.17.11",
-    "lodash-es": "^4.17.11",
-    "rxjs": "^6.5.2"
-  },
   "peerDependencies": {
-    "prop-types": "^15.5.4",
+    "@rdey/design": "*",
+    "@types/lodash-es": "^4",
+    "invariant": "^2",
+    "lodash-es": "^4",
+    "prop-types": "^15",
     "react": "^16.8",
-    "styled-components": "^4.2.0"
+    "rxjs": "^6",
+    "styled-components": "^4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
+    "@rdey/design": "^0.0.56",
     "@types/jest": "^23.1.5",
+    "@types/lodash-es": "^4.17.3",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
     "@types/styled-components": "^4.1.14",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
+    "invariant": "^2.2.4",
+    "lodash-es": "^4.17.11",
     "patch-package": "^6.1.2",
     "postinstall-postinstall": "^2.0.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.4.1",
     "react-scripts-ts": "^2.16.0",
@@ -55,6 +57,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-typescript2": "^0.17.0",
+    "rxjs": "^6.5.2",
     "styled-components": "^4.2.0",
     "typescript": "^3.4.5"
   },
