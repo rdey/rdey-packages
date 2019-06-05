@@ -10,6 +10,7 @@ import BearToBullLine from './BearToBullLine';
 import LabelBar from './LabelBar';
 import { fairValueRangeHeights } from './fairValueRangeTheme';
 import { ComponentTitle } from './components';
+import { clickable } from './mixins';
 
 export type FairValueRangeProps = {
   bear: number,
@@ -18,6 +19,7 @@ export type FairValueRangeProps = {
   price: number,
   size: 's' | 'm' | 'l';
   className?: string;
+  onClick?: () => any
 };
 
 const useResize = (cb: () => any) => {
@@ -131,12 +133,12 @@ const IndicatorEnvironment = ({ bull, bear, base, price, size }: FairValueRangeP
 };
 
 const FairValueRange = (props: FairValueRangeProps) => {
-  const { bear, base, bull, price, size, className } = props;
+  const { bear, base, bull, price, size, className, onClick } = props;
 
   return (
 
     <ThemeProvider theme={{ size }}>
-      <div className={className}>
+      <div className={className} onClick={onClick} role="button" tabIndex={0} css={clickable()}>
         <IndicatorEnvironment bear={bear} base={base} bull={bull} price={price} size={size} />
         {size !== 's' && (
           <ComponentTitle>Fair Value Range</ComponentTitle>

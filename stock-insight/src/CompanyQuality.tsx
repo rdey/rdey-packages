@@ -8,6 +8,7 @@ import { range } from 'lodash-es';
 import { colors, primaryTextMixin } from '@rdey/design';
 import { ComponentTitle } from './components';
 import { Size } from './types';
+import { clickable } from './mixins';
 
 const margins = {
   l: 24,
@@ -191,7 +192,7 @@ export type CompanyQualityProps = {
 
 const CompanyQuality = (props: CompanyQualityProps) => {
   const {
-    allSelected,
+    allSelected = false,
     people,
     financials,
     business,
@@ -202,7 +203,7 @@ const CompanyQuality = (props: CompanyQualityProps) => {
   } = props;
   return (
     <ThemeProvider theme={{ size }}>
-      <div className={className}>
+      <div className={className} css={clickable()}>
         <div css="text-align: center;">
           <Flex>
             <Pillar

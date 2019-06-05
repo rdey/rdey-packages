@@ -20,17 +20,18 @@ const Delimiter = styled.div`
   width: 1px;
 `;
 
-type Opacity = {
+type GenericProps = {
   opacity?: number;
+  onClick?: () => any;
 }
 
 type Props = {
   size: Size,
-  companyQuality: Omit<CompanyQualityProps, 'size'> & Opacity,
-  fairValueRange: Omit<FairValueRangeProps, 'size'> & Opacity,
+  companyQuality: Omit<CompanyQualityProps, 'size'> & GenericProps,
+  fairValueRange: Omit<FairValueRangeProps, 'size'> & GenericProps,
   catalystPotential: {
     catalysts: Catalysts,
-  } & Opacity,
+  } & GenericProps,
   AnalystView: React.JSXElementConstructor<any>;
   className?: string;
 };
@@ -70,12 +71,14 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPo
           price={fairValueRange.price}
           size={size}
           css={`flex: 1; display: flex; flex-direction: column; opacity: ${fairValueRangeOpacity};`}
+          onClick={fairValueRange.onClick}
         ></FairValueRange>
         {size !== 's' && (
           <Delimiter></Delimiter>
         )}
         <CatalystPotential size={size} catalysts={catalystPotential.catalysts}
           css={childStyle + '; opacity: ' + catalystPotentialOpacity + ';'}
+          onClick={catalystPotential.onClick}
         />
         <Delimiter></Delimiter>
         <AnalystView></AnalystView>

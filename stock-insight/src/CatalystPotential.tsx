@@ -11,6 +11,7 @@ import { Size } from './types';
 import Impact from './Impact';
 import Timeframe from './Timeframe';
 import { CatalystHeaderTitle, ComponentTitle } from './components';
+import { clickable } from './mixins';
 
 type LayerProps = {
   outerWidth: number,
@@ -81,6 +82,7 @@ type Props = {
   size: Size,
   catalysts: Catalysts,
   className?: string,
+  onClick?: () => any,
 };
 
 const Wrapper = styled.div`
@@ -91,7 +93,7 @@ const Wrapper = styled.div`
   ${({ theme: { size } }) => size === 'l' && 'padding-bottom: 24px'};
 `;
 
-const CatalystPotential = ({ size, catalysts, className }: Props) => {
+const CatalystPotential = ({ size, catalysts, className, onClick }: Props) => {
   const impactStrength = (
     potency: 1 | 2 | 3,
     {
@@ -167,7 +169,7 @@ const CatalystPotential = ({ size, catalysts, className }: Props) => {
   }
   return (
     <ThemeProvider theme={{ size }}>
-      <div className={className}>
+      <div className={className} onClick={onClick} role="button" tabIndex={0} css={clickable()}>
         <div>
           <Wrapper>
             <Impact
