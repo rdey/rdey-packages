@@ -58,7 +58,7 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalysts,
           bull={fairValueRange.bull}
           price={fairValueRange.price}
           size={size}
-          css={`flex: 1;`}
+          css={`flex: 1; display: flex; flex-direction: column;`}
         ></FairValueRange>
                 {size !== 's' && (
           <Delimiter></Delimiter>

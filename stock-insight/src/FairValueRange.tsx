@@ -65,6 +65,7 @@ const topPadding = {
 }
 const IndicatorPadding = styled.div`
   padding: ${({ theme: { size }}) => topPadding[size]}px ${6 + 24}px ${({ theme: { size }}) => bottomPadding[size]}px ${6 + 24}px;
+  width: 100%;
 `;
 
 const Relative = styled.div`
@@ -87,7 +88,9 @@ const Styling = styled.div`
     box-sizing: border-box;
     line-height: 1;
   }
-
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
 `;
 
 

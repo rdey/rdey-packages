@@ -43,7 +43,7 @@ const stockInsightTestProps = {
     price: 0,
   },
   catalysts: [],
-  AnalystView: () => <div>wef</div>
+  AnalystView: () => <div style={{height: '45px'}}>wef</div>
 };
 
 const catalysts = [
