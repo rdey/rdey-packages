@@ -17,9 +17,8 @@
     "test:watch": "react-scripts-ts test --env=jsdom",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "prepare": "yarn run build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "postinstall": "patch-package"
+    "prepare": "yarn run build && patch-package",
+    "predeploy": "cd example && yarn install && yarn run build"
   },
   "peerDependencies": {
     "@rdey/design": "*",
