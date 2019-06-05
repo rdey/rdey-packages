@@ -32,6 +32,7 @@ type Props = {
   fairValueRange: Omit<FairValueRangeProps, 'size'>,
   catalysts: Catalysts,
   AnalystView: React.JSXElementConstructor<any>;
+  className?: string;
 };
 
 const childStyle = css`
@@ -41,10 +42,10 @@ const childStyle = css`
   align-items: flex-end;
 `;
 
-const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalysts, AnalystView }: Props) => {
+const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalysts, AnalystView, className }: Props) => {
   return (
     <ThemeProvider theme={{ size }}>
-      <Block>
+      <Block className={className}>
         <CompanyQuality
           people={companyQuality.people}
           financials={companyQuality.financials}
