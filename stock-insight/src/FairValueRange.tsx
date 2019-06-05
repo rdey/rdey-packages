@@ -58,8 +58,13 @@ const bottomPadding = {
   m: 16,
   l: 24,
 }
+const topPadding = {
+  s: 0,
+  m: 16,
+  l: 16,
+}
 const IndicatorPadding = styled.div`
-  padding: 16px ${6 + 24}px ${({ theme: { size }}) => bottomPadding[size]}px ${6 + 24}px;
+  padding: ${({ theme: { size }}) => topPadding[size]}px ${6 + 24}px ${({ theme: { size }}) => bottomPadding[size]}px ${6 + 24}px;
 `;
 
 const Relative = styled.div`

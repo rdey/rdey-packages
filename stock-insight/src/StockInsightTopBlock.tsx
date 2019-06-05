@@ -9,12 +9,6 @@ import CatalystPotential, { Catalysts } from './CatalystPotential';
 const { css } = s;
 
 const Block = styled.div`
-  padding: 1.5em 0;
-  background-image: linear-gradient(
-    to bottom,
-    ${colors.base2.hslCss},
-    rgba(0, 0, 0, 0)
-  );
   display: flex;
 `;
 
@@ -64,7 +58,7 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalysts,
           bull={fairValueRange.bull}
           price={fairValueRange.price}
           size={size}
-          css={`flex: 1;`}
+          css={`flex: 1; display: flex; align-items: flex-end;`}
         ></FairValueRange>
                 {size !== 's' && (
           <Delimiter></Delimiter>
