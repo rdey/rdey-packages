@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { colors,s } from '@rdey/design';
+import { colors, s } from '@rdey/design';
 import CompanyQuality, { CompanyQualityProps } from './CompanyQuality';
 import { Size } from './types';
 import FairValueRange, { FairValueRangeProps } from './FairValueRange';
@@ -20,11 +20,17 @@ const Delimiter = styled.div`
   width: 1px;
 `;
 
+type Opacity = {
+  opacity?: number;
+}
+
 type Props = {
   size: Size,
-  companyQuality: Omit<CompanyQualityProps, 'size'>,
-  fairValueRange: Omit<FairValueRangeProps, 'size'>,
-  catalysts: Catalysts,
+  companyQuality: Omit<CompanyQualityProps, 'size'> & Opacity,
+  fairValueRange: Omit<FairValueRangeProps, 'size'> & Opacity,
+  catalystPotential: {
+    catalysts: Catalysts,
+  } & Opacity,
   AnalystView: React.JSXElementConstructor<any>;
   className?: string;
 };
@@ -36,7 +42,11 @@ const childStyle = css`
   align-items: flex-end;
 `;
 
-const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalysts, AnalystView, className }: Props) => {
+const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPotential, AnalystView, className }: Props) => {
+  const companyQualityOpacity = companyQuality.opacity || 1;
+  const catalystPotentialOpacity = catalystPotential.opacity || 1;
+  const fairValueRangeOpacity = fairValueRange.opacity || 1;
+
   return (
     <ThemeProvider theme={{ size }}>
       <Block className={className}>
@@ -47,7 +57,8 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalysts,
           selected={companyQuality.selected}
           onClick={companyQuality.onClick}
           size={size}
-          css={childStyle}
+          css={childStyle + '; opacity: ' + companyQualityOpacity + ';'}
+          allSelected
         />
         {size !== 's' && (
           <Delimiter></Delimiter>
@@ -58,13 +69,13 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalysts,
           bull={fairValueRange.bull}
           price={fairValueRange.price}
           size={size}
-          css={`flex: 1; display: flex; flex-direction: column;`}
+          css={`flex: 1; display: flex; flex-direction: column; opacity: ${fairValueRangeOpacity};`}
         ></FairValueRange>
-                {size !== 's' && (
+        {size !== 's' && (
           <Delimiter></Delimiter>
         )}
-        <CatalystPotential size={size} catalysts={catalysts}
-          css={childStyle}
+        <CatalystPotential size={size} catalysts={catalystPotential.catalysts}
+          css={childStyle + '; opacity: ' + catalystPotentialOpacity + ';'}
         />
         <Delimiter></Delimiter>
         <AnalystView></AnalystView>

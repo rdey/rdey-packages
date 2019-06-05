@@ -42,7 +42,10 @@ const stockInsightTestProps = {
     bull: 0,
     price: 0,
   },
-  catalysts: [],
+  catalystPotential: {
+    catalysts: [],
+    opacity: 0.1,
+  },
   AnalystView: () => <div style={{height: '45px'}}>wef</div>
 };
 
@@ -112,10 +115,14 @@ export default () => {
     );
   };
 
+  const catalystPotentialProps = {
+    catalysts
+  }
+
   const stockInsightProps = {
     companyQuality: companyQualityProps,
     fairValueRange: fairValueRangeProps,
-    catalysts: catalysts,
+    catalystPotential: catalystPotentialProps,
     AnalystView: () => <div>AA</div>,
   };
 
@@ -151,13 +158,22 @@ export default () => {
           <Timeframe size="l" width={116} height={64} timeframe={2} />
         </GCWrapper>
         <GCWrapper>
-          <CatalystPotential catalysts={catalysts} size="s" />
+          <CatalystPotential
+            catalysts={catalysts}
+            size="s"
+          />
         </GCWrapper>
         <GCWrapper>
-          <CatalystPotential catalysts={catalysts} size="m" />
+          <CatalystPotential
+            catalysts={catalysts}
+            size="m"
+          />
         </GCWrapper>
         <GCWrapper>
-          <CatalystPotential catalysts={catalysts} size="l" />
+          <CatalystPotential
+            catalysts={catalysts}
+            size="l"
+          />
         </GCWrapper>
       </Section>
       <Section>

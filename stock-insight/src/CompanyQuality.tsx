@@ -186,10 +186,12 @@ export type CompanyQualityProps = {
   onClick: (arg: area) => void,
   size: 's' | 'm' | 'l',
   className?: string,
+  allSelected?: boolean,
 };
 
 const CompanyQuality = (props: CompanyQualityProps) => {
   const {
+    allSelected,
     people,
     financials,
     business,
@@ -206,21 +208,21 @@ const CompanyQuality = (props: CompanyQualityProps) => {
             <Pillar
               value={people}
               title="People"
-              selected={selected === 'people'}
+              selected={selected === 'people' || allSelected}
               onClick={() => onClick('people')}
               size={size}
             />
             <Pillar
               value={financials}
               title="Financials"
-              selected={selected === 'financials'}
+              selected={selected === 'financials' || allSelected}
               onClick={() => onClick('financials')}
               size={size}
             />
             <Pillar
               value={business}
               title="Business"
-              selected={selected === 'business'}
+              selected={selected === 'business' || allSelected}
               onClick={() => onClick('business')}
               size={size}
             />
