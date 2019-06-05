@@ -22,7 +22,6 @@
   },
   "peerDependencies": {
     "@rdey/design": "*",
-    "@types/lodash-es": "^4",
     "invariant": "^2",
     "lodash-es": "^4",
     "prop-types": "^15",
