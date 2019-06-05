@@ -82,13 +82,15 @@ const Title = styled.div`
   transition: font-size 0.5s ease;
   ${primaryTextMixin({
     color: 'secondary4',
-    fontWeight: 300,
-    opacity: 0.75,
+    fontWeight: 600,
+    opacity: 1,
   })};
   ${({ theme: { selected } }) =>
     !selected &&
     `
     font-size: 0.75em;
+    font-weight: 300;
+    opacity: 0.75;
   `};
 `;
 
@@ -194,7 +196,6 @@ const CompanyQuality = (props: CompanyQualityProps) => {
     selected,
     onClick,
     size,
-    css,
     className,
   } = props;
   return (

@@ -31,7 +31,7 @@ type Props = {
   companyQuality: Omit<CompanyQualityProps, 'size'>,
   fairValueRange: Omit<FairValueRangeProps, 'size'>,
   catalysts: Catalysts,
-  AnalystView: React.JSXElementConstructor;
+  AnalystView: React.JSXElementConstructor<any>;
 };
 
 const childStyle = css`

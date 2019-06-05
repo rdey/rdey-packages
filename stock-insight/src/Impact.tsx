@@ -4,11 +4,13 @@
 
 import styled, { ThemeProvider } from 'styled-components';
 import * as React from 'react';
-import { primaryTextMixin, getColor } from '@rdey/design';
+import { primaryTextMixin, getColor, s } from '@rdey/design';
 import Polygon from './Polygon';
 import Hexagon from './Hexagon';
 import { Size } from './types';
 import { CatalystHeaderTitle } from './components';
+
+const { css } = s;
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,53 +44,46 @@ const sizeMixin = ({
   return '';
 };
 
-const Svg = styled.svg`
+const Svg =
+  styled.svg <
+  { short?: boolean;
+mid?: boolean;
+long?: boolean;
+ } >
+  `
   ${sizeMixin};
+  #minor, #moderate, #major {
+    opacity: 0.16;
+  }
+  ${({ short, mid, long }) => {
+    let totalCss = '';
+    if (short) {
+      totalCss += css`
+        #minor {
+          opacity: 1;
+        }
+      `;
+    }
+    if (mid) {
+      totalCss += css`
+        #minor,
+        #moderate {
+          opacity: 1;
+        }
+      `;
+    }
+    if (long) {
+      totalCss += css`
+        #minor,
+        #moderate,
+        #major {
+          opacity: 1;
+        }
+      `;
+    }
+    return totalCss;
+  }};
 `;
-
-const Line = styled.line``;
-
-type LayerProps = {
-  outerWidth: number,
-  innerWidth: number,
-  stroke: string,
-  fill: string,
-  innerX?: number,
-  outerX?: number,
-  topLeftOffset?: number,
-};
-const Layer = ({
-  outerWidth,
-  innerWidth,
-  stroke,
-  fill,
-  innerX = 0,
-  outerX = 0,
-  topLeftOffset = 0,
-}: LayerProps) => {
-  const outerSide = outerWidth / 2;
-  const outerOffset = outerSide / 2;
-  const outerY = 80 - outerWidth;
-
-  const innerSide = innerWidth / 2;
-  const innerOffset = innerSide / 2;
-  const innerY = 80 - innerWidth;
-
-  const polygon = `
-    ${outerOffset + outerX + topLeftOffset}, ${outerY}
-    ${outerX + outerWidth - outerOffset}, ${outerY}
-    ${outerWidth + outerX}, ${outerY + outerWidth / 2}
-    ${outerX + outerWidth - outerOffset}, ${outerY + outerWidth}
-
-    ${innerX + innerWidth - innerOffset}, ${innerY + innerWidth}
-    ${innerWidth + innerX}, ${innerY + innerWidth / 2}
-    ${innerX + innerWidth - innerOffset}, ${innerY}
-    ${innerOffset + innerX}, ${innerY}
-
-    ${outerOffset + outerX + topLeftOffset}, ${outerY}
-  `;
-  return <Polygon points={polygon} stroke={stroke} fill={fill} />;
-};
 
 const Label = styled.div`
   ${primaryTextMixin({
@@ -114,38 +109,41 @@ const Impact = ({
   value,
   size,
 }: Props) => {
+  console.log(value);
   return (
     <ThemeProvider theme={{ size }}>
       <div css="display: inline-block;">
         <Wrapper>
           <SvgWrapper>
-            <Svg viewBox="-1 -1 92 82" preserveAspectRatio="none">
-              {/* borders */}
-              <Layer
-                innerWidth={60}
-                outerWidth={80}
-                fill={long ? getColor({ color: 'secondary4' }) : 'transparent'}
-                stroke={getColor({ color: 'base8' })}
-                outerX={10}
-                innerX={5}
-              />
-              <Layer
-                innerWidth={40}
-                outerWidth={60}
-                fill={mid ? getColor({ color: 'secondary4' }) : 'transparent'}
-                stroke={getColor({ color: 'base8' })}
-                outerX={5}
-                innerX={0}
-              />
-              <Hexagon
-                width={40}
-                y={40}
-                x={0}
-                fill={short ? getColor({ color: 'secondary4' }) : 'transparent'}
-                stroke={getColor({ color: 'base8' })}
-                bottomLeftOffset={0}
-                bottomTopOffset={0}
-              />
+            <Svg
+              width="94"
+              height="73"
+              viewBox="0 0 94 73"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              short={short}
+              mid={mid}
+              long={long}
+            >
+              <g
+                transform="translate(.648 .133)"
+                fill="#FFF"
+                fillRule="nonzero"
+                id="impact"
+              >
+                <polygon
+                  id="moderate"
+                  points="20.0180625 24.0003 8.9070625 44.0003 20.0180625 44.0003 22.3720625 44.0003 23.5150625 46.0573 30.1820625 58.0573 31.2610625 60.0003 30.1820625 61.9423 24.5940625 72.0003 46.6850625 72.0003 60.0180625 47.9993 46.6850625 24.0003"
+                />
+                <polygon
+                  id="major"
+                  points="33.3515625 0 22.2405625 20 46.6845625 20 49.0385625 20 50.1815625 22.057 63.5145625 46.057 64.5945625 48 63.5145625 49.943 51.2605625 72 73.3515625 72 93.3515625 36 73.3515625 0"
+                />
+                <polygon
+                  id="minor"
+                  points="6.6854625 47.9997 0.0184625 60.0007 6.6854625 71.9997 20.0184625 71.9997 26.6854625 60.0007 20.0184625 47.9997"
+                />
+              </g>
             </Svg>
           </SvgWrapper>
           {size !== 's' && <Label>{value}</Label>}

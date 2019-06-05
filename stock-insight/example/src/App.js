@@ -63,6 +63,9 @@ const catalysts = [
 const GCWrapper = styled.div`
   padding: 20px;
 `;
+const RedWrapper = styled.div`
+  background-image: linear-gradient(to bottom, #f45252, rgba(244, 82, 82, 0.32));
+`;
 
 export default () => {
   const [selectedCompanyQuality, setSelectedCompanyQuality] = useState(
@@ -115,7 +118,12 @@ export default () => {
       </Section>
       <Section>
         <Header>Catalyst Potential</Header>
-        <Impact value={3} short={true} mid={true} size="l" />
+        <RedWrapper>
+          <Impact value={3} short={true} mid={true} size="l" />
+        </RedWrapper>
+        <GCWrapper>
+          <Timeframe size="l" width={116} height={64} timeframe={3} />
+        </GCWrapper>
         <GCWrapper>
           <Timeframe size="l" width={116} height={64} timeframe={0} />
         </GCWrapper>

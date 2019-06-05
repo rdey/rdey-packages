@@ -13,8 +13,11 @@ const makeCss = (width: number, height: number) => {
 const Wrapper = styled.div<{ highlight?: boolean, color: string }>`
   background-color: ${({ highlight, color }) =>
     highlight
-      ? getColor({ color: 'secondary4', opacity: 0.75 })
-      : getColor({ color, opacity: 1 })};
+      ? getColor({ color: 'secondary4', opacity: 1 })
+      : getColor({ color: 'secondary4', opacity: 0.16 })};
+  border: 0px solid black;
+  border-top-width: 1px;
+  border-right-width: 1px;
   display: flex;
   align-items: flex-end;
   transition: opacity 0.25s ease;

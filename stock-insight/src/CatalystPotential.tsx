@@ -165,6 +165,7 @@ const CatalystPotential = ({ size, catalysts, className }: Props) => {
   } else if (maxTimeframe === majorTimeframeStrength) {
     timeframe = 2;
   }
+  console.log('impact', impact);
   return (
     <ThemeProvider theme={{ size }}>
       <div className={className}>
