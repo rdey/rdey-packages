@@ -51,6 +51,16 @@ const childStyle = css`
   align-items: flex-end;
 `;
 
+const fairValueRangeCss = (fairValueRangeOpacity: number) => css`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  opacity: ${fairValueRangeOpacity};
+  @media (min-width: 768px) {
+    margin: 0 7.5%;
+  }
+`;
+
 const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPotential, AnalystView, className }: Props) => {
   const companyQualityOpacity = companyQuality.opacity || 1;
   const catalystPotentialOpacity = catalystPotential.opacity || 1;
@@ -78,7 +88,7 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPo
           bull={fairValueRange.bull}
           price={fairValueRange.price}
           size={size}
-          css={`flex: 1; display: flex; flex-direction: column; opacity: ${fairValueRangeOpacity}; margin: 0 7.5%;`}
+          css={fairValueRangeCss(fairValueRangeOpacity)}
           onClick={fairValueRange.onClick}
         ></FairValueRange>
         {size !== 's' && (
