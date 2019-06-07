@@ -83,6 +83,7 @@ type Props = {
   catalysts: Catalysts,
   className?: string,
   onClick?: () => any,
+  hideTitle?: boolean,
 };
 
 const Wrapper = styled.div`
@@ -93,7 +94,7 @@ const Wrapper = styled.div`
   ${({ theme: { size } }) => size === 'l' && 'padding-bottom: 24px'};
 `;
 
-const CatalystPotential = ({ size, catalysts, className, onClick }: Props) => {
+const CatalystPotential = ({ size, catalysts, className, onClick, hideTitle }: Props) => {
   const impactStrength = (
     potency: 1 | 2 | 3,
     {
@@ -194,7 +195,7 @@ const CatalystPotential = ({ size, catalysts, className, onClick }: Props) => {
               </>
             )}
           </Wrapper>
-          {size !== 's' && <ComponentTitle>Catalyst Potential</ComponentTitle>}
+          {size !== 's' && !hideTitle &&<ComponentTitle>Catalyst Potential</ComponentTitle>}
         </div>
       </div>
     </ThemeProvider>

@@ -193,6 +193,7 @@ export type CompanyQualityProps = {
   size: 's' | 'm' | 'l',
   className?: string,
   staticMode?: boolean,
+  hideTitle?: boolean,
 };
 
 const CompanyQuality = (props: CompanyQualityProps) => {
@@ -205,6 +206,7 @@ const CompanyQuality = (props: CompanyQualityProps) => {
     onClick,
     size,
     className,
+    hideTitle,
   } = props;
   return (
     <ThemeProvider theme={{ size, staticMode }}>
@@ -233,7 +235,7 @@ const CompanyQuality = (props: CompanyQualityProps) => {
               size={size}
             />
           </Flex>
-          {size !== 's' && <ComponentTitle>Company quality</ComponentTitle>}
+          {size !== 's' && !hideTitle && <ComponentTitle>Company quality</ComponentTitle>}
         </div>
       </div>
     </ThemeProvider>

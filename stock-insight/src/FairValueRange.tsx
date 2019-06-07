@@ -19,7 +19,8 @@ export type FairValueRangeProps = {
   price: number,
   size: 's' | 'm' | 'l';
   className?: string;
-  onClick?: () => any
+  onClick?: () => any;
+  hideTitle?: boolean;
 };
 
 const useResize = (cb: () => any) => {
@@ -133,14 +134,13 @@ const IndicatorEnvironment = ({ bull, bear, base, price, size }: FairValueRangeP
 };
 
 const FairValueRange = (props: FairValueRangeProps) => {
-  const { bear, base, bull, price, size, className, onClick } = props;
+  const { bear, base, bull, price, size, className, onClick, hideTitle } = props;
 
   return (
-
     <ThemeProvider theme={{ size }}>
       <div className={className} onClick={onClick} role="button" tabIndex={0} css={clickable()}>
         <IndicatorEnvironment bear={bear} base={base} bull={bull} price={price} size={size} />
-        {size !== 's' && (
+        {size !== 's' && !hideTitle &&(
           <ComponentTitle>Fair Value Range</ComponentTitle>
         )}
       </div>

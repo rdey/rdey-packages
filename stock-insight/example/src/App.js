@@ -143,6 +143,18 @@ export default () => {
               financials: 2,
               business: 3,
             }}
+            size={'l'}
+            hideTitle
+          />
+        </GCWrapper>
+        <GCWrapper>
+          <CompanyQuality
+            {...{
+              ...companyQualityProps,
+              people: 1,
+              financials: 2,
+              business: 3,
+            }}
             size={'s'}
           />
         </GCWrapper>
