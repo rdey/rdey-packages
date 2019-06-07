@@ -135,6 +135,17 @@ export default () => {
     <Wrapper>
       <Section>
         <Header>Company quality</Header>
+        <GCWrapper>
+          <CompanyQuality
+            {...{
+              ...companyQualityProps,
+              people: 1,
+              financials: 2,
+              business: 3,
+            }}
+            size={'s'}
+          />
+        </GCWrapper>
         {makeQc('s')}
         {makeQc('m')}
         {makeQc('l')}

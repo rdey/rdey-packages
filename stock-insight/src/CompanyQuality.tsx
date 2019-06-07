@@ -33,8 +33,8 @@ const PillarWrapper = styled.a`
     cursor: pointer;
   }
   margin-right: ${({ theme: { size } }) => margins[size]}px;
-  :last-child {
-    margin: 0;
+  & > :last-child {
+    margin-right: 0;
   }
 `;
 const widths = {
@@ -70,10 +70,6 @@ const heights = {
 const Bar = styled.div`
   height: ${({ theme: { size } }) => heights[size]}px;
   margin: 1px 0;
-  :first-child,
-  :last-child {
-    margin: 0;
-  }
   background: ${colors.secondary4.hslCss};
 `;
 
