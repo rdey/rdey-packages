@@ -25,8 +25,7 @@ const Delimiter = styled.div<{ responsive?: boolean}>`
         display: block;
       }
     `
-
-  )}
+  )};
 `;
 
 type GenericProps = {
