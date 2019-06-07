@@ -11,6 +11,7 @@ import LabelBar from './LabelBar';
 import { fairValueRangeHeights } from './fairValueRangeTheme';
 import { ComponentTitle } from './components';
 import { clickable } from './mixins';
+import { triangleSizes } from './fairValueRangeTheme';
 
 export type FairValueRangeProps = {
   bear: number,
@@ -61,13 +62,8 @@ const bottomPadding = {
   m: 16,
   l: 24,
 }
-const topPadding = {
-  s: 0,
-  m: 16,
-  l: 16,
-}
 const IndicatorPadding = styled.div<{hideTitle?: boolean}>`
-  padding: ${({ theme: { size }}) => topPadding[size]}px ${6 + 24}px ${({ theme: { size }}) => bottomPadding[size]}px ${6 + 24}px;
+  padding: ${({ theme: { size }}) => `0 ${triangleSizes[size][0]}px ${bottomPadding[size]}px ${triangleSizes[size][0]}px`};
   width: 100%;
   ${({ hideTitle }) => hideTitle && `
     padding-bottom: 0;

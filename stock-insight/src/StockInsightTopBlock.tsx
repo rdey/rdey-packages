@@ -78,7 +78,7 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPo
           bull={fairValueRange.bull}
           price={fairValueRange.price}
           size={size}
-          css={`flex: 1; display: flex; flex-direction: column; opacity: ${fairValueRangeOpacity};`}
+          css={`flex: 1; display: flex; flex-direction: column; opacity: ${fairValueRangeOpacity}; margin: 0 7.5%;`}
           onClick={fairValueRange.onClick}
         ></FairValueRange>
         {size !== 's' && (
