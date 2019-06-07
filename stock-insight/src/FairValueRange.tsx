@@ -66,9 +66,12 @@ const topPadding = {
   m: 16,
   l: 16,
 }
-const IndicatorPadding = styled.div`
+const IndicatorPadding = styled.div<{hideTitle?: boolean}>`
   padding: ${({ theme: { size }}) => topPadding[size]}px ${6 + 24}px ${({ theme: { size }}) => bottomPadding[size]}px ${6 + 24}px;
   width: 100%;
+  ${({ hideTitle }) => hideTitle && `
+    padding-bottom: 0;
+  `};
 `;
 
 const Relative = styled.div`
@@ -97,7 +100,7 @@ const Styling = styled.div`
 `;
 
 
-const IndicatorEnvironment = ({ bull, bear, base, price, size }: FairValueRangeProps) => {
+const IndicatorEnvironment = ({ bull, bear, base, price, size, hideTitle }: FairValueRangeProps) => {
   const [rect, wrapperRef] = useResponsiveClientRect();
 
   const minValue = Math.min(bear, base, bull, price);
@@ -121,7 +124,7 @@ const IndicatorEnvironment = ({ bull, bear, base, price, size }: FairValueRangeP
     >
       <ThemeProvider theme={context}>
         <Styling>
-          <IndicatorPadding>
+          <IndicatorPadding hideTitle={hideTitle}>
             <IndicatorWrapper ref={wrapperRef}>
               {rect && <Indicator />}
             </IndicatorWrapper>
@@ -139,7 +142,7 @@ const FairValueRange = (props: FairValueRangeProps) => {
   return (
     <ThemeProvider theme={{ size }}>
       <div className={className} onClick={onClick} role="button" tabIndex={0} css={clickable()}>
-        <IndicatorEnvironment bear={bear} base={base} bull={bull} price={price} size={size} />
+        <IndicatorEnvironment hideTitle={hideTitle} bear={bear} base={base} bull={bull} price={price} size={size} />
         {size !== 's' && !hideTitle &&(
           <ComponentTitle>Fair Value Range</ComponentTitle>
         )}

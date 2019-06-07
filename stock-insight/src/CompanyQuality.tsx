@@ -139,11 +139,14 @@ const sizes = {
   s: '0',
 };
 
-const Flex = styled.div`
+const Flex = styled.div<{ hideTitle?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: flex-end;
   padding-bottom: ${({ theme: { size } }) => sizes[size]}em;
+  ${({ hideTitle }) => hideTitle && `
+    padding-bottom: 0;
+  `};
 `;
 
 const Pillar = ({
@@ -212,7 +215,7 @@ const CompanyQuality = (props: CompanyQualityProps) => {
     <ThemeProvider theme={{ size, staticMode }}>
       <div className={className} css={clickable()}>
         <div css="text-align: center;">
-          <Flex>
+          <Flex hideTitle={hideTitle}>
             <Pillar
               value={people}
               title="People"
@@ -235,7 +238,9 @@ const CompanyQuality = (props: CompanyQualityProps) => {
               size={size}
             />
           </Flex>
-          {size !== 's' && !hideTitle && <ComponentTitle>Company quality</ComponentTitle>}
+          {size !== 's' && !hideTitle && (
+            <ComponentTitle>Company quality</ComponentTitle>
+          )}
         </div>
       </div>
     </ThemeProvider>

@@ -86,12 +86,15 @@ type Props = {
   hideTitle?: boolean,
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ hideTitle?: boolean }>`
   display: flex;
   align-items: flex-end;
   justify-content: center;
   ${({ theme: { size } }) => size === 'm' && 'padding-bottom: 16px'};
   ${({ theme: { size } }) => size === 'l' && 'padding-bottom: 24px'};
+  ${({ hideTitle }) => hideTitle && `
+    padding-bottom: 0;
+  `};
 `;
 
 const CatalystPotential = ({ size, catalysts, className, onClick, hideTitle }: Props) => {
@@ -172,7 +175,7 @@ const CatalystPotential = ({ size, catalysts, className, onClick, hideTitle }: P
     <ThemeProvider theme={{ size }}>
       <div className={className} onClick={onClick} role="button" tabIndex={0} css={clickable()}>
         <div>
-          <Wrapper>
+          <Wrapper hideTitle={hideTitle}>
             <Impact
               size={size}
               short={impact >= 1}
