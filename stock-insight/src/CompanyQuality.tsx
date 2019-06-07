@@ -22,8 +22,9 @@ const PillarWrapper = styled.a`
   justify-content: flex-end;
   align-items: center;
   transition: opacity 0.5s ease;
-  ${({ theme: { selected } }) =>
+  ${({ theme: { selected, staticMode } }) =>
     !selected &&
+    !staticMode &&
     `
     opacity: 0.75;
   `};
@@ -52,8 +53,9 @@ const Bars =
   styled.div <
   { value: 1 | 2 | 3 | 4 | 5 } >
   `
-  width: ${({ theme: { selected, size }, value }) =>
-    widths[size][value - 1] + (selected ? increments[size] : 0)}px;
+  width: ${({ theme: { selected, size, staticMode }, value }) =>
+    widths[size][value - 1] +
+    (selected && !staticMode ? increments[size] : 0)}px;
   transition: width 0.5s ease;
   margin: 0 auto;
 
@@ -86,12 +88,19 @@ const Title = styled.div`
     fontWeight: 600,
     opacity: 1,
   })};
-  ${({ theme: { selected } }) =>
-    !selected &&
+
+  ${({ theme: { selected, staticMode } }) =>
+    (!selected || staticMode) &&
     `
     font-size: 0.75em;
     font-weight: 300;
     opacity: 0.75;
+  `};
+
+  ${({ theme: { staticMode } }) =>
+    staticMode &&
+    `
+    opacity: 1;
   `};
 `;
 
@@ -187,12 +196,12 @@ export type CompanyQualityProps = {
   onClick: (arg: area) => void,
   size: 's' | 'm' | 'l',
   className?: string,
-  allSelected?: boolean,
+  staticMode?: boolean,
 };
 
 const CompanyQuality = (props: CompanyQualityProps) => {
   const {
-    allSelected = false,
+    staticMode = false,
     people,
     financials,
     business,
@@ -202,28 +211,28 @@ const CompanyQuality = (props: CompanyQualityProps) => {
     className,
   } = props;
   return (
-    <ThemeProvider theme={{ size }}>
+    <ThemeProvider theme={{ size, staticMode }}>
       <div className={className} css={clickable()}>
         <div css="text-align: center;">
           <Flex>
             <Pillar
               value={people}
               title="People"
-              selected={selected === 'people' || allSelected}
+              selected={selected === 'people'}
               onClick={() => onClick('people')}
               size={size}
             />
             <Pillar
               value={financials}
               title="Financials"
-              selected={selected === 'financials' || allSelected}
+              selected={selected === 'financials'}
               onClick={() => onClick('financials')}
               size={size}
             />
             <Pillar
               value={business}
               title="Business"
-              selected={selected === 'business' || allSelected}
+              selected={selected === 'business'}
               onClick={() => onClick('business')}
               size={size}
             />

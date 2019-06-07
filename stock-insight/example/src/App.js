@@ -35,6 +35,7 @@ const stockInsightTestProps = {
     financials: 0,
     business: 0,
     selected: 'people',
+    onClick: () => console.log('clicked'),
   },
   fairValueRange: {
     bear: 0,
@@ -46,7 +47,7 @@ const stockInsightTestProps = {
     catalysts: [],
     opacity: 0.1,
   },
-  AnalystView: () => <div style={{height: '45px'}}>wef</div>
+  AnalystView: () => <div style={{ height: '45px' }}>wef</div>,
 };
 
 const catalysts = [
@@ -84,7 +85,11 @@ const GCWrapper = styled.div`
   padding: 20px;
 `;
 const RedWrapper = styled.div`
-  background-image: linear-gradient(to bottom, #f45252, rgba(244, 82, 82, 0.32));
+  background-image: linear-gradient(
+    to bottom,
+    #f45252,
+    rgba(244, 82, 82, 0.32)
+  );
 `;
 
 export default () => {
@@ -116,8 +121,8 @@ export default () => {
   };
 
   const catalystPotentialProps = {
-    catalysts
-  }
+    catalysts,
+  };
 
   const stockInsightProps = {
     companyQuality: companyQualityProps,
@@ -158,22 +163,13 @@ export default () => {
           <Timeframe size="l" width={116} height={64} timeframe={2} />
         </GCWrapper>
         <GCWrapper>
-          <CatalystPotential
-            catalysts={catalysts}
-            size="s"
-          />
+          <CatalystPotential catalysts={catalysts} size="s" />
         </GCWrapper>
         <GCWrapper>
-          <CatalystPotential
-            catalysts={catalysts}
-            size="m"
-          />
+          <CatalystPotential catalysts={catalysts} size="m" />
         </GCWrapper>
         <GCWrapper>
-          <CatalystPotential
-            catalysts={catalysts}
-            size="l"
-          />
+          <CatalystPotential catalysts={catalysts} size="l" />
         </GCWrapper>
       </Section>
       <Section>

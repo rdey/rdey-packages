@@ -15,9 +15,18 @@ const Block = styled.div`
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 
-const Delimiter = styled.div`
+const Delimiter = styled.div<{ responsive?: boolean}>`
   background: ${colors.base8.hslCss};
   width: 1px;
+  ${({ responsive }) => responsive && (
+    `
+      display: none;
+      @media (min-width: 768px) {
+        display: block;
+      }
+    `
+
+  )}
 `;
 
 type GenericProps = {
@@ -59,10 +68,10 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPo
           onClick={companyQuality.onClick}
           size={size}
           css={childStyle + '; opacity: ' + companyQualityOpacity + ';'}
-          allSelected
+          staticMode
         />
         {size !== 's' && (
-          <Delimiter></Delimiter>
+          <Delimiter responsive></Delimiter>
         )}
         <FairValueRange
           bear={fairValueRange.bear}
@@ -74,7 +83,7 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPo
           onClick={fairValueRange.onClick}
         ></FairValueRange>
         {size !== 's' && (
-          <Delimiter></Delimiter>
+          <Delimiter responsive></Delimiter>
         )}
         <CatalystPotential size={size} catalysts={catalystPotential.catalysts}
           css={childStyle + '; opacity: ' + catalystPotentialOpacity + ';'}
