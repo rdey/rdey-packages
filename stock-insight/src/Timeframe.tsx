@@ -10,12 +10,12 @@ const makeCss = (width: number, height: number) => {
   `;
 };
 
-const Wrapper = styled.div<{ highlight?: boolean, color: string }>`
-  background-color: ${({ highlight, color }) =>
+const Wrapper = styled.div<{ highlight?: boolean }>`
+  background-color: ${({ highlight }) =>
     highlight
       ? getColor({ color: 'secondary4', opacity: 1 })
       : getColor({ color: 'secondary4', opacity: 0.16 })};
-  border: 0px solid black;
+  border: 0px solid rgba(0, 0, 0, 0.25);
   border-top-width: 1px;
   border-right-width: 1px;
   display: flex;
@@ -34,14 +34,13 @@ type Props = {
 const Timeframe = ({ width, height, timeframe, size }: Props) => {
   return (
     <ThemeProvider theme={{ size }}>
-      <Wrapper css={makeCss(width, height)} highlight={timeframe === 2} color="base8">
+      <Wrapper css={`${makeCss(width, height)}; border: 0px;`} highlight={timeframe === 2}>
         <Wrapper
           highlight={timeframe === 1}
           css={makeCss(
             (width * 48) / 72,
             Math.min((height * 32) / 40, height - 8)
           )}
-          color="base6"
         >
           <Wrapper
             highlight={timeframe === 0}
@@ -49,7 +48,6 @@ const Timeframe = ({ width, height, timeframe, size }: Props) => {
               (width * 32) / 72,
               Math.min((height * 24) / 40, height - 16)
             )}
-            color="base4"
           />
         </Wrapper>
       </Wrapper>
