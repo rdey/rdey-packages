@@ -125,7 +125,12 @@ export default () => {
   };
 
   const stockInsightProps = {
-    companyQuality: companyQualityProps,
+    companyQuality: {
+      ...companyQualityProps,
+      onClick: () => {
+        console.log('clicing company quality');
+      },
+    },
     fairValueRange: fairValueRangeProps,
     catalystPotential: catalystPotentialProps,
     AnalystView: () => <div>AA</div>,
