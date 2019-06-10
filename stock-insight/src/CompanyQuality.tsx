@@ -158,7 +158,7 @@ const Pillar = ({
 }: {
   selected: boolean,
   size: Size,
-  onClick: () => void,
+  onClick?: () => void,
   value: 1 | 2 | 3 | 4 | 5,
   title: string,
 }) => {
@@ -192,7 +192,7 @@ export type CompanyQualityProps = {
   financials: Value,
   business: Value,
   selected: area,
-  onClick: (arg: area) => void,
+  onClick: (arg?: area | any) => void,
   size: 's' | 'm' | 'l',
   className?: string,
   staticMode?: boolean,
@@ -213,28 +213,28 @@ const CompanyQuality = (props: CompanyQualityProps) => {
   } = props;
   return (
     <ThemeProvider theme={{ size, staticMode }}>
-      <div className={className} css={clickable()}>
+      <div className={className} css={clickable()} onClick={staticMode ? onClick : undefined} role="button" tabIndex={0}>
         <div css="text-align: center;">
           <Flex hideTitle={hideTitle}>
             <Pillar
               value={people}
               title="People"
               selected={selected === 'people'}
-              onClick={() => onClick('people')}
+              onClick={staticMode ? undefined : () => onClick('people')}
               size={size}
             />
             <Pillar
               value={financials}
               title="Financials"
               selected={selected === 'financials'}
-              onClick={() => onClick('financials')}
+              onClick={staticMode ? undefined : () => onClick('financials')}
               size={size}
             />
             <Pillar
               value={business}
               title="Business"
               selected={selected === 'business'}
-              onClick={() => onClick('business')}
+              onClick={staticMode ? undefined : () => onClick('business')}
               size={size}
             />
           </Flex>
