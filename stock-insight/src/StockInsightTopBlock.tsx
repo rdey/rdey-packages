@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { colors, s } from '@rdey/design';
+import { colors, s, getColor } from '@rdey/design';
 import CompanyQuality, { CompanyQualityProps } from './CompanyQuality';
 import { Size } from './types';
 import FairValueRange, { FairValueRangeProps } from './FairValueRange';
@@ -16,7 +16,7 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 
 const Delimiter = styled.div<{ responsive?: boolean}>`
-  background: ${colors.base8.hslCss};
+  background: ${getColor({ color: 'secondary4', opacity: 0.1 })};
   width: 1px;
   ${({ responsive }) => responsive && (
     `
