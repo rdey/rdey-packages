@@ -15,7 +15,7 @@ const Block = styled.div`
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 
-const Delimiter = styled.div<{ responsive?: boolean}>`
+const Delimiter = styled.div<{ responsive?: boolean }>`
   background: ${getColor({ color: 'secondary4', opacity: 0.1 })};
   width: 1px;
   ${({ responsive }) => responsive && (
@@ -77,7 +77,7 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPo
           onClick={companyQuality.onClick}
           size={size}
           css={childStyle + '; opacity: ' + companyQualityOpacity + ';'}
-          staticMode
+          staticMode={typeof companyQuality.staticMode === 'undefined' ? true : companyQuality.staticMode}
         />
         {size !== 's' && (
           <Delimiter responsive></Delimiter>

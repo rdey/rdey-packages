@@ -35,7 +35,7 @@ const stockInsightTestProps = {
     financials: 0,
     business: 0,
     selected: 'people',
-    onClick: () => console.log('clicked'),
+    onClick: () => console.log('clicked on test'),
   },
   fairValueRange: {
     bear: 0,
@@ -123,7 +123,12 @@ export default () => {
   const catalystPotentialProps = {
     catalysts,
   };
-
+  const stockInsightCompanyQualityProps = {
+    companyQuality: { ...companyQualityProps, staticMode: false },
+    fairValueRange: fairValueRangeProps,
+    catalystPotential: catalystPotentialProps,
+    AnalystView: () => <div>AA</div>,
+  };
   const stockInsightProps = {
     companyQuality: {
       ...companyQualityProps,
@@ -206,6 +211,7 @@ export default () => {
         <StockInsightTopBlock size={'m'} {...stockInsightProps} />
         <StockInsightTopBlock size={'l'} {...stockInsightProps} />
         <StockInsightTopBlock size={'l'} {...stockInsightTestProps} />
+        <StockInsightTopBlock size={'l'} {...stockInsightCompanyQualityProps} />
       </Section>
     </Wrapper>
   );
