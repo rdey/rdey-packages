@@ -57,7 +57,7 @@ const fairValueRangeCss = (fairValueRangeOpacity: number) => css`
   flex-direction: column;
   opacity: ${fairValueRangeOpacity};
   @media (min-width: 768px) {
-    margin: 0 7.5%;
+    margin: 0 32px;
   }
 `;
 
