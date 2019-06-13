@@ -99,7 +99,7 @@ const StockInsightTopBlock = ({ size, companyQuality, fairValueRange, catalystPo
           onClick={catalystPotential.onClick}
         />
         <Delimiter></Delimiter>
-        <AnalystView></AnalystView>
+        <AnalystView size={size}></AnalystView>
       </Block>
     </ThemeProvider>
   );
