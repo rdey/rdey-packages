@@ -224,17 +224,17 @@ const CompanyQuality = (props: CompanyQualityProps) => {
               size={size}
             />
             <Pillar
-              value={financials}
-              title="Financials"
-              selected={selected === 'financials'}
-              onClick={staticMode ? undefined : () => onClick('financials')}
-              size={size}
-            />
-            <Pillar
               value={business}
               title="Business"
               selected={selected === 'business'}
               onClick={staticMode ? undefined : () => onClick('business')}
+              size={size}
+            />
+            <Pillar
+              value={financials}
+              title="Financials"
+              selected={selected === 'financials'}
+              onClick={staticMode ? undefined : () => onClick('financials')}
               size={size}
             />
           </Flex>
