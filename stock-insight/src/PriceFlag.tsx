@@ -16,7 +16,6 @@ const LabelWrapper = styled.div`
   height: 100%;
 `;
 
-
 const Price = styled.div`
   ${primaryTextMixin({
     fontWeight: 'normal',
@@ -27,13 +26,14 @@ const Price = styled.div`
   font-weight: ${({ theme: { size }}) => priceFontWeights[size]}px;
 `;
 
-const FlagWrapper = styled.div`
+const FlagWrapper = styled.div<{showBar: boolean}>`
   display: flex;
+  ${({ showbar }) => showBar ? 'border-right: 1px solid white;' : ''}
 `;
 
-const Flag = styled.div`
+const Flag = styled.div<{showBar: boolean}>`
   height: ${({ theme: { size }}) => flagHeights[size]}px;
-  background-color: ${colors.secondary4.hslCss};
+  background-color: ${({ showBar }) => showBar ? colors.secondary4.hslCss : 'transparent'};
 `;
 
 const FlagPole = styled.div`
@@ -49,6 +49,7 @@ const FlagPosition = styled(AbsoluteWrapper)<{left: number}>`
 
 const PriceFlag = () => {
   const { base, price, width, size } = useValues();
+  let showBar = !(price >= base);
 
   let direction = 'left';
   if (price === base) {
@@ -75,6 +76,7 @@ const PriceFlag = () => {
   let flagParts = [
     <Flag
       key="flag"
+      showBar={showBar}
       css={`
         width: ${flagWidth}px;
       `}
@@ -85,7 +87,6 @@ const PriceFlag = () => {
   if (direction === 'right') {
     flagParts = reverse(flagParts);
   }
-
 
   return (
     <Wrapper>
@@ -106,7 +107,7 @@ const PriceFlag = () => {
         </AbsoluteWrapper>
       )}
       <FlagPosition left={flag[0]}>
-        <FlagWrapper>{flagParts}</FlagWrapper>
+        <FlagWrapper showBar={showBar}>{flagParts}</FlagWrapper>
       </FlagPosition>
     </Wrapper>
   );
