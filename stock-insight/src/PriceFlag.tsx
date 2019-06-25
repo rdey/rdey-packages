@@ -28,7 +28,7 @@ const Price = styled.div`
 
 const FlagWrapper = styled.div<{showBar: boolean}>`
   display: flex;
-  ${({ showBar }) => showBar ? 'border-right: 1px solid white;' : ''}
+  ${({ showBar }) => !showBar ? 'border-right: 1px solid white;' : ''}
 `;
 
 const Flag = styled.div<{showBar: boolean}>`
