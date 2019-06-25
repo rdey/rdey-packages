@@ -212,6 +212,7 @@ const CompanyQuality = (props: CompanyQualityProps) => {
     hideTitle,
   } = props;
   return (
+    //asdf
     <ThemeProvider theme={{ size, staticMode }}>
       <div className={className} css={clickable()} onClick={staticMode ? onClick('people') : undefined} role="button" tabIndex={0}>
         <div css="text-align: center;">
