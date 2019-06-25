@@ -213,7 +213,7 @@ const CompanyQuality = (props: CompanyQualityProps) => {
   } = props;
   return (
     <ThemeProvider theme={{ size, staticMode }}>
-      <div className={className} css={clickable()} onClick={staticMode ? onClick : undefined} role="button" tabIndex={0}>
+      <div className={className} css={clickable()} onClick={staticMode ? onClick('people') : undefined} role="button" tabIndex={0}>
         <div css="text-align: center;">
           <Flex hideTitle={hideTitle}>
             <Pillar
